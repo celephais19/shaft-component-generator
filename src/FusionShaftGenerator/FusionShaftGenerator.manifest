@@ -1,0 +1,13 @@
+{
+	"autodeskProduct":	"Fusion360",
+	"type":	"addin",
+	"id":	"f59ae097-52bd-47bb-85ef-dfa37bc4a364",
+	"author":	"Alex Vengrin",
+	"description":	{
+		"":	"Shaft Component Generator for Autodesk Fusion 360"
+	},
+	"version":	"",
+	"runOnStartup":	true,
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true
+}
