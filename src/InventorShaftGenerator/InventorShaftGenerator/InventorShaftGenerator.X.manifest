@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+  <assemblyIdentity name="InventorShaftGenerator" version="1.0.0.0" />
+  <clrClass clsid="{547985E3-4BFD-4C63-92CE-B956945AD8AA}"
+            progid="InventorShaftGenerator.StandardAddInServer"
+            threadingModel="Both"
+            name="InventorShaftGenerator.StandardAddInServer"
+            runtimeVersion="" />
+  <file name="InventorShaftGenerator.dll" hashalg="SHA1" />
+</assembly>
