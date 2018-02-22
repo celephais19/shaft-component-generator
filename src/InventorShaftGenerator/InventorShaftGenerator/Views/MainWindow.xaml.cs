@@ -1,11 +1,9 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using InventorShaftGenerator.Windows;
 
-namespace InventorShaftGenerator
+namespace InventorShaftGenerator.Views
 {
-    public partial class MainWindow
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
@@ -16,7 +14,7 @@ namespace InventorShaftGenerator
 
         private void SwitchDimensionsPanelVisibility()
         {
-            if (MainWindowSettings.IsDimensionsPanelVisible)
+            if (Settings.IsDimensionsPanelEnabled)
             {
                 PlacementGroupBox.SetValue(Grid.ColumnSpanProperty, 1);
                 SectionsGroupBox.SetValue(Grid.ColumnSpanProperty, 1);
@@ -32,7 +30,7 @@ namespace InventorShaftGenerator
 
         private void Switch2DPreviewPanelVisibility()
         {
-            if (MainWindowSettings.Is2DPreviewPanelVisible)
+            if (Settings.Is2DPreviewEnabled)
             {
                 InstalledSectionsPanel.Margin = new Thickness(0);
                 InstalledSectionsPanel.SetValue(Grid.RowProperty, 2);
@@ -73,8 +71,8 @@ namespace InventorShaftGenerator
 
         private void OnSettingsButtonClick(object sender, RoutedEventArgs e)
         {
-            SettingsWindow window = new SettingsWindow(OnSettingsChanged) {Owner = this};
-            window.ShowDialog();
+//            SettingsWindow window = new SettingsWindow(OnSettingsChanged) {Owner = this};
+//            window.ShowDialog();
         }
 
         private void OnSettingsChanged()

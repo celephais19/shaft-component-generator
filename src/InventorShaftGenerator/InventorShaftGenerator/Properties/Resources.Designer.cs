@@ -63,9 +63,9 @@ namespace InventorShaftGenerator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        public static System.Drawing.Icon design_shaft16x16 {
+        public static System.Drawing.Icon shaft_16x16 {
             get {
-                object obj = ResourceManager.GetObject("design_shaft16x16", resourceCulture);
+                object obj = ResourceManager.GetObject("shaft_16x16", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace InventorShaftGenerator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        public static System.Drawing.Icon design_shaft32x32 {
+        public static System.Drawing.Icon shaft_32x32 {
             get {
-                object obj = ResourceManager.GetObject("design_shaft32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("shaft_32x32", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

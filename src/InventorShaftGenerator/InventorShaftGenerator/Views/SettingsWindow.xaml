@@ -1,15 +1,19 @@
-﻿<Window x:Class="InventorShaftGenerator.Windows.SettingsWindow"
+﻿<Window x:Name="Settings"
+        x:Class="InventorShaftGenerator.Views.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InventorShaftGenerator.Windows"
-        xmlns:themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+        xmlns:local="clr-namespace:InventorShaftGenerator.Views"
+        xmlns:viewModels="clr-namespace:InventorShaftGenerator.ViewModels"
         mc:Ignorable="d"
         Title="Settings"
         ResizeMode="NoResize"
         Width="250" Height="180"
         WindowStartupLocation="CenterOwner">
+    <Window.DataContext>
+        <viewModels:SettingsViewModel />
+    </Window.DataContext>
     <Window.Resources>
         <ResourceDictionary>
             <Style TargetType="{x:Type Button}">
@@ -17,7 +21,7 @@
                 <Setter Property="Background" Value="Transparent" />
             </Style>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../CustomStyles.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="../CustomStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -41,17 +45,23 @@
                     <TextBlock Text="Dimensions Sidebar" />
                 </WrapPanel>
                 <WrapPanel Grid.Column="1" Orientation="Vertical" Margin="10,0,0,0">
-                    <CheckBox Name="Is2DPreviewVisibleCheckBox" Margin="0,0,0,2.5" />
-                    <CheckBox Name="Is3DPreviewVisibleCheckBox" Margin="0,0,0,2.5" />
-                    <CheckBox Name="IsDimensionsSidebarVisibleCheckBox" />
+                    <CheckBox Name="Is2DPreviewVisibleCheckBox" Margin="0,0,0,2.5"
+                              IsChecked="{Binding Is2DPreviewEnabled, Mode=TwoWay}" />
+                    <CheckBox Name="Is3DPreviewVisibleCheckBox" Margin="0,0,0,2.5"
+                              IsChecked="{Binding Is3DPreviewEnabled, Mode=TwoWay}" />
+                    <CheckBox Name="IsDimensionsSidebarVisibleCheckBox"
+                              IsChecked="{Binding IsDimensionsPanelEnabled, Mode=TwoWay}" />
                 </WrapPanel>
             </Grid>
         </GroupBox>
 
         <DockPanel Grid.Row="1" Margin="5,0,11,7">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Content="OK" Margin="0,0,10,0" FontSize="12" Width="65" Height="20" Click="OnOkButtonClick" />
-                <Button Content="Cancel" FontSize="12" Width="65" Height="20" Click="OnCancelButtonClick" />
+                <Button Content="OK" Margin="0,0,10,0" FontSize="12" Width="65" Height="20"
+                        Command="{Binding SaveCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" />
+                <Button Content="Cancel" FontSize="12" Width="65" Height="20" Command="{Binding CancelCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" />
             </StackPanel>
         </DockPanel>
     </Grid>

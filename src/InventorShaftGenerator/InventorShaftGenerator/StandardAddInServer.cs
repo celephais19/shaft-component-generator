@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Drawing;
-using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
 using Autodesk.ADN.Utility.InventorUtils;
 using Autodesk.ADN.Utility.WinUtils;
 using Inventor;
 using InventorShaftGenerator.Properties;
+using InventorShaftGenerator.Views;
 using Application = Inventor.Application;
 
 namespace InventorShaftGenerator
@@ -18,7 +18,7 @@ namespace InventorShaftGenerator
         public static Application InventorApp { get; set; }
 
         private ButtonDefinition mainButtonDefinition;
-        private MainWindow mainWindow;
+        public static MainWindow MainWindow { get; private set; }
 
         public void Activate(ApplicationAddInSite addInSiteObject, bool firstTime)
         {
@@ -32,8 +32,8 @@ namespace InventorShaftGenerator
         {
             ControlDefinitions ctrlDefs = InventorApp.CommandManager.ControlDefinitions;
             var currAssembly = System.Reflection.Assembly.GetExecutingAssembly();
-            Icon icon32 = Resources.design_shaft32x32;
-            Icon icon16 = Resources.design_shaft16x16;
+            Icon icon32 = Resources.shaft_32x32;
+            Icon icon16 = Resources.shaft_16x16;
             var pictureDisp32 = PictureDispConverter.ToIPictureDisp(icon32);
             var pictureDisp16 = PictureDispConverter.ToIPictureDisp(icon16);
 
@@ -73,15 +73,15 @@ namespace InventorShaftGenerator
 
         private void OnMainButtonExecute(NameValueMap context)
         {
-            if (mainWindow == null)
+            if (MainWindow == null)
             {
-                mainWindow = new MainWindow();
-                mainWindow.Show();
+                MainWindow = new MainWindow();
+                MainWindow.Show();
             }
             else
             {
-                mainWindow.Focus();
-                mainWindow.Visibility = Visibility.Visible;
+                MainWindow.Focus();
+                MainWindow.Visibility = Visibility.Visible;
             }
         }
 
