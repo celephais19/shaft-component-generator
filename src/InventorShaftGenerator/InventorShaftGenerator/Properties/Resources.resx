@@ -124,4 +124,64 @@
   <data name="shaft_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Icons\shaft_32x32.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Threads" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\threads.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Keyways" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\keyways.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="KeywaysDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\keywaysDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="KeywaysRoundedEnd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\keywaysRoundedEnd.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefADINDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefADINDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefAGOSTDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefAGOSTDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefASIDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefASIDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefBDINDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefBDINDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefBGOSTDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefBGOSTDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefBSIDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefBSIDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefCDINDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefCDINDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefCGOSTDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefCGOSTDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefDDINDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefDDINDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefDGOSTDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefDGOSTDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefEDINDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefEDINDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefEGOSTDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefEGOSTDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefFDINDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefFDINDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefFSIDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefFSIDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ReliefGSIDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReliefGSIDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="reliefDSIDimensions" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reliefDSIDimensions.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

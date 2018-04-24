@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using InventorShaftGenerator.Annotations;
+using InventorShaftGenerator.Properties;
 
 namespace InventorShaftGenerator.ViewModels
 {
+    [DebuggerStepThrough]
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

@@ -15,7 +15,7 @@ namespace InventorShaftGenerator
     [ComVisible(true)]
     public class StandardAddInServer : ApplicationAddInServer
     {
-        public static Application InventorApp { get; set; }
+        public static Application InventorApp { get; private set; }
 
         private ButtonDefinition mainButtonDefinition;
         public static MainWindow MainWindow { get; private set; }
@@ -37,7 +37,7 @@ namespace InventorShaftGenerator
             var pictureDisp32 = PictureDispConverter.ToIPictureDisp(icon32);
             var pictureDisp16 = PictureDispConverter.ToIPictureDisp(icon16);
 
-            mainButtonDefinition = ctrlDefs.AddButtonDefinition(
+            this.mainButtonDefinition = ctrlDefs.AddButtonDefinition(
                 DisplayName: "Shaft",
                 InternalName: "Autodesk:InventorShaftGenerator:MainCtrl",
                 Classification: CommandTypesEnum.kEditMaskCmdType,
@@ -46,10 +46,14 @@ namespace InventorShaftGenerator
                 StandardIcon: pictureDisp16,
                 LargeIcon: pictureDisp32
             );
-            mainButtonDefinition.OnExecute += OnMainButtonExecute;
+            this.mainButtonDefinition.OnExecute += OnMainButtonExecute;
 
+            Ribbon zeroDocRibbon = InventorApp.UserInterfaceManager.Ribbons["ZeroDoc"];
             Ribbon partRibbon = InventorApp.UserInterfaceManager.Ribbons["Part"];
-            RibbonTab tab = partRibbon.RibbonTabs["id_TabTools"];
+            Ribbon assebmlyRibbon = InventorApp.UserInterfaceManager.Ribbons["Assembly"];
+            RibbonTab tab = zeroDocRibbon.RibbonTabs["id_GetStarted"];
+            RibbonTab partToolsTab = partRibbon.RibbonTabs["id_TabTools"];
+            RibbonTab asmDesingTab = assebmlyRibbon.RibbonTabs["id_TabDesign"];
             RibbonPanel panel;
 
             try
@@ -65,8 +69,27 @@ namespace InventorShaftGenerator
                 );
             }
 
+            var panel2 = partToolsTab.RibbonPanels.Add(
+                DisplayName: "Tools Panel",
+                InternalName: "Autodesk:InventorShaftGenerator:PartToolsPanel",
+                ClientId: AdnInventorUtilities.AddInGuid);
+
+            var panel3= asmDesingTab.RibbonPanels.Add(
+                DisplayName: "Tools Panel",
+                InternalName: "Autodesk:InventorShaftGenerator:PartToolsPanel",
+                ClientId: AdnInventorUtilities.AddInGuid);
+
             panel.CommandControls.AddButton(
-                ButtonDefinition: mainButtonDefinition,
+                ButtonDefinition: this.mainButtonDefinition,
+                UseLargeIcon: true
+            );
+
+            panel2.CommandControls.AddButton(
+                ButtonDefinition: this.mainButtonDefinition,
+                UseLargeIcon: true);
+
+            panel3.CommandControls.AddButton(
+                ButtonDefinition: this.mainButtonDefinition,
                 UseLargeIcon: true
             );
         }

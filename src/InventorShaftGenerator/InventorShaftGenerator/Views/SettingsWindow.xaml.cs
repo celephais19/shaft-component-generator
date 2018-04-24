@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace InventorShaftGenerator.Views
+﻿namespace InventorShaftGenerator.Views
 {
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml
@@ -10,7 +8,7 @@ namespace InventorShaftGenerator.Views
         public SettingsWindow()
         {
             InitializeComponent();
-            Owner = StandardAddInServer.MainWindow;
+            this.Owner = StandardAddInServer.MainWindow;
         }
     }
 }

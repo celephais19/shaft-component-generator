@@ -13,6 +13,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -23,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,6 +47,11 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>C:\Program Files\Autodesk\Inventor 2017\Bin\Public Assemblies\Autodesk.Inventor.Interop.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>C:\Users\Sasha\Desktop\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.JScript" />
     <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -53,7 +60,12 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Sasha\Desktop\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -63,15 +75,186 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttachedProperties\ControlIndicator.cs" />
+    <Compile Include="Behaviors\IncrementDecrementValueBehavior.cs" />
+    <Compile Include="Behaviors\ItemsControlItemsSourceUpdatedRefreshBehavior.cs" />
+    <Compile Include="Behaviors\RelaunchMouseEnterEventBehavior.cs" />
+    <Compile Include="Behaviors\SecitonPathBehavior.cs" />
+    <Compile Include="Behaviors\SectionHasErrorStackPanelBehavior.cs" />
+    <Compile Include="Behaviors\ShowHideSectionFeatureButtons.cs" />
+    <Compile Include="Behaviors\ShowHideUIElementBehavior.cs" />
+    <Compile Include="CustomizedUIElements\CenteringCanvas.cs" />
+    <Compile Include="CustomizedUIElements\Extensions\BrushEqualityComparer.cs" />
+    <Compile Include="Extensions\CollectionExtensions.cs" />
+    <Compile Include="Extensions\DependencyObjectExtensions.cs" />
+    <Compile Include="Extensions\EnumDescriptionTypeConverter.cs" />
+    <Compile Include="Extensions\FloatExtensions.cs" />
+    <Compile Include="Extensions\MathExtensions.cs" />
+    <Compile Include="Extensions\ObservableCollectionEx.cs" />
+    <Compile Include="Extensions\ObservableSet.cs" />
+    <Compile Include="Extensions\SetterAction.cs" />
+    <Compile Include="Infrastructure\FeatureConstructionError.cs" />
+    <Compile Include="MarkupExtensions\EnumBindingSourceExtension.cs" />
+    <Compile Include="Models\BoreFromEdge.cs" />
+    <Compile Include="Models\BoreDiameterCollisionError.cs" />
+    <Compile Include="Models\EdgeFeatures\ISectionEdgeFeature.cs" />
+    <Compile Include="Models\NotifyPropertyChanged.cs" />
+    <Compile Include="Models\ReliefDimensions.cs" />
+    <Compile Include="Models\ReliefEdgeFeature.cs" />
+    <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\ShaftSectionExtensions.cs" />
+    <Compile Include="Models\ShaftSectionFeatureError.cs" />
+    <Compile Include="Models\SubFeatures\DistanceFrom.cs" />
+    <Compile Include="Models\SubFeatures\ISectionSubFeature.cs" />
+    <Compile Include="Infrastructure\Helpers\JSONSerializer.cs" />
+    <Compile Include="Models\EdgeFeatures\EdgeFeatureAttribute.cs" />
+    <Compile Include="Models\ISectionFeatureExtensions.cs" />
+    <Compile Include="Models\Subfeature.cs" />
+    <Compile Include="Models\EdgeFeaturePosition.cs" />
+    <Compile Include="Models\EdgeFeatures\EdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\KeywayGroove.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefDINEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefEnums\ReliefDINFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefGOSTEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefEnums\ReliefGOSTFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefGOSTUnits\ReliefAGOSTEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefGOSTUnits\ReliefBGOSTEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefGOSTUnits\ReliefCGOSTEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefGOSTUnits\ReliefDGOSTEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefGOSTUnits\ReliefEGOSTEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefsDINUnits\ReliefADINEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefsDINUnits\ReliefBDINEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefsDINUnits\ReliefCDINEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefsDINUnits\ReliefDDINEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefsDINUnits\ReliefEDINEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefsDINUnits\ReliefFDINEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefEnums\ReliefSIFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefsSIUnits\ReliefASIEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefsSIUnits\ReliefBSIEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefsSIUnits\ReliefFSIEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefsSIUnits\ReliefGSIEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ReliefSIEdgeFeature.cs" />
+    <Compile Include="Models\KeywayGrooveFeature.cs" />
+    <Compile Include="Models\Section.cs" />
+    <Compile Include="CustomizedUIElements\NumericUnitTextBox.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Infrastructure\ShaftBuilder.cs" />
+    <Compile Include="Behaviors\SectionFeatureContextMenuBehavior.cs" />
+    <Compile Include="TemplateSelectors\ComboBoxItemTemplateSelector.cs" />
+    <Compile Include="Infrastructure\SectionManager.cs" />
+    <Compile Include="Infrastructure\Shaft.cs" />
+    <Compile Include="Models\EdgeFeatures\ChamferEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\FilletEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\KeywayGrooveRoundedEndEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\LockNutGrooveEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\PlainKeywayGrooveEdgeFeature.cs" />
+    <Compile Include="Models\EdgeFeatures\ThreadEdgeFeature.cs" />
+    <Compile Include="Models\Sections\ConeSection.cs" />
+    <Compile Include="Models\ISectionFeature.cs" />
+    <Compile Include="Models\Sections\CylinderSection.cs" />
+    <Compile Include="Models\Sections\PolygonSection.cs" />
+    <Compile Include="Models\ShaftSection.cs" />
+    <Compile Include="Models\SketchLineSimple.cs" />
+    <Compile Include="Models\SubFeatures\GrooveASubFeature.cs" />
+    <Compile Include="Models\SubFeatures\GrooveBSubFeature.cs" />
+    <Compile Include="Models\SubFeatures\KeywayGrooveSubFeature.cs" />
+    <Compile Include="Models\SubFeatures\ReliefDSiSubFeature.cs" />
+    <Compile Include="Models\SubFeatures\RetainingRingGrooveSubFeature.cs" />
+    <Compile Include="Models\SubFeatures\ThroughHoleSubFeature.cs" />
+    <Compile Include="Models\SubFeatures\WrenchSubFeature.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="CustomizedUIElements\Extensions\TextBoxExtensions.cs" />
+    <Compile Include="CustomizedUIElements\UnitTextBox.cs" />
+    <Compile Include="ValueConverters\AreEdgeFeaturesAvailableConverter.cs" />
+    <Compile Include="ValueConverters\MathConverter.cs" />
+    <Compile Include="ValueConverters\BaseToDerivedTypeConverter.cs" />
+    <Compile Include="ValueConverters\ConverterHelper.cs" />
+    <Compile Include="ValueConverters\EdgeFeatureEnumMemberToNameConverter.cs" />
+    <Compile Include="ValueConverters\EdgeFeatureToImageConverter.cs" />
+    <Compile Include="ValueConverters\EnumConverter.cs" />
+    <Compile Include="ValueConverters\EnumDescriptionConverter.cs" />
+    <Compile Include="ValueConverters\IsEqualConverter.cs" />
+    <Compile Include="ValueConverters\IsNotNullConverter.cs" />
+    <Compile Include="ValueConverters\ObjectIsTypeOfConverter.cs" />
+    <Compile Include="ValueConverters\ObjectToMostBasicTypeStringConverter.cs" />
+    <Compile Include="ValueConverters\ObjectToTypeStringConverter.cs" />
+    <Compile Include="ValueConverters\Preview2DValueConverters\SectionLinesToPathDataConverter.cs" />
+    <Compile Include="ValueConverters\SectionComparer.cs" />
+    <Compile Include="ValueConverters\SectionFeatureToWindowTypeConverter.cs" />
+    <Compile Include="ValueConverters\EnumerableSumConverter.cs" />
+    <Compile Include="ValueConverters\ItemsControlItemToIndexConverter.cs" />
+    <Compile Include="ValueConverters\ObjectToTypeConverter.cs" />
+    <Compile Include="ValueConverters\ParentCountConverter.cs" />
+    <Compile Include="ValueConverters\ShaftItemToParametersWindowTypeConverter.cs" />
+    <Compile Include="ValueConverters\ShaftItemToRemoveItemDialogWindowTypeConverter.cs" />
+    <Compile Include="ValueConverters\ShaftItemToSelectItemCmdConverter.cs" />
+    <Compile Include="ValueConverters\SubFeatureEnumMemberToNameConverter.cs" />
+    <Compile Include="ValueConverters\SubFeatureToNameConverter.cs" />
+    <Compile Include="ValueConverters\SumConverter.cs" />
+    <Compile Include="ValueConverters\SwitchConverter.cs" />
+    <Compile Include="ValueConverters\TestConverter.cs" />
+    <Compile Include="ValueConverters\ChainConverter.cs" />
+    <Compile Include="ValueConverters\ValueConverterWithAttachedParameter.cs" />
+    <Compile Include="ValueConverters\WidthRelativeToParentConverter.cs" />
+    <Compile Include="ViewModels\BuildErrorsViewModel.cs" />
+    <Compile Include="ViewModels\IEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\RemoveItemViewModel.cs" />
+    <Compile Include="ViewModels\RemoveSubFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionDimensionsViewModels\ConeDimensionsViewModel.cs" />
+    <Compile Include="ViewModels\SectionDimensionsViewModels\CylinderDimensionsViewModel.cs" />
+    <Compile Include="ViewModels\IViewModelWithSection.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SectionDimensionsViewModels\PolygonDimensionsViewModel.cs" />
+    <Compile Include="ViewModels\RemoveSectionViewModel.cs" />
+    <Compile Include="ViewModels\SectionDimensionsViewModel.cs" />
+    <Compile Include="ViewModels\SectionDimensionsViewModels\SplitCylinderDimensionsViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\BoreChamferFeatureParamsValidator.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\BoreFilletFeatureParamsValidator.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\BoreEdgeFeatureParamsValidator.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ChamferEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\SectionChamferFeatureParamsValidator.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\SectionEdgeFeatureParamsValidator.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\FilletEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\KeywayGrooveFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\SectionFilletFeatureParamsValidator.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\IChamferFeatureParamsValidator.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\IFilletFeatureParamsValidator.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\KeywayGrooveEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\KeywayGrooveRoundedEndEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\LockNutGrooveEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\PlainKeywayGrooveEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefADinEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefAGostEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefASIEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefBDinEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefBGostEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefBSIEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefCDinEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefCGostEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefDDinEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefDGostEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefEDinEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefEGostEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefFDinEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefFSIEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefGostEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ReliefGSIEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionEdgeFeatureViewModels\ThreadEdgeFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionSubFeatureViewModels\GrooveASubFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionSubFeatureViewModels\GrooveBSubFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionSubFeatureViewModels\KeywayGrooveSubFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionSubFeatureViewModels\ReliefDSISubFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionSubFeatureViewModels\RetainingRingGrooveSubFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionSubFeatureViewModels\ISubFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionSubFeatureViewModels\ThroughHoleSubFeatureViewModel.cs" />
+    <Compile Include="ViewModels\SectionSubFeatureViewModels\WrenchSubFeatureViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -80,11 +263,228 @@
     </Compile>
     <Compile Include="StandardAddInServer.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\ConstructionErrorsWindow.xaml.cs">
+      <DependentUpon>ConstructionErrorsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefADinEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefADinEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefAGostEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefAGostEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefASIEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefASIEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefBDinEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefBDinEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefBGostEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefBGostEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefBSIEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefBSIEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefCDinEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefCDinEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefCGostEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefCGostEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefDDinEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefDDinEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefDGostEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefDGostEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefEDinEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefEDinEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefEGostEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefEGostEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefFDinEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefFDinEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefFSIEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefFSIEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ReliefGSIEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefGSIEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Extensions\BackgroundVisualHost.cs" />
+    <Compile Include="Views\Extensions\BusyDecorator.cs" />
+    <Compile Include="Views\Extensions\VisualTargetPresentationSource.cs" />
+    <Compile Include="Views\IView.cs" />
+    <Compile Include="Views\RemoveSubFeatureDialogWindow.xaml.cs">
+      <DependentUpon>RemoveSubFeatureDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SectionDimensionsWindows\ConeDimensionsWindow.xaml.cs">
+      <DependentUpon>ConeDimensionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SectionDimensionsWindows\CylinderDimensionsWindow.xaml.cs">
+      <DependentUpon>CylinderDimensionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ChamferEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ChamferEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\FilletEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>FilletEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\KeywayGrooveRoundedEndEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>KeywayGrooveRoundedEndEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\LockNutGrooveEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>LockNutGrooveEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\PlainKeywayGrooveEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>PlainKeywayGrooveEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EdgeFeatureWindows\ThreadEdgeFeatureWindow.xaml.cs">
+      <DependentUpon>ThreadEdgeFeatureWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\IDialogView.cs" />
+    <Compile Include="Views\SectionDimensionsWindows\PolygonDimensionsWindow.xaml.cs">
+      <DependentUpon>PolygonDimensionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RemoveSectionDialogWindow.xaml.cs">
+      <DependentUpon>RemoveSectionDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SectionDimensionsWindows\SplitCylinderWindow.xaml.cs">
+      <DependentUpon>SplitCylinderWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="CustomStyles.xaml">
+    <Compile Include="Views\SubFeatureWindows\GrooveASubFeatureWindow.xaml.cs">
+      <DependentUpon>GrooveASubFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubFeatureWindows\GrooveBSubFeatureWindow.xaml.cs">
+      <DependentUpon>GrooveBSubFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubFeatureWindows\KeywayGrooveSubFeatureWindow.xaml.cs">
+      <DependentUpon>KeywayGrooveSubFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubFeatureWindows\ReliefDSISubFeatureWindow.xaml.cs">
+      <DependentUpon>ReliefDSISubFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubFeatureWindows\RetainingRingGrooveSubFeatureWindow.xaml.cs">
+      <DependentUpon>RetainingRingGrooveSubFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubFeatureWindows\ThroughHoleSubFeatureWindow.xaml.cs">
+      <DependentUpon>ThroughHoleSubFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubFeatureWindows\WrenchSubFeatureWindow.xaml.cs">
+      <DependentUpon>WrenchSubFeatureWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\ConstructionErrorsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefADinEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefAGostEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefASIEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefBDinEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefBGostEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefBSIEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefCDinEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefCGostEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefDDinEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefDGostEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefEDinEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefEGostEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefFDinEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefFSIEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ReliefGSIEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Extensions\BusyDecoratorStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RemoveSubFeatureDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SectionDimensionsWindows\ConeDimensionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SectionDimensionsWindows\CylinderDimensionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ChamferEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\FilletEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\KeywayGrooveRoundedEndEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\LockNutGrooveEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\PlainKeywayGrooveEdgeFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EdgeFeatureWindows\ThreadEdgeFeatureWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -96,7 +496,47 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\SectionDimensionsWindows\PolygonDimensionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RemoveSectionDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SectionDimensionsWindows\SplitCylinderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubFeatureWindows\GrooveASubFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubFeatureWindows\GrooveBSubFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubFeatureWindows\KeywayGrooveSubFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubFeatureWindows\ReliefDSISubFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubFeatureWindows\RetainingRingGrooveSubFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubFeatureWindows\ThroughHoleSubFeatureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SubFeatureWindows\WrenchSubFeatureWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,12 +555,29 @@
     <None Include="App.config" />
     <None Include="Autodesk.InventorShaftGenerator.Inventor.addin" />
     <None Include="InventorShaftGenerator.X.manifest" />
+    <None Include="Resources\keyways.json" />
+    <None Include="Resources\keywaysDimensions.json" />
+    <None Include="Resources\keywaysRoundedEnd.json" />
+    <None Include="Resources\ReliefADINDimensions.json" />
+    <None Include="Resources\ReliefAGOSTDimensions.json" />
+    <None Include="Resources\ReliefASIDimensions.json" />
+    <None Include="Resources\ReliefBDINDimensions.json" />
+    <None Include="Resources\ReliefBGOSTDimensions.json" />
+    <None Include="Resources\ReliefBSIDimensions.json" />
+    <None Include="Resources\ReliefCDINDimensions.json" />
+    <None Include="Resources\ReliefCGOSTDimensions.json" />
+    <None Include="Resources\ReliefDDINDimensions.json" />
+    <None Include="Resources\ReliefDGOSTDimensions.json" />
+    <None Include="Resources\reliefDSIDimensions.json" />
+    <None Include="Resources\ReliefEDINDimensions.json" />
+    <None Include="Resources\ReliefEGOSTDimensions.json" />
+    <None Include="Resources\ReliefFDINDimensions.json" />
+    <None Include="Resources\ReliefFSIDimensions.json" />
+    <None Include="Resources\ReliefGSIDimensions.json" />
+    <None Include="Resources\threads.json" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Icons\posA.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CustomControls\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Icons\posB.png" />
@@ -174,6 +631,285 @@
   <ItemGroup>
     <Resource Include="Assets\Icons\shaft_16x16.ico" />
     <Resource Include="Assets\Icons\shaft_32x32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\throughHoleIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\retainingRingIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\keywayGrooveFeatureIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\wrenchOpeningIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\reliefDIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\grooveAIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\grooveBIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\noneFeatureIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\chamferIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\filletIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\threadIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\lockNutIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\plainKeywayGrooveIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\keywayGrooveRoundEndIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\cylinderIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\coneIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\poligoneIconS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\noneFeatureIconFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\chamferIconFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\filletIconFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\threadIconFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\lockNutIconFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\plainKeywayGrooveIconFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\keywayGrooveRoundEndIconFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\subFeatureNone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\openDialog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\deleteItem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\unavailable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\coneImg.png" />
+    <Resource Include="Assets\PreviewImages\cylinderImg.png" />
+    <Resource Include="Assets\PreviewImages\polygonImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\distanceAngleBtn.png" />
+    <Resource Include="Assets\Icons\distanceBtn.png" />
+    <Resource Include="Assets\Icons\doubleDistanceBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\threadImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\locknutGrooveImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\KeywaysImages\din6885A.png" />
+    <Resource Include="Assets\KeywaysImages\din6885B.png" />
+    <Resource Include="Assets\KeywaysImages\dinType3.png" />
+    <Resource Include="Assets\KeywaysImages\GBorT1096-2003TypeA.png" />
+    <Resource Include="Assets\KeywaysImages\GBorT1096-2003TypeB.png" />
+    <Resource Include="Assets\KeywaysImages\GBorT1096-2003TypeC.png" />
+    <Resource Include="Assets\KeywaysImages\GBorT1097-2003TypeA.png" />
+    <Resource Include="Assets\KeywaysImages\GBorT1097-2003TypeB.png" />
+    <Resource Include="Assets\KeywaysImages\iso2491A.png" />
+    <Resource Include="Assets\KeywaysImages\iso2491B.png" />
+    <Resource Include="Assets\KeywaysImages\iso2491C.png" />
+    <Resource Include="Assets\KeywaysImages\jisB1301Hub.png" />
+    <Resource Include="Assets\KeywaysImages\jisB1301Key.png" />
+    <Resource Include="Assets\KeywaysImages\key2Gost10748-79.png" />
+    <Resource Include="Assets\KeywaysImages\key2Gost23360-78.png" />
+    <Resource Include="Assets\KeywaysImages\key3Gost23360-78.png" />
+    <Resource Include="Assets\KeywaysImages\keyAGost29175-91.png" />
+    <Resource Include="Assets\KeywaysImages\keyAGostR50536-93.png" />
+    <Resource Include="Assets\KeywaysImages\keyBGost29175-91.png" />
+    <Resource Include="Assets\KeywaysImages\keyBGostR50536-93.png" />
+    <Resource Include="Assets\KeywaysImages\keyCGost29175-91.png" />
+    <Resource Include="Assets\KeywaysImages\keyCGost50536-93.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT1564-2003TypeA.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT1564-2003TypeB.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT1564-2003TypeC.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT1565-2003.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT1566-2003TypeA.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT1566-2003TypeB.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT1566-2003TypeC.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT1567-2003TypeA.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT1567-2003TypeB.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT1567-2003TypeC.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT16922-1997.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT16922-1997TypeA.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT16922-1997TypeB.png" />
+    <Resource Include="Assets\KeywaysImages\keyGBorT16922-1997TypeC.png" />
+    <Resource Include="Assets\KeywaysImages\keyGost10748-79.png" />
+    <Resource Include="Assets\KeywaysImages\keyGost23360-78.png" />
+    <Resource Include="Assets\KeywaysImages\rectangular.png" />
+    <Resource Include="Assets\KeywaysImages\rectangularOrSquareParallelKeys.png" />
+    <Resource Include="Assets\KeywaysImages\square.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\plainKeywayGrooveImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\KeywaysImages\din.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\keywayGrooveWithOneRoundedEndImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\KeywaysImages\dinType3half.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\KeywaysImages\rectangularOrSquareParallelKeyshalf.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\reliefASiIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\reliefADinIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\reliefAGostIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\reliefBSiIcon.png" />
+    <Resource Include="Assets\Icons\reliefFSiIcon.png" />
+    <Resource Include="Assets\Icons\reliefGSiIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\reliefBDinIcon.png" />
+    <Resource Include="Assets\Icons\reliefCDinIcon.png" />
+    <Resource Include="Assets\Icons\reliefDDinIcon.png" />
+    <Resource Include="Assets\Icons\reliefEDinIcon.png" />
+    <Resource Include="Assets\Icons\reliefFDinIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\reliefBGostIcon.png" />
+    <Resource Include="Assets\Icons\reliefCGostIcon.png" />
+    <Resource Include="Assets\Icons\reliefDGostIcon.png" />
+    <Resource Include="Assets\Icons\reliefEGostIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\reliefASiImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\reliefBSiImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\reliefFSiImg.png" />
+    <Resource Include="Assets\PreviewImages\reliefGSiImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\reliefADinImg.png" />
+    <Resource Include="Assets\PreviewImages\reliefBDinImg.png" />
+    <Resource Include="Assets\PreviewImages\reliefCDinImg.png" />
+    <Resource Include="Assets\PreviewImages\reliefDDinImg.png" />
+    <Resource Include="Assets\PreviewImages\reliefEDinImg.png" />
+    <Resource Include="Assets\PreviewImages\reliefFDinImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\reliefAGostImg.png" />
+    <Resource Include="Assets\PreviewImages\reliefBGostImg.png" />
+    <Resource Include="Assets\PreviewImages\reliefCGostImg.png" />
+    <Resource Include="Assets\PreviewImages\reliefDGostImg.png" />
+    <Resource Include="Assets\PreviewImages\reliefEGostImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\reliefASiIconFlip.png" />
+    <Resource Include="Assets\Icons\reliefBSiIconFlip.png" />
+    <Resource Include="Assets\Icons\reliefFSiIconFlip.png" />
+    <Resource Include="Assets\Icons\reliefGSiIconFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\reliefADinIconFlip.png" />
+    <Resource Include="Assets\Icons\reliefBDinIconFlip.png" />
+    <Resource Include="Assets\Icons\reliefCDinIconFlip.png" />
+    <Resource Include="Assets\Icons\reliefDDinIconFlip.png" />
+    <Resource Include="Assets\Icons\reliefEDinIconFlip.png" />
+    <Resource Include="Assets\Icons\reliefFDinIconFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\reliefAGostIconFlip.png" />
+    <Resource Include="Assets\Icons\reliefBGostIconFlip.png" />
+    <Resource Include="Assets\Icons\reliefCGostIconFlip.png" />
+    <Resource Include="Assets\Icons\reliefDGostIconFlip.png" />
+    <Resource Include="Assets\Icons\reliefEGostIconFlip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\troughHoleImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\retainingRingBoreImg.png" />
+    <Resource Include="Assets\PreviewImages\retainingRingGrooveImg.png" />
+    <Resource Include="Assets\PreviewImages\wrenchOpeningImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\keywayImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\grooveAImg.png" />
+    <Resource Include="Assets\PreviewImages\grooveBImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\reliefDSiUnitsImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\distancePolygonBtn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\removeIcon.png" />
+    <Resource Include="Assets\Icons\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\delete-cross.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\more.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\letter-x.png" />
+    <Resource Include="Assets\Icons\settings1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\retainingRingBore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\boreConeImg.png" />
+    <Resource Include="Assets\PreviewImages\boreCylinderImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\PreviewImages\cylinderSplitImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

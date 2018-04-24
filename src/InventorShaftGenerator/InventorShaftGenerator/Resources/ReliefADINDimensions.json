@@ -1,0 +1,1 @@
+[{"MinInclusive":1,"MaxInclusive":30,"Width":1.0,"Width2":0.8,"ReliefDepth":0.1,"Radius":0.2},{"MinInclusive":31,"MaxInclusive":80,"Width":2.0,"Width2":1.5,"ReliefDepth":0.2,"Radius":0.4},{"MinInclusive":81,"MaxInclusive":180,"Width":4.0,"Width2":3.3,"ReliefDepth":0.3,"Radius":0.6},{"MinInclusive":181,"MaxInclusive":99999,"Width":6.0,"Width2":5.0,"ReliefDepth":0.4,"Radius":1.0}]

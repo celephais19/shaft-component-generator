@@ -1,8 +1,7 @@
 ﻿namespace InventorShaftGenerator.Views
 {
-    public interface IDialogView
+    public interface IDialogView : IView
     {
         bool? ShowDialog();
-        void Close();
     }
 }

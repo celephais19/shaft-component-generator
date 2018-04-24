@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace InventorShaftGenerator.Commands
@@ -20,6 +21,7 @@ namespace InventorShaftGenerator.Commands
 
         public bool CanExecute(object parameter) => this.canExecuteEvaluator?.Invoke(parameter) ?? true;
 
+        [DebuggerStepThrough]
         public void Execute(object parameter) => this.methodToExecute(parameter);
 
         public event EventHandler CanExecuteChanged

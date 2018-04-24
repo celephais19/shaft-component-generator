@@ -1,0 +1,243 @@
+﻿<Window Name="ThisWindow"
+        x:Class="InventorShaftGenerator.Views.SubFeatureWindows.GrooveASubFeatureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:InventorShaftGenerator.ViewModels.SectionSubFeatureViewModels"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:behaviors="clr-namespace:InventorShaftGenerator.Behaviors"
+        xmlns:customUiElements="clr-namespace:InventorShaftGenerator.CustomizedUIElements"
+        mc:Ignorable="d"
+        Title="Groove - A"
+        Height="370" Width="700"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <ResourceDictionary>
+            <viewModels:GrooveASubFeatureViewModel x:Key="GrooveASubFeatureViewModel" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../CustomStyles.xaml" />
+                <ResourceDictionary Source="../Controls.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.DataContext>
+        <StaticResource ResourceKey="GrooveASubFeatureViewModel" />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.9*" />
+            <RowDefinition Height="0.1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Dimensions" BorderBrush="DeepSkyBlue" Margin="10,5,5,5"
+                  BorderThickness="1.5" Template="{DynamicResource GroupBoxCustomControlTemplate}">
+            <Border BorderThickness="1" BorderBrush="DeepSkyBlue" Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*" />
+                        <ColumnDefinition Width="0.35*" />
+                        <ColumnDefinition Width="0.45*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle Grid.Row="0" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" FontWeight="DemiBold" />
+
+                    <Rectangle Grid.Row="0" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Size" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" FontWeight="DemiBold" />
+
+                    <Rectangle Grid.Row="0" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Description" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" FontWeight="DemiBold" />
+
+                    <Rectangle Grid.Row="1" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="D" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="1" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Column="1" Grid.Row="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm"
+                                                  BorderBrush="Transparent" VerticalContentAlignment="Center"
+                                                  Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                  Text="{Binding Path=MainDiameter, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, StringFormat=F3}" />
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="1" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="Main diameter" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="2" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="L" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="2" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="2" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm" BorderBrush="Transparent"
+                                                  VerticalContentAlignment="Center"
+                                                  Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                  Text="{Binding Path=SectionLength, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, StringFormat=F3}" />
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="2" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="Section length" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="3" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" Text="H" />
+                    <Rectangle Grid.Row="3" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="3" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm" BorderBrush="Transparent"
+                                                  VerticalContentAlignment="Center"
+                                                  Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                  Text="{Binding Path=Depth, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, StringFormat=F3}" />
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="3" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="3" Grid.Column="2" Text="Depth" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="4" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" Text="R"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="4" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="4" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm" BorderBrush="Transparent"
+                                                  VerticalContentAlignment="Center"
+                                                  Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                  Text="{Binding Path=Radius, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, StringFormat=F3}" />
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="4" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="4" Grid.Column="2" Text="Radius" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="5" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" Text="x"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="5" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="5" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm" BorderBrush="Transparent"
+                                                  VerticalContentAlignment="Center"
+                                                  Text="{Binding Path=Distance, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, StringFormat=F3}">
+                            <customUiElements:NumericUnitTextBox.Style>
+                                <Style TargetType="customUiElements:NumericUnitTextBox"
+                                       BasedOn="{StaticResource NumericUnitTextBoxWithDataErrorValidationStyle}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding MeasureDistanceFrom}" Value="Centered">
+                                            <Setter Property="AllowNegative" Value="True" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </customUiElements:NumericUnitTextBox.Style>
+                        </customUiElements:NumericUnitTextBox>
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="5" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="5" Grid.Column="2" Text="Distance" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+        </GroupBox>
+
+        <Grid Grid.Row="0" Grid.Column="1" Margin="0,5,10,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*" />
+                <RowDefinition Height="0.8*" />
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0" Header="Position" BorderBrush="DeepSkyBlue" Name="PositionGroupBox"
+                      BorderThickness="1.5" Template="{DynamicResource GroupBoxCustomControlTemplate}">
+                <ContentControl Content="{DynamicResource DistanceFromComboBox}" />
+            </GroupBox>
+
+            <GroupBox Grid.Row="1" Header="Preview" BorderBrush="DeepSkyBlue" Margin="0,5,0,0"
+                      BorderThickness="1.5" Template="{DynamicResource GroupBoxCustomControlTemplate}">
+                <Image Source="../../Assets/PreviewImages/grooveAImg.png" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+            </GroupBox>
+        </Grid>
+
+        <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,0,11,9">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Content="OK" Margin="0,0,10,0" FontSize="12" Width="65" Height="20"
+                        Command="{Binding SaveCommand}"
+                        CommandParameter="{Binding ElementName=ThisWindow}" Style="{DynamicResource BlueButton}"
+                        Template="{DynamicResource ButtonBaseControlTemplate1}" IsDefault="True" />
+                <Button Content="Cancel" FontSize="12" Width="65" Height="20" Command="{Binding CancelCommand}"
+                        CommandParameter="{Binding ElementName=ThisWindow}" Style="{DynamicResource BlueButton}"
+                        Template="{DynamicResource ButtonBaseControlTemplate1}" IsCancel="True" />
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>

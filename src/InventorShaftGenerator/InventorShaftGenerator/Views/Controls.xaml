@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:InventorShaftGenerator.Views"
+                    xmlns:subFeatures="clr-namespace:InventorShaftGenerator.Models.SubFeatures"
+                    xmlns:markupExtensions="clr-namespace:InventorShaftGenerator.MarkupExtensions"
+                    xmlns:valueConverters="clr-namespace:InventorShaftGenerator.ValueConverters">
+    <valueConverters:WidthRelativeToParentConverter x:Key="WidthRelativeToParentConverter" />
+    <valueConverters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+
+    <ComboBox x:Key="DistanceFromComboBox" Grid.Row="0" Height="25" Name="DistanceFromComboBox"
+              Width="{Binding RelativeSource={RelativeSource AncestorType=GroupBox}, Path=ActualWidth, 
+        Converter={StaticResource WidthRelativeToParentConverter}}"
+              Style="{DynamicResource ComboBoxCustomStyle}" HorizontalAlignment="Center"
+              ItemsSource="{Binding Source={markupExtensions:EnumBindingSource {x:Type subFeatures:DistanceFrom}}}"
+              SelectedValue="{Binding MeasureDistanceFrom, Mode=TwoWay}">
+        <ComboBox.ItemTemplate>
+            <DataTemplate>
+                <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+            </DataTemplate>
+        </ComboBox.ItemTemplate>
+    </ComboBox>
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="CustomStyles.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

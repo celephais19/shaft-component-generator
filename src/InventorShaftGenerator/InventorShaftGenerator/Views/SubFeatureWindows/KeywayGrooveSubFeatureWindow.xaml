@@ -1,0 +1,754 @@
+﻿<Window Name="ThisWindow"
+        x:Class="InventorShaftGenerator.Views.SubFeatureWindows.KeywayGrooveSubFeatureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InventorShaftGenerator"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:viewModels="clr-namespace:InventorShaftGenerator.ViewModels.SectionSubFeatureViewModels"
+        xmlns:templateSelectors="clr-namespace:InventorShaftGenerator.TemplateSelectors"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:behaviors="clr-namespace:InventorShaftGenerator.Behaviors"
+        xmlns:customUiElements="clr-namespace:InventorShaftGenerator.CustomizedUIElements"
+        mc:Ignorable="d"
+        Title="Keyway"
+        Height="420" Width="750"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <ResourceDictionary>
+            <viewModels:KeywayGrooveSubFeatureViewModel x:Key="ThroughHoleSubFeatureViewModel" />
+            <Style x:Key="NoMatchingSizeErrorStyle">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding NoMatchingSizeError}" Value="True">
+                        <Setter Property="FrameworkElement.ToolTip">
+                            <Setter.Value>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="!" FontSize="20" Foreground="#FF0002" VerticalAlignment="Center" />
+                                    <TextBlock Text="There is no matching standard size." Margin="2,0,0,0"
+                                               Foreground="Black" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Control.Foreground" Value="#ff0039" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="NoMatchingSizeErrorStyleNumericTextBoxStyle" BasedOn="{StaticResource UnitTextBoxStyle1}"
+                   TargetType="customUiElements:NumericUnitTextBox">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding NoMatchingSizeError}" Value="True">
+                        <Setter Property="FrameworkElement.ToolTip">
+                            <Setter.Value>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="!" FontSize="20" Foreground="#FF0002" VerticalAlignment="Center" />
+                                    <TextBlock Text="There is no matching standard size." Margin="3,0,0,0"
+                                               Foreground="Black" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Control.Foreground" Value="#ff0039" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../CustomStyles.xaml" />
+                <ResourceDictionary Source="../Controls.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.DataContext>
+        <StaticResource ResourceKey="ThroughHoleSubFeatureViewModel" />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.9*" />
+            <RowDefinition Height="0.1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Dimensions" BorderBrush="DeepSkyBlue" Margin="10,5,5,5"
+                  BorderThickness="1.5" Template="{DynamicResource GroupBoxCustomControlTemplate}">
+            <Border BorderThickness="1" BorderBrush="DeepSkyBlue" Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*" />
+                        <ColumnDefinition Width="0.35*" />
+                        <ColumnDefinition Width="0.45*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle Grid.Row="0" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Name" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" FontWeight="DemiBold" />
+
+                    <Rectangle Grid.Row="0" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Size" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" FontWeight="DemiBold" />
+
+                    <Rectangle Grid.Row="0" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Description" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" FontWeight="DemiBold" />
+
+                    <Rectangle Grid.Row="1" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="D" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="1" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Column="1" Grid.Row="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm"
+                                                  BorderBrush="Transparent"
+                                                  VerticalContentAlignment="Center"
+                                                  Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                  Text="{Binding Path=MainDiameter, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, StringFormat=F3}" />
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="1" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="Main diameter" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="2" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="L" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="2" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="2" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm"
+                                                  BorderBrush="Transparent"
+                                                  VerticalContentAlignment="Center"
+                                                  Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                  Text="{Binding Path=SectionLength, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, StringFormat=F3}" />
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="2" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="Section length" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="3" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="B" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="3" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="3" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ContentControl Grid.Column="0">
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <TextBlock Style="{StaticResource NoMatchingSizeErrorTextBlockStyle}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                       Text="{Binding Width, StringFormat={}{0:F3} mm}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CustomParameters}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <customUiElements:NumericUnitTextBox UnitText="mm"
+                                                                              BorderBrush="Transparent"
+                                                                              VerticalContentAlignment="Center"
+                                                                              Style="{StaticResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                                              Text="{Binding Path=Width, 
+                                                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, 
+                                                        StringFormat=F3, ValidatesOnDataErrors=True}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CustomParameters}" Value="False">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="3" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="3" Grid.Column="2" Text="Width" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="4" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="T" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="4" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="4" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ContentControl Grid.Column="0">
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <TextBlock Style="{StaticResource NoMatchingSizeErrorTextBlockStyle}"
+                                                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                       Text="{Binding Depth, StringFormat={}{0:F3} mm}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CustomParameters}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <customUiElements:NumericUnitTextBox UnitText="mm"
+                                                                              BorderBrush="Transparent"
+                                                                              VerticalContentAlignment="Center"
+                                                                              Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                                              Text="{Binding Path=Depth, 
+                                                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, 
+                                                        StringFormat=F3, ValidatesOnDataErrors=True}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CustomParameters}" Value="False">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="4" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="4" Grid.Column="2" Text="Depth" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="5" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="L" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="5" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="5" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm"
+                                                  BorderBrush="Transparent"
+                                                  VerticalContentAlignment="Center"
+                                                  Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                  Text="{Binding Path=KeywayLength, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, StringFormat=F3}" />
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="5" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="5" Grid.Column="2" Text="Keyway length" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="6" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" Text="&#945;"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="6" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="6" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="deg"
+                                                  BorderBrush="Transparent"
+                                                  VerticalContentAlignment="Center"
+                                                  AllowNegative="True"
+                                                  Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                  Text="{Binding Path=Angle, UpdateSourceTrigger=PropertyChanged, 
+                            ValidatesOnDataErrors=True, StringFormat=F2}" />
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="6" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="6" Grid.Column="2" Text="Angle" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="7" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="7" Grid.Column="0" Text="&#946;" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="7" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="7" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ContentControl Grid.Column="0">
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <TextBlock
+                                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                Text="{Binding AngleBetweenKeys, StringFormat={}{0:F2} deg}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding NumberOfKeys}" Value="2">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <customUiElements:NumericUnitTextBox UnitText="deg"
+                                                                              BorderBrush="Transparent"
+                                                                              AllowNegative="True"
+                                                                              VerticalContentAlignment="Center"
+                                                                              Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                                              Text="{Binding Path=AngleBetweenKeys, 
+                                                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, 
+                                                        StringFormat=F2, ValidatesOnDataErrors=True}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding NumberOfKeys}" Value="2">
+                                            <Setter Property="IsEnabled" Value="True" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="7" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="7" Grid.Column="2" Text="Angle between keys" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="8" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" Text="x"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="8" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="8" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm" BorderBrush="Transparent"
+                                                  VerticalContentAlignment="Center"
+
+                                                  Text="{Binding Path=Distance, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True, StringFormat=F3}">
+                            <customUiElements:NumericUnitTextBox.Style>
+                                <Style TargetType="customUiElements:NumericUnitTextBox"
+                                       BasedOn="{StaticResource NumericUnitTextBoxWithDataErrorValidationStyle}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding MeasureDistanceFrom}" Value="Centered">
+                                            <Setter Property="AllowNegative" Value="True" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </customUiElements:NumericUnitTextBox.Style>
+                        </customUiElements:NumericUnitTextBox>
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="8" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="8" Grid.Column="2" Text="Distance" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="9" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" Text="N"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="9" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="9" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="ul"
+                                                  BorderBrush="Transparent"
+                                                  VerticalContentAlignment="Center"
+                                                  Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                  Text="{Binding Path=NumberOfKeys, UpdateSourceTrigger=PropertyChanged,
+                            ValidatesOnDataErrors=True}" />
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="9" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="9" Grid.Column="2" Text="Number of keys" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+        </GroupBox>
+
+        <Grid Grid.Row="0" Grid.Column="1" Margin="0,5,10,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*" />
+                <RowDefinition Height="0.6*" />
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0" Header="Position" BorderBrush="DeepSkyBlue"
+                      BorderThickness="1.5" Template="{DynamicResource GroupBoxCustomControlTemplate}"
+                      Name="PositionGroupBox">
+                <StackPanel VerticalAlignment="Center">
+                    <ContentControl Content="{DynamicResource DistanceFromComboBox}" Margin="0,3,0,3" />
+                    <ComboBox ItemsSource="{Binding Keyways}"
+                              SelectedValue="{Binding SelectedKeyway, Mode=OneWayToSource}"
+                              SelectedIndex="{Binding SelectedIndex, Mode=OneWay}"
+                              Height="45"
+                              Width="{Binding Source={StaticResource DistanceFromComboBox}, Path=ActualWidth}"
+                              Style="{DynamicResource ComboBoxCustomStyle}" FontSize="11"
+                              Margin="0,3,0,0" HorizontalAlignment="Center">
+                        <ComboBox.Resources>
+                            <Image x:Key="KeywayImage" x:Shared="False">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Name}" Value="ISO 2491 A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="ISO 2491 C">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="UNI 6604 - A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="CSN 02 2562 A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="NF E 22-177 B">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}"
+                                                         Value="SFS 2636 - A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="KS B 1311 (I)">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="CNS 169 A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="BS 4235 A square">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="CNS 170 (II)">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="IS 2048 A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/rectangularOrSquareParallelKeys.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}"
+                                                         Value="BS 4235 A rectangular">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}"
+                                                         Value="BS 4235 C rectangular">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}"
+                                                         Value="SS 2306">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}"
+                                                         Value="PN-91/M-85001 A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="UNI 7510 A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="PN-91/M-85001 C">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}"
+                                                         Value="KS B 1311(II)">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="PN-91/M-85002 A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}"
+                                                         Value="BS 4235 C square">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}"
+                                                         Value="SFS 2636 - C">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}"
+                                                         Value="NF E 22-177 A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="PN-91/M-85002 C">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="STN 02 2562 A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="CNS 170 (I)">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key GB/T 1567-2003 Type A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491B.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key GB/T 16922-1997 Type C">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491B.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="GB/T 1096-2003 - C">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="GB/T 1097-2003 - A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/GBorT1097-2003TypeA.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key GB/T 1564-2003 Type C">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491B.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key GB/T 1566-2003 Type C">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="JIS B 1301 Hub">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key GB/T 1566-2003 Type A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key GB/T 16922-1997 Type A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491B.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key GB/T 1564-2003 Type A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491B.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="GB/T 1096-2003 - A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key GB/T 1567-2003 Type C">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491B.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="JIS B 1301 Key">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key A GOST R 50536-93">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key C GOST 29175-91">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key A GOST 29175-91">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key 3 GOST 23360-78">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key GOST 23360-78">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key GOST 10748-79">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491A.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="Key C GOST R 50536-93">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/iso2491C.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}"
+                                                         Value="Rectangular or Square Parallel Keys">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/rectangularOrSquareParallelKeys.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="DIN 6885-1 C">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/dinType3.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="DIN 6885-3 A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/rectangularOrSquareParallelKeyshalf.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="DIN 6885-1 A">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/rectangularOrSquareParallelKeys.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Name}" Value="DIN 6885-3 C">
+                                                <Setter Property="Source"
+                                                        Value="../../Assets/KeywaysImages/dinType3half.png" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </ComboBox.Resources>
+                        <ComboBox.ItemTemplateSelector>
+                            <templateSelectors:ComboBoxItemTemplateSelector>
+                                <templateSelectors:ComboBoxItemTemplateSelector.SelectedTemplate>
+                                    <ItemContainerTemplate>
+                                        <DockPanel VerticalAlignment="Center" LastChildFill="True" Height="Auto">
+                                            <ContentControl Content="{DynamicResource KeywayImage}"
+                                                            VerticalAlignment="Top" Height="42" Width="55" />
+                                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Right"
+                                                       VerticalAlignment="Center" Margin="3,0,0,0" FontSize="12" />
+                                        </DockPanel>
+                                    </ItemContainerTemplate>
+                                </templateSelectors:ComboBoxItemTemplateSelector.SelectedTemplate>
+                                <templateSelectors:ComboBoxItemTemplateSelector.DropDownTemplate>
+                                    <ItemContainerTemplate>
+                                        <StackPanel Orientation="Vertical" Height="Auto">
+                                            <ContentControl Content="{DynamicResource KeywayImage}" />
+                                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"
+                                                       TextWrapping="Wrap"
+                                                       TextAlignment="Center" />
+                                        </StackPanel>
+                                    </ItemContainerTemplate>
+                                </templateSelectors:ComboBoxItemTemplateSelector.DropDownTemplate>
+                            </templateSelectors:ComboBoxItemTemplateSelector>
+                        </ComboBox.ItemTemplateSelector>
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="4" Rows="13"
+                                             Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}}" />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Grid.Row="1" Header="Preview" BorderBrush="DeepSkyBlue" Margin="0,5,0,0"
+                      BorderThickness="1.5" Template="{DynamicResource GroupBoxCustomControlTemplate}">
+                <Image Source="../../Assets/PreviewImages/keywayImg.png" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+            </GroupBox>
+        </Grid>
+
+        <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,0,11,9">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Content="OK" Margin="0,0,10,0" FontSize="12" Width="65" Height="20"
+                        Command="{Binding SaveCommand}"
+                        CommandParameter="{Binding ElementName=ThisWindow}" Style="{DynamicResource BlueButton}"
+                        Template="{DynamicResource ButtonBaseControlTemplate1}" IsDefault="True" />
+                <Button Content="Cancel" FontSize="12" Width="65" Height="20" Command="{Binding CancelCommand}"
+                        CommandParameter="{Binding ElementName=ThisWindow}" Style="{DynamicResource BlueButton}"
+                        Template="{DynamicResource ButtonBaseControlTemplate1}" IsCancel="True" />
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>

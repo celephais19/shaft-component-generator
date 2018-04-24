@@ -61,6 +61,196 @@ namespace InventorShaftGenerator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Keyways {
+            get {
+                object obj = ResourceManager.GetObject("Keyways", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] KeywaysDimensions {
+            get {
+                object obj = ResourceManager.GetObject("KeywaysDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] KeywaysRoundedEnd {
+            get {
+                object obj = ResourceManager.GetObject("KeywaysRoundedEnd", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefADINDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefADINDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefAGOSTDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefAGOSTDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefASIDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefASIDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefBDINDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefBDINDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefBGOSTDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefBGOSTDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefBSIDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefBSIDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefCDINDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefCDINDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefCGOSTDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefCGOSTDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefDDINDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefDDINDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefDGOSTDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefDGOSTDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] reliefDSIDimensions {
+            get {
+                object obj = ResourceManager.GetObject("reliefDSIDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefEDINDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefEDINDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefEGOSTDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefEGOSTDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefFDINDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefFDINDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefFSIDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefFSIDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] ReliefGSIDimensions {
+            get {
+                object obj = ResourceManager.GetObject("ReliefGSIDimensions", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon shaft_16x16 {
@@ -77,6 +267,16 @@ namespace InventorShaftGenerator.Properties {
             get {
                 object obj = ResourceManager.GetObject("shaft_32x32", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Threads {
+            get {
+                object obj = ResourceManager.GetObject("Threads", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

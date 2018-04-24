@@ -1,0 +1,51 @@
+﻿<Window Name="ThisWindow"
+        x:Class="InventorShaftGenerator.Views.RemoveSectionDialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:InventorShaftGenerator.ViewModels"
+        mc:Ignorable="d"
+        Title="{Binding Section.DisplayName, StringFormat=Remove the section: {0}}"
+        ResizeMode="NoResize"
+        Height="160" Width="470"
+        WindowStartupLocation="CenterOwner">
+    <Window.DataContext>
+        <viewModels:RemoveSectionViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CustomStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*" />
+            <RowDefinition Height="0.3*" />
+            <RowDefinition Height="0.3*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Foreground="Red" FontSize="16" Text="Warning" HorizontalAlignment="Center"
+                   Margin="0,10,0,0" />
+
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center">
+            <Run>All features, loads and supports attached to the section will be deleted as well.</Run><LineBreak />
+            <Run>Would you like to continue?</Run>
+        </TextBlock>
+
+        <DockPanel Grid.Row="2" Background="#f0f0f0">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,0,11,0"
+                        VerticalAlignment="Center">
+                <Button Content="Yes" Margin="0,0,15,0" FontSize="12" Width="65" Height="20"
+                        Command="{Binding RemoveItemCommand}"
+                        CommandParameter="{Binding ElementName=ThisWindow}"
+                        Style="{DynamicResource BlueButton}" Template="{DynamicResource ButtonBaseControlTemplate1}" />
+                <Button Content="No" FontSize="12" Width="65" Height="20" Command="{Binding CancelCommand}"
+                        CommandParameter="{Binding ElementName=ThisWindow}" Style="{DynamicResource BlueButton}"
+                        Template="{DynamicResource ButtonBaseControlTemplate1}" />
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>
