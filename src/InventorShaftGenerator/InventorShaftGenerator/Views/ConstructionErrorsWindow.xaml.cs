@@ -8,7 +8,11 @@
             this.Owner = StandardAddInServer.MainWindow;
 
             this.Loaded += (sender, args) =>
-                StandardAddInServer.MainWindow.BusyIndicator.IsBusyIndicatorShowing = false;
+            {
+                var mainWindow = StandardAddInServer.MainWindow;
+                mainWindow.BusyIndicator.IsBusyIndicatorShowing = false;
+                mainWindow.MainGrid.Opacity = 1;
+            };
         }
     }
 }

@@ -14,19 +14,19 @@ namespace InventorShaftGenerator.Views
             var mainViewModel = (MainViewModel) this.DataContext;
             mainViewModel.ConstructionErrorsViewType = typeof(ConstructionErrorsWindow);
 
+            this.MainGrid.OpacityMask = new SolidColorBrush(Color.FromRgb(230, 230, 230));
             this.BuildButton.PreviewMouseLeftButtonDown += (sender, args) =>
             {
-                this.OpacityMask = Brushes.White;
-                this.Opacity = 0.96;
+                this.MainGrid.Opacity = 0.8;
                 this.BusyIndicator.IsBusyIndicatorShowing = true;
             };
 
             this.IsVisibleChanged += (sender, args) =>
             {
-                if (args.NewValue is false)
+                if (this.Visibility == Visibility.Collapsed)
                 {
                     this.BusyIndicator.IsBusyIndicatorShowing = false;
-                    this.Opacity = 1;
+                    this.MainGrid.Opacity = 1;
                 }
             };
         }
@@ -35,7 +35,7 @@ namespace InventorShaftGenerator.Views
         {
             e.Cancel = true;
 
-            this.Visibility = Visibility.Hidden;
+            this.Visibility = Visibility.Collapsed;
         }
     }
 }

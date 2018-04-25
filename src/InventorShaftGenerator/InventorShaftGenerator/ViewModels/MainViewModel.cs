@@ -57,7 +57,7 @@ namespace InventorShaftGenerator.ViewModels
             Settings.SettingsChanged += OnAppSettingsChanged;
             Shaft.Sections.CollectionChanged += (sender, args) => UpdateShaftLength();
             Shaft.BoreOnTheLeft.CollectionChanged += (sender, args) => UpdateBoreLeftLength();
-            Shaft.BoreOnTheRight.CollectionChanged += (sender, args) => UpdateBoreLeftLength();
+            Shaft.BoreOnTheRight.CollectionChanged += (sender, args) => UpdateBoreRightLength();
             Shaft.SectionsParametersChanged += (sender, args) => UpdateShaftLength();
             Shaft.BoreOnTheLeftParametersChanged += (sender, args) => UpdateBoreLeftLength();
             Shaft.BoreOnTheRightParametersChanged += (sender, args) => UpdateBoreRightLength();
@@ -65,7 +65,6 @@ namespace InventorShaftGenerator.ViewModels
 
             void UpdateShaftLength() => this.ShaftLength = Shaft.Sections.Sum(section => section.Length);
             void UpdateBoreLeftLength() => this.BoreLeftLength = Shaft.BoreOnTheLeft.Sum(section => section.Length);
-
             void UpdateBoreRightLength() =>
                 this.BoreRightLength = Shaft.BoreOnTheRight.Sum(section => section.Length);
         }
@@ -363,7 +362,7 @@ namespace InventorShaftGenerator.ViewModels
 
             if (dialogView.DataContext is IViewModelWithSection viewModelWithSection)
             {
-                if (this.selectedSection == null)
+                if (this.selectedSection == null && !(dialogView.DataContext is RemoveAllViewModel))
                 {
                     return;
                 }
@@ -382,6 +381,8 @@ namespace InventorShaftGenerator.ViewModels
 
                 switch (viewModelWithSection)
                 {
+                    case RemoveAllViewModel _:
+                        break;
                     case RemoveSectionViewModel _:
                         if (this.selectedSection.FirstEdgeFeature == null &&
                             this.selectedSection.SecondEdgeFeature == null && !this.selectedSection.SubFeatures.Any())

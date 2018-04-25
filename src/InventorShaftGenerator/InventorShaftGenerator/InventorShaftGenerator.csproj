@@ -201,6 +201,7 @@
     <Compile Include="ValueConverters\ValueConverterWithAttachedParameter.cs" />
     <Compile Include="ValueConverters\WidthRelativeToParentConverter.cs" />
     <Compile Include="ViewModels\BuildErrorsViewModel.cs" />
+    <Compile Include="ViewModels\RemoveAllViewModel.cs" />
     <Compile Include="ViewModels\IEdgeFeatureViewModel.cs" />
     <Compile Include="ViewModels\RemoveItemViewModel.cs" />
     <Compile Include="ViewModels\RemoveSubFeatureViewModel.cs" />
@@ -263,6 +264,9 @@
     </Compile>
     <Compile Include="StandardAddInServer.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\RemoveAllDialogWindow.xaml.cs">
+      <DependentUpon>RemoveAllDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConstructionErrorsWindow.xaml.cs">
       <DependentUpon>ConstructionErrorsWindow.xaml</DependentUpon>
     </Compile>
@@ -376,6 +380,10 @@
     <Compile Include="Views\SubFeatureWindows\WrenchSubFeatureWindow.xaml.cs">
       <DependentUpon>WrenchSubFeatureWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\RemoveAllDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ConstructionErrorsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -910,6 +918,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Controls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\eraser.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

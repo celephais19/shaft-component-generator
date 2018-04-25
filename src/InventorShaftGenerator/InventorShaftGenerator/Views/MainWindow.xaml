@@ -181,7 +181,7 @@
                                     <Style TargetType="Grid">
                                         <Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#bee6fd" />
+                                                <Setter Property="Background" Value="#EEF8FD" />
                                             </Trigger>
                                         </Style.Triggers>
                                     </Style>
@@ -1216,7 +1216,7 @@
             </Button>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="CustomStyles.xaml" />
-                <ResourceDictionary Source="Extensions/BusyDecoratorStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Extensions/BusyDecoratorStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -1224,7 +1224,7 @@
         <StaticResource ResourceKey="MainViewModel" />
     </Window.DataContext>
     <extensions:BusyDecorator x:Name="BusyIndicator">
-        <Grid Margin="0,0,3.4,-0.2">
+        <Grid Margin="0,0,3.4,-0.2" Name="MainGrid">
             <Grid.RowDefinitions>
                 <!--<RowDefinition Height="0.12*" />-->
                 <RowDefinition Height="0.8*" />
@@ -1278,6 +1278,25 @@
                         <DockPanel.Resources>
                             <Style BasedOn="{StaticResource ButtonStyle1}" TargetType="Button" x:Key="BoreButtonStyle">
                                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                    <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Name="border" 
+                                                        BorderThickness="0"
+                                                        Padding="4,2" 
+                                                        BorderBrush="Transparent" 
+                                                        Background="Transparent">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="border" Property="Background" Value="#F0FAFF" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Source={StaticResource Shaft}, Path=Sections.Count}"
                                                  Value="0">
@@ -1515,6 +1534,36 @@
                                 </Button>
                             </DockPanel>
                         </StackPanel>
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                            <Button VerticalAlignment="Center" ToolTip="Remove all" BorderThickness="0" Margin="0,0,4,0"
+                                    Command="{Binding Source={StaticResource MainViewModel}, Path=OpenDialogViewCommand}"
+                                    CommandParameter="{x:Type views:RemoveAllDialogWindow}" FocusVisualStyle="{x:Null}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Name="border" 
+                                                            BorderThickness="0"
+                                                            Padding="4,2" 
+                                                            BorderBrush="Transparent" 
+                                                            Background="Transparent">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="border" Property="Background" Value="#F0FAFF" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                                <Image Source="../Assets/Icons/eraser.png" Width="24px" Height="24px" HorizontalAlignment="Right" />
+                            </Button>
+                        </StackPanel>
                     </DockPanel>
 
                     <Grid Grid.Row="1" Margin="0,3,0,3" Name="Preview2DGrid"
@@ -1529,9 +1578,11 @@
                             <ItemsControl.Style>
                                 <Style TargetType="ItemsControl">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=Visibility}" Value="Collapsed">
-                                            <Setter Property="IsEnabled" Value="False"></Setter>
-                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                        <DataTrigger
+                                            Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=Visibility}"
+                                            Value="Collapsed">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                            <Setter Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -1661,7 +1712,7 @@
                                 <Style TargetType="Path">
                                     <Setter Property="ContextMenu" Value="{StaticResource PathContextMenu}" />
                                 </Style>
-                                
+
                             </ItemsControl.Resources>
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -1673,9 +1724,11 @@
                                         <customUiElements:CenteringCanvas.Style>
                                             <Style TargetType="customUiElements:CenteringCanvas">
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=Visibility}" Value="Collapsed">
-                                                        <Setter Property="IsEnabled" Value="False"></Setter>
-                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                    <DataTrigger
+                                                        Binding="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=Visibility}"
+                                                        Value="Collapsed">
+                                                        <Setter Property="IsEnabled" Value="False" />
+                                                        <Setter Property="Visibility" Value="Collapsed" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -2842,13 +2895,13 @@
                                     <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,5,15,1"
                                                Text="{Binding ShaftLength, StringFormat={}{0:0.###} mm}"
                                                HorizontalAlignment="Right" />
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Bore L Lenght"
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Bore L"
                                                HorizontalAlignment="Left"
                                                Margin="5,0,0,5" />
                                     <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,1,15,1"
                                                Text="{Binding BoreLeftLength, StringFormat={}{0:0.###} mm}"
                                                HorizontalAlignment="Right" />
-                                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,0,0,5" Text="Bore R Lenght"
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,0,0,5" Text="Bore R"
                                                HorizontalAlignment="Left" />
                                     <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,1,15,1"
                                                Text="{Binding BoreRightLength, StringFormat={}{0:0.###} mm}"
@@ -3062,27 +3115,20 @@
 
             <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="5,3,6,5">
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button Content="Cancel" Margin="0,0,10,0" FontSize="12" Width="65" Height="20" />
+                    <Button Content="Cancel" Margin="0,0,10,0" FontSize="12" Width="65" Height="20">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <ie:ChangePropertyAction TargetName="ThisWindow" PropertyName="Visibility"
+                                                         Value="Collapsed" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
                     <Button Content="Build" FontSize="12" Width="65" Height="20" Command="{Binding BuildShaftCommand}"
                             ToolTipService.ShowOnDisabled="True" Name="BuildButton">
-                        <!--<i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <ie:ChangePropertyAction TargetObject="{x:Reference BusyDecorator}" PropertyName="IsBusyIndicatorShowing" Value="True"></ie:ChangePropertyAction>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>-->
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                                 <Setter Property="ToolTipService.ShowDuration" Value="7000" />
                                 <Style.Triggers>
-                                   <!-- <EventTrigger RoutedEvent="Click">
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <BooleanAnimationUsingKeyFrames Storyboard.Target="{Binding Source={x:Reference BusyDecorator}}" Storyboard.TargetProperty="(BusyDecorator).(IsBusyIndicatorShowing)">
-                                                    <DiscreteBooleanKeyFrame KeyTime="0:0:0" Value="True"></DiscreteBooleanKeyFrame>
-                                                </BooleanAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>-->
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
                                             <Condition
