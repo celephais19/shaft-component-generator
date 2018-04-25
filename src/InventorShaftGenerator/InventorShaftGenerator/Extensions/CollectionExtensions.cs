@@ -39,9 +39,7 @@ namespace InventorShaftGenerator.Extensions
                 }
             }
 
-            source.Add(newError);
-            Shaft.ShaftFeaturesErrors.Add(newError);
-            Shaft.Sections.ItemPropertyChanged += (sender, args) =>
+            void TryResolve(object sender, PropertyChangedEventArgs args)
             {
                 if (sender.Equals(newError.Section) && args.PropertyName != nameof(ShaftSection.NextSection) &&
                     args.PropertyName != nameof(ShaftSection.PreviousSection) &&
@@ -53,7 +51,26 @@ namespace InventorShaftGenerator.Extensions
                 {
                     ResolveCondition();
                 }
-            };
+            }
+
+            source.Add(newError);
+            Shaft.ShaftFeaturesErrors.Add(newError);
+            if (newError.Section.IsBore)
+            {
+                if (newError.Section.BoreFromEdge == BoreFromEdge.FromLeft)
+                {
+                    Shaft.BoreOnTheLeft.ItemPropertyChanged += TryResolve;
+                }
+                else
+                {
+                    Shaft.BoreOnTheRight.ItemPropertyChanged += TryResolve;
+                }
+            }
+            else
+            {
+                Shaft.Sections.ItemPropertyChanged += TryResolve;
+            }
+
             newError.Feature.PropertyChanged += (sender, args) => ResolveCondition();
 
             if (newError.Feature is ISectionSubFeature)

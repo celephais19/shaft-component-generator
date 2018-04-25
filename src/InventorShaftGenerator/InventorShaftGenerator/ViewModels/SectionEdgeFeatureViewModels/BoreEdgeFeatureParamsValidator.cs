@@ -135,21 +135,6 @@ namespace InventorShaftGenerator.ViewModels.SectionEdgeFeatureViewModels
 
                 var secondLineParams = outerSection.SecondLine;
 
-                //if (leftBore
-                //    ? Shaft.BoreOnTheLeft.IndexOf(outerSection) != 0
-                //    : Shaft.BoresOnTheRight.IndexOf(outerSection) != 0)
-                //{
-                //    var previousSectionSecondLine = outerSections[index - 1].SecondLine;
-                //    if (previousSectionSecondLine.EndPoint != secondLineParams.StartPoint)
-                //    {
-                //        sketchLines.AddByTwoPoints(
-                //            this.TransientGeometry.CreatePoint2d(previousSectionSecondLine.EndPoint.X.InMillimeters(),
-                //                previousSectionSecondLine.EndPoint.Y.InMillimeters()),
-                //            this.TransientGeometry.CreatePoint2d(secondLineParams.StartPoint.X.InMillimeters(),
-                //                secondLineParams.StartPoint.Y.InMillimeters()));
-                //    }
-                //}
-
                 sketchLines.AddByTwoPoints(
                     this.TransientGeometry.CreatePoint2d(secondLineParams.StartPoint.X.InMillimeters(),
                         secondLineParams.StartPoint.Y.InMillimeters()),
@@ -181,12 +166,13 @@ namespace InventorShaftGenerator.ViewModels.SectionEdgeFeatureViewModels
 
         protected EdgeCollection LocateEdgeToEdgeCollection()
         {
-            var edge = this.ComponentDefinition.SurfaceBodies[1].LocateUsingPoint(ObjectTypeEnum.kEdgeObject,
-                this.TransientGeometry.CreatePoint(
-                    (this.BoreFromEdge == BoreFromEdge.FromLeft
-                        ? this.EdgeFeature.EdgePoint.X
-                        : this.TestShaftLength - this.EdgeFeature.EdgePoint.X).InMillimeters(),
-                    this.EdgeFeature.EdgePoint.Y.InMillimeters())) as Edge;
+            var x = this.BoreFromEdge == BoreFromEdge.FromLeft
+                ? this.EdgeFeature.EdgePoint.X.InMillimeters()
+                : (this.TestShaftLength - this.EdgeFeature.EdgePoint.X).InMillimeters();
+            Point edgePoint = this.TransientGeometry.CreatePoint(x, this.EdgeFeature.EdgePoint.Y.InMillimeters());
+            var edge =
+                this.ComponentDefinition.SurfaceBodies[1]
+                    .LocateUsingPoint(ObjectTypeEnum.kEdgeObject, edgePoint) as Edge;
             var edgeColl = Shaft.Application.TransientObjects.CreateEdgeCollection();
             edgeColl.Add(edge);
             return edgeColl;
