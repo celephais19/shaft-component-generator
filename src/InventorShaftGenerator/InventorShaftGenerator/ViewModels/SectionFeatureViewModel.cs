@@ -10,11 +10,14 @@ namespace InventorShaftGenerator.ViewModels
         private ShaftSection section;
         private RelayCommand saveCommand;
         private RelayCommand cancelCommand;
-        private bool isSaveEnabled;
+        private bool isSaveEnabled = true;
 
         protected SectionFeatureViewModel()
         {
-            this.ErrorFields.CollectionChanged += (sender, args) => this.IsSaveEnabled = this.ErrorFields.Count == 0;
+            this.ErrorFields.CollectionChanged += (sender, args) =>
+            {
+                this.IsSaveEnabled = this.ErrorFields.Count == 0;
+            };
         }
 
         protected ObservableSet<string> ErrorFields { get; } = new ObservableSet<string>();

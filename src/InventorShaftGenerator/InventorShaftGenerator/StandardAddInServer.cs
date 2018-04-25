@@ -48,26 +48,10 @@ namespace InventorShaftGenerator
             );
             this.mainButtonDefinition.OnExecute += OnMainButtonExecute;
 
-            Ribbon zeroDocRibbon = InventorApp.UserInterfaceManager.Ribbons["ZeroDoc"];
             Ribbon partRibbon = InventorApp.UserInterfaceManager.Ribbons["Part"];
             Ribbon assebmlyRibbon = InventorApp.UserInterfaceManager.Ribbons["Assembly"];
-            RibbonTab tab = zeroDocRibbon.RibbonTabs["id_GetStarted"];
             RibbonTab partToolsTab = partRibbon.RibbonTabs["id_TabTools"];
             RibbonTab asmDesingTab = assebmlyRibbon.RibbonTabs["id_TabDesign"];
-            RibbonPanel panel;
-
-            try
-            {
-                panel = tab.RibbonPanels["Autodesk:InventorShaftGenerator:ToolsPanel"];
-            }
-            catch
-            {
-                panel = tab.RibbonPanels.Add(
-                    DisplayName: "Tools Panel",
-                    InternalName: "Autodesk:InventorShaftGenerator:ToolsPanel",
-                    ClientId: AdnInventorUtilities.AddInGuid
-                );
-            }
 
             var panel2 = partToolsTab.RibbonPanels.Add(
                 DisplayName: "Tools Panel",
@@ -78,11 +62,6 @@ namespace InventorShaftGenerator
                 DisplayName: "Tools Panel",
                 InternalName: "Autodesk:InventorShaftGenerator:PartToolsPanel",
                 ClientId: AdnInventorUtilities.AddInGuid);
-
-            panel.CommandControls.AddButton(
-                ButtonDefinition: this.mainButtonDefinition,
-                UseLargeIcon: true
-            );
 
             panel2.CommandControls.AddButton(
                 ButtonDefinition: this.mainButtonDefinition,

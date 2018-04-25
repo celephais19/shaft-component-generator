@@ -363,6 +363,11 @@ namespace InventorShaftGenerator.ViewModels
 
             if (dialogView.DataContext is IViewModelWithSection viewModelWithSection)
             {
+                if (this.selectedSection == null)
+                {
+                    return;
+                }
+
                 switch (viewModelWithSection)
                 {
                     case IEdgeFeatureViewModel edgeFeatureViewModel:

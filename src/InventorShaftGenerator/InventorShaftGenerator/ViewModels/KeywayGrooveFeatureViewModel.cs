@@ -24,6 +24,7 @@ namespace InventorShaftGenerator.ViewModels
         private ObservableCollection<KeywayDimensions> keywaysDimensions;
         private ObservableCollection<Keyway> keyways;
         private bool customParameters;
+        private float angleBetweenKeys;
         protected CylinderSection CylinderSection { get; private set; }
 
         protected TKeywayGrooveFeature KeywayGrooveFeature { get; set; }
@@ -65,7 +66,11 @@ namespace InventorShaftGenerator.ViewModels
         public int NumberOfKeys
         {
             get => this.numberOfKeys;
-            set => SetProperty(ref this.numberOfKeys, value);
+            set
+            {
+                SetProperty(ref this.numberOfKeys, value);
+                this.AngleBetweenKeys = 360f / value;
+            }
         }
 
         public float Angle
@@ -88,6 +93,12 @@ namespace InventorShaftGenerator.ViewModels
 
                 SetProperty(ref this.selectedKeyway, value);
             }
+        }
+
+        public float AngleBetweenKeys
+        {
+            get => this.angleBetweenKeys;
+            set => SetProperty(ref this.angleBetweenKeys, value);
         }
 
         public int SelectedIndex
@@ -118,7 +129,7 @@ namespace InventorShaftGenerator.ViewModels
         public bool CustomParameters
         {
             get => this.customParameters;
-            set { SetProperty(ref this.customParameters, value); }
+            set => SetProperty(ref this.customParameters, value);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -195,6 +206,7 @@ namespace InventorShaftGenerator.ViewModels
                 : selectedKeywayDimensions.Depths.Single(d => d.DepthType == this.selectedKeyway.DepthType).Value;
             this.NumberOfKeys = this.KeywayGrooveFeature.NumberOfKeys;
             this.Angle = this.KeywayGrooveFeature.Angle;
+            this.AngleBetweenKeys = this.KeywayGrooveFeature.AngleBetweenKeys;
 
             this.PropertyChanged += OnPropertyChanged;
         }
@@ -211,6 +223,7 @@ namespace InventorShaftGenerator.ViewModels
             this.KeywayGrooveFeature.NumberOfKeys = this.numberOfKeys;
             this.KeywayGrooveFeature.Angle = this.angle;
             this.KeywayGrooveFeature.CustomParameters = this.customParameters;
+            this.KeywayGrooveFeature.AngleBetweenKeys = this.angleBetweenKeys;
         }
 
         public virtual string this[string columnName]
@@ -225,6 +238,11 @@ namespace InventorShaftGenerator.ViewModels
                         if (this.MainDiameter < 0.1)
                         {
                             error = $"Valid range is < {0.1:F3} mm ; ~ >";
+                            this.ErrorFields.Add(nameof(this.MainDiameter));
+                        }
+                        else
+                        {
+                            this.ErrorFields.Remove(nameof(this.MainDiameter));
                         }
 
                         break;
@@ -233,6 +251,11 @@ namespace InventorShaftGenerator.ViewModels
                         if (this.sectionLength < 0.1)
                         {
                             error = $"Valid range is < {0.1:F3} mm ; ~ >";
+                            this.ErrorFields.Add(nameof(this.SectionLength));
+                        }
+                        else
+                        {
+                            this.ErrorFields.Remove(nameof(this.SectionLength));
                         }
 
                         break;
@@ -249,6 +272,19 @@ namespace InventorShaftGenerator.ViewModels
                         if (this.angle < -360 || this.angle > 360)
                         {
                             error = $"Valid range is < {-360:F2} deg ; {360:F2} deg >";
+                        }
+
+                        break;
+
+                    case nameof(this.AngleBetweenKeys):
+                        if (this.angleBetweenKeys < -360 || this.angleBetweenKeys > 360)
+                        {
+                            error = $"Valid range is < {-360:F2} deg ; {360:F2} deg >";
+                            this.ErrorFields.Add(nameof(this.AngleBetweenKeys));
+                        }
+                        else
+                        {
+                            this.ErrorFields.Remove(nameof(this.AngleBetweenKeys));
                         }
 
                         break;

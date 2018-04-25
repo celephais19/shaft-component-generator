@@ -9,16 +9,6 @@ namespace InventorShaftGenerator.Extensions
 {
     public static class DependencyObjectExtensions
     {
-        /*public static T GetVisualParent<T>(this DependencyObject child) where T : Visual
-        {
-            while ((child != null) && !(child is T))
-            {
-                child = VisualTreeHelper.GetParent(child);
-            }
-
-            return child as T;
-        }*/
-
         public static IEnumerable<DependencyObject> EnumerateVisualChildren(this DependencyObject dependencyObject)
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(dependencyObject); i++)

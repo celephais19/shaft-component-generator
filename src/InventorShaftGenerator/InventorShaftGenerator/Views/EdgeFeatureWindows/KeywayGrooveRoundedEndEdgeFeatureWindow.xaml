@@ -311,10 +311,71 @@
                                VerticalAlignment="Center" />
 
                     <Rectangle Grid.Row="7" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
-                    <TextBlock Grid.Row="7" Grid.Column="0" Text="Z" HorizontalAlignment="Center"
+                    <TextBlock Grid.Row="7" Grid.Column="0" Text="&#946;" HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
                     <Rectangle Grid.Row="7" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
                     <Grid Grid.Row="7" Grid.Column="1" Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="0.2*" />
+                        </Grid.ColumnDefinitions>
+
+                        <ContentControl Grid.Column="0">
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <TextBlock
+                                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                Text="{Binding AngleBetweenKeys, StringFormat={}{0:F2} deg}" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding NumberOfKeys}" Value="2">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <customUiElements:NumericUnitTextBox UnitText="deg"
+                                                                              BorderBrush="Transparent"
+                                                                              AllowNegative="True"
+                                                                              VerticalContentAlignment="Center"
+                                                                              Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                                              Text="{Binding Path=AngleBetweenKeys, 
+                                                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, 
+                                                        StringFormat=F2, ValidatesOnDataErrors=True}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+
+                        <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
+                                        Content="{StaticResource UpDownButtons}">
+                            <i:Interaction.Behaviors>
+                                <behaviors:ShowHideUIElementBehavior />
+                            </i:Interaction.Behaviors>
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding NumberOfKeys}" Value="2">
+                                            <Setter Property="IsEnabled" Value="True" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Grid>
+                    <Rectangle Grid.Row="7" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="7" Grid.Column="2" Text="Angle between keys" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+
+                    <Rectangle Grid.Row="8" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="8" Grid.Column="0" Text="Z" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    <Rectangle Grid.Row="8" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="8" Grid.Column="1" Background="Transparent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="0.2*" />
@@ -331,15 +392,15 @@
                             </i:Interaction.Behaviors>
                         </ContentControl>
                     </Grid>
-                    <Rectangle Grid.Row="7" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
-                    <TextBlock Grid.Row="7" Grid.Column="2" Text="Chamfer" HorizontalAlignment="Center"
+                    <Rectangle Grid.Row="8" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="8" Grid.Column="2" Text="Chamfer" HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
 
-                    <Rectangle Grid.Row="8" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
-                    <TextBlock Grid.Row="8" Grid.Column="0" Text="&#945;" HorizontalAlignment="Center"
+                    <Rectangle Grid.Row="9" Grid.Column="0" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="9" Grid.Column="0" Text="&#945;" HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
-                    <Rectangle Grid.Row="8" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
-                    <Grid Grid.Row="8" Grid.Column="1" Background="Transparent">
+                    <Rectangle Grid.Row="9" Grid.Column="1" Fill="Transparent" Stroke="#dcdcdc" />
+                    <Grid Grid.Row="9" Grid.Column="1" Background="Transparent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="0.2*" />
@@ -357,8 +418,8 @@
                             </i:Interaction.Behaviors>
                         </ContentControl>
                     </Grid>
-                    <Rectangle Grid.Row="8" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
-                    <TextBlock Grid.Row="8" Grid.Column="2" Text="Angle" HorizontalAlignment="Center"
+                    <Rectangle Grid.Row="9" Grid.Column="2" Fill="Transparent" Stroke="#dcdcdc" />
+                    <TextBlock Grid.Row="9" Grid.Column="2" Text="Angle" HorizontalAlignment="Center"
                                VerticalAlignment="Center" />
                 </Grid>
             </Border>
@@ -660,7 +721,7 @@
                 <Button Content="OK" Margin="0,0,10,0" FontSize="12" Width="65" Height="20"
                         Style="{DynamicResource BlueButton}"
                         Template="{DynamicResource ButtonBaseControlTemplate1}" IsDefault="True"
-                        Command="{Binding SaveCommand}"
+                        Command="{Binding SaveCommand}" IsEnabled="{Binding IsSaveEnabled}"
                         CommandParameter="{Binding ElementName=ThisWindow}" />
                 <Button Content="Cancel" FontSize="12" Width="65" Height="20" Command="{Binding CancelCommand}"
                         Style="{DynamicResource BlueButton}"

@@ -1,6 +1,11 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Interactivity;
+using System.Windows.Threading;
 using InventorShaftGenerator.Extensions;
 using InventorShaftGenerator.Models;
 
@@ -13,16 +18,11 @@ namespace InventorShaftGenerator.Behaviors
             ((INotifyCollectionChanged) this.AssociatedObject.ItemsSource).CollectionChanged += (sender, args) =>
             {
                 this.AssociatedObject.Items.Refresh();
-
-               
             };
 
             if (this.AssociatedObject.ItemsSource is ObservableCollectionEx<ShaftSection> sections)
             {
-                sections.ItemPropertyChanged += (sender, args) =>
-                {
-                    this.AssociatedObject.Items.Refresh();
-                };
+                sections.ItemPropertyChanged += (sender, args) => this.AssociatedObject.Items.Refresh();
             }
         }
     }

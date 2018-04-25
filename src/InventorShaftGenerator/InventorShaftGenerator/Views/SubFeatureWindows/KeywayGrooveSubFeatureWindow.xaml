@@ -744,7 +744,7 @@
                 <Button Content="OK" Margin="0,0,10,0" FontSize="12" Width="65" Height="20"
                         Command="{Binding SaveCommand}"
                         CommandParameter="{Binding ElementName=ThisWindow}" Style="{DynamicResource BlueButton}"
-                        Template="{DynamicResource ButtonBaseControlTemplate1}" IsDefault="True" />
+                        Template="{DynamicResource ButtonBaseControlTemplate1}" IsDefault="True"  IsEnabled="{Binding IsSaveEnabled}"/>
                 <Button Content="Cancel" FontSize="12" Width="65" Height="20" Command="{Binding CancelCommand}"
                         CommandParameter="{Binding ElementName=ThisWindow}" Style="{DynamicResource BlueButton}"
                         Template="{DynamicResource ButtonBaseControlTemplate1}" IsCancel="True" />

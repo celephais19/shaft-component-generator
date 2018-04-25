@@ -27,6 +27,7 @@ namespace InventorShaftGenerator.ViewModels.SectionSubFeatureViewModels
             set => SetProperty(ref this.measureDistanceFrom, value);
         }
 
+
         protected override void InitializeKeywayGrooveFeature()
         {
             this.KeywayGrooveFeature = this.keywayGrooveSubFeature;
