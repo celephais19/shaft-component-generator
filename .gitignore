@@ -317,3 +317,11 @@ ASALocalRun/
 # MSBuild Binary and Structured Log
 *.binlog
 .svn/
+*.zip
+src/FusionShaftGenerator/gui_initializer.py
+src/FusionShaftGenerator/resources/btn_images/cone.gif
+src/FusionShaftGenerator/resources/btn_images/cylinder.gif
+src/FusionShaftGenerator/resources/btn_images/polygon.gif
+src/FusionShaftGenerator/section.py
+src/FusionShaftGenerator/section_buttons.py
+src/FusionShaftGenerator/widget_utils.py

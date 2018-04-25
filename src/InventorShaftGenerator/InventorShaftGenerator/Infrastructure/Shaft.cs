@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using Inventor;
 using InventorShaftGenerator.Extensions;
-using InventorShaftGenerator.Infrastructure.Helpers;
 using InventorShaftGenerator.Models;
 
 namespace InventorShaftGenerator.Infrastructure

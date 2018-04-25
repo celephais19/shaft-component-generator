@@ -1684,7 +1684,7 @@
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <i:Interaction.Behaviors>
-                                <behaviors:ItemsControlItemsSourceUpdatedRefreshBehavior />
+                                <behaviors:SectionsItemsControlRefreshBehavior />
                             </i:Interaction.Behaviors>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
@@ -2795,7 +2795,7 @@
                      Style="{StaticResource DimensionsPanelStyle}"
                      ItemsSource="{Binding Source={StaticResource Shaft}, Path=Sections}">
                 <i:Interaction.Behaviors>
-                    <behaviors:ItemsControlItemsSourceUpdatedRefreshBehavior />
+                    <behaviors:SectionsItemsControlRefreshBehavior />
                 </i:Interaction.Behaviors>
                 <ListBox.ItemContainerStyle>
                     <Style BasedOn="{StaticResource ListBoxItemStyle1}" TargetType="ListBoxItem">

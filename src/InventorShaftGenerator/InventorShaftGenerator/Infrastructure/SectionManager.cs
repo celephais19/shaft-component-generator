@@ -1264,6 +1264,7 @@ namespace InventorShaftGenerator.Infrastructure
             selectedCylinder.Length = sectionLength1;
 
             var cylinder2 = (CylinderSection) CreateSection(selectedCylinder.SecondLine.EndPoint.X);
+            cylinder2.PropertyChanged += CreatedSectionOnPropertyChanged;
             cylinder2.PreviousSection = selectedCylinder;
             cylinder2.NextSection = selectedCylinder.NextSection;
             selectedCylinder.NextSection = cylinder2;

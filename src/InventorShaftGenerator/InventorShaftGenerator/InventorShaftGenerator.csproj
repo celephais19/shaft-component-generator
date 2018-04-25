@@ -77,7 +77,7 @@
   <ItemGroup>
     <Compile Include="AttachedProperties\ControlIndicator.cs" />
     <Compile Include="Behaviors\IncrementDecrementValueBehavior.cs" />
-    <Compile Include="Behaviors\ItemsControlItemsSourceUpdatedRefreshBehavior.cs" />
+    <Compile Include="Behaviors\SectionsItemsControlRefreshBehavior.cs" />
     <Compile Include="Behaviors\RelaunchMouseEnterEventBehavior.cs" />
     <Compile Include="Behaviors\SecitonPathBehavior.cs" />
     <Compile Include="Behaviors\SectionHasErrorStackPanelBehavior.cs" />
