@@ -267,6 +267,9 @@
     </Compile>
     <Compile Include="StandardAddInServer.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\ExceptionInformationWindow.xaml.cs">
+      <DependentUpon>ExceptionInformationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RemoveAllDialogWindow.xaml.cs">
       <DependentUpon>RemoveAllDialogWindow.xaml</DependentUpon>
     </Compile>
@@ -383,6 +386,10 @@
     <Compile Include="Views\SubFeatureWindows\WrenchSubFeatureWindow.xaml.cs">
       <DependentUpon>WrenchSubFeatureWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ExceptionInformationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RemoveAllDialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -925,6 +932,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Icons\eraser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\erase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\bug.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

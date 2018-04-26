@@ -1,0 +1,65 @@
+﻿<Window x:Class="InventorShaftGenerator.Views.ExceptionInformationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Title="Oops..." SizeToContent="Height" Width="320" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="CustomStyles.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0">
+            <Image DockPanel.Dock="Left" Source="../Assets/Icons/bug.png" HorizontalAlignment="Left" Width="64"
+                   Height="64" Margin="20,20,22,20" />
+            <TextBlock DockPanel.Dock="Right" Text="Sorry, something went wrong." FontSize="13"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center" Margin="0,20,20,20" />
+        </DockPanel>
+        <DockPanel Grid.Row="1">
+            <Expander Header="Show details" Name="DetailsExpander">
+                <Expander.Style>
+                    <Style TargetType="Expander">
+                        <Setter Property="IsExpanded" Value="False" />
+                        <Setter Property="Margin" Value="10,0,0,2" />
+                        <Setter Property="HorizontalAlignment" Value="Left" />
+                    </Style>
+                </Expander.Style>
+            </Expander>
+            <Button HorizontalAlignment="Right" Margin="0,0,15,10" Content="OK" Width="70" Height="20" IsCancel="True"
+                    IsDefault="True"
+                    Style="{StaticResource BlueButton}" Template="{StaticResource ButtonBaseControlTemplate1}" />
+        </DockPanel>
+
+        <Border Grid.Row="2" BorderThickness="0.5" BorderBrush="DeepSkyBlue">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Setter Property="Padding" Value="4" />
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding ElementName=DetailsExpander, Path=IsExpanded}"
+                            Value="True">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <ScrollViewer>
+                <TextBlock Name="ExceptionMessage" TextWrapping="Wrap" FontSize="10"
+                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                           ScrollViewer.VerticalScrollBarVisibility="Auto" />
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

@@ -466,8 +466,6 @@ namespace InventorShaftGenerator.ViewModels
         private void InsertCylinder(bool replace = false)
         {
             SectionManager<CylinderSection>.InstallSection(this.SelectedSection, replace: replace);
-            object b = null;
-            b.GetType();
         }
 
         private void InsertCone(bool replace = false)

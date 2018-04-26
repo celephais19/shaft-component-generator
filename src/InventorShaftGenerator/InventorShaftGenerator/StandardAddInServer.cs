@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Threading;
 using Autodesk.ADN.Utility.InventorUtils;
 using Autodesk.ADN.Utility.WinUtils;
 using Inventor;
@@ -26,6 +27,17 @@ namespace InventorShaftGenerator
 
             AdnInventorUtilities.Initialize(InventorApp, this.GetType());
             AddMainButtonToRibbon();
+            Dispatcher.CurrentDispatcher.UnhandledException += CurrentDispatcherOnUnhandledException;
+        }
+
+        private void CurrentDispatcherOnUnhandledException(object sender,
+                                                           DispatcherUnhandledExceptionEventArgs
+                                                               unhandledExceptionEventArgs)
+        {
+            unhandledExceptionEventArgs.Handled = true;
+
+            var exceptionInformationWindow = new ExceptionInformationWindow(unhandledExceptionEventArgs.Exception);
+            exceptionInformationWindow.ShowDialog();
         }
 
         private void AddMainButtonToRibbon()
@@ -48,24 +60,13 @@ namespace InventorShaftGenerator
             );
             this.mainButtonDefinition.OnExecute += OnMainButtonExecute;
 
-            Ribbon partRibbon = InventorApp.UserInterfaceManager.Ribbons["Part"];
             Ribbon assebmlyRibbon = InventorApp.UserInterfaceManager.Ribbons["Assembly"];
-            RibbonTab partToolsTab = partRibbon.RibbonTabs["id_TabTools"];
             RibbonTab asmDesingTab = assebmlyRibbon.RibbonTabs["id_TabDesign"];
 
-            var panel2 = partToolsTab.RibbonPanels.Add(
+            var panel3 = asmDesingTab.RibbonPanels.Add(
                 DisplayName: "Tools Panel",
                 InternalName: "Autodesk:InventorShaftGenerator:PartToolsPanel",
                 ClientId: AdnInventorUtilities.AddInGuid);
-
-            var panel3= asmDesingTab.RibbonPanels.Add(
-                DisplayName: "Tools Panel",
-                InternalName: "Autodesk:InventorShaftGenerator:PartToolsPanel",
-                ClientId: AdnInventorUtilities.AddInGuid);
-
-            panel2.CommandControls.AddButton(
-                ButtonDefinition: this.mainButtonDefinition,
-                UseLargeIcon: true);
 
             panel3.CommandControls.AddButton(
                 ButtonDefinition: this.mainButtonDefinition,
