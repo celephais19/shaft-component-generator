@@ -337,3 +337,5 @@ src/FusionShaftGenerator/resources/command/32x32-disabled.png
 src/FusionShaftGenerator/resources/command/32x32.png
 src/FusionShaftGenerator/resources/command/32x32@2x.png
 src/FusionShaftGenerator/resources/command/64x64-disabled.png
+src/InventorShaftGenerator/ShaftComponentGeneratorInstaller/ShaftComponentGeneratorInstaller.wixproj
+src/InventorShaftGenerator/ShaftComponentGeneratorInstaller/Product.wxs

@@ -4,7 +4,7 @@
   <ClientId>{547985E3-4BFD-4C63-92CE-B956945AD8AA}</ClientId>
   <DisplayName>ShaftComponentGenerator</DisplayName>
   <Description>ShaftComponentGenerator</Description>
-  <Assembly>D:\svn-repos\Shaft\src\InventorShaftGenerator\InventorShaftGenerator\bin\Debug\InventorShaftGenerator.dll</Assembly>
+  <Assembly>%APPDATA%\Autodesk\ApplicationPlugins\InventorShaftGenerator.dll</Assembly>
   <LoadOnStartUp>1</LoadOnStartUp>
   <UserUnloadable>1</UserUnloadable>
   <Hidden>0</Hidden>

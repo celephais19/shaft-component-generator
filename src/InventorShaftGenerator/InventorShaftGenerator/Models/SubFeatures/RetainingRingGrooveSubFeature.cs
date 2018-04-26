@@ -67,7 +67,7 @@ namespace InventorShaftGenerator.Models.SubFeatures
         public string DisplayName => $"Retaining ring [Diameter: {this.Diameter1}]";
 
         public void InitializeInAccordanceWithSectionParameters(ShaftSection section,
-            EdgeFeaturePosition? edgeFeaturePosition)
+                                                                EdgeFeaturePosition? edgeFeaturePosition)
         {
             this.LinkedSection = this.cylinderSection = (CylinderSection) section;
 
@@ -78,7 +78,7 @@ namespace InventorShaftGenerator.Models.SubFeatures
             this.errorsRepo.Add(RetainingRingFeatureError.InvalidDiameter,
                 new ShaftSectionFeatureError(this.LinkedSection, this, "Invalid range: Diameter"));
 
-            this.Diameter1 = this.cylinderSection.Diameter * 0.925f;
+            this.Diameter1 = this.cylinderSection.Diameter * (this.cylinderSection.IsBore ? 1.2f : 0.925f);
             this.Distance = this.cylinderSection.Length * 0.05f;
             this.Width = this.cylinderSection.Length * 0.0175f;
 
@@ -121,12 +121,15 @@ namespace InventorShaftGenerator.Models.SubFeatures
                           !this.LinkedSection.SubFeatures.Contains(this));
             }
 
-            if (this.LinkedSection.IsBore && this.diameter1 < this.cylinderSection.Diameter &&
-                !this.FeatureErrors.ContainsError(this.errorsRepo[RetainingRingFeatureError.InvalidDiameter]))
+            if (this.LinkedSection.IsBore)
             {
-                this.FeatureErrors.AddError(this.errorsRepo[RetainingRingFeatureError.InvalidDiameter],
-                    () => this.diameter1 >= this.cylinderSection.Diameter ||
-                          !this.LinkedSection.SubFeatures.Contains(this));
+                if (this.diameter1 < this.cylinderSection.Diameter &&
+                    !this.FeatureErrors.ContainsError(this.errorsRepo[RetainingRingFeatureError.InvalidDiameter]))
+                {
+                    this.FeatureErrors.AddError(this.errorsRepo[RetainingRingFeatureError.InvalidDiameter],
+                        () => (this.diameter1 >= this.cylinderSection.Diameter) ||
+                              !this.LinkedSection.SubFeatures.Contains(this));
+                }
             }
             else if ((this.diameter1 < 0.01f || this.diameter1 > this.cylinderSection.Diameter) &&
                      !this.FeatureErrors.ContainsError(this.errorsRepo[RetainingRingFeatureError.InvalidDiameter]))

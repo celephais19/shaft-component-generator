@@ -35,11 +35,6 @@ namespace InventorShaftGenerator.Infrastructure
         {
             ConstructionErrors.Clear();
 
-            if (AsmDoc.ComponentDefinition.Occurrences.Count == 1)
-            {
-                AsmDoc.ComponentDefinition.Occurrences[1].Delete();
-            }
-
             var partDoc = partDocument =
                 (PartDocument)InvApp.Documents.Add(DocumentTypeEnum.kPartDocumentObject, CreateVisible: false);
             partDoc.UnitsOfMeasure.LengthUnits = UnitsTypeEnum.kMillimeterLengthUnits;
@@ -315,46 +310,54 @@ namespace InventorShaftGenerator.Infrastructure
 
                 void BuildChamfer(ChamferEdgeFeature chamferEdgeFeature)
                 {
-                    var hight = polygon.CircumscribedCircleDiameter * 0.07734;
-                    var polygonChamferSketch = compDef.Sketches.Add(compDef.WorkPlanes[3]);
+                    try
+                    {
+                        var hight = polygon.CircumscribedCircleDiameter * 0.07734;
+                        var polygonChamferSketch = compDef.Sketches.Add(compDef.WorkPlanes[3]);
 
-                    var line1 = polygonChamferSketch.SketchLines.AddByTwoPoints(
-                        TransientGeometry.CreatePoint2d(
-                            chamferEdgeFeature.EdgePoint.X.InMillimeters(),
-                            chamferEdgeFeature.EdgePoint.Y.InMillimeters()),
-                        TransientGeometry.CreatePoint2d(
-                            chamferEdgeFeature.EdgePoint.X.InMillimeters(),
-                            chamferEdgeFeature.EdgePoint.Y.InMillimeters() +
-                            hight / 10));
+                        var line1 = polygonChamferSketch.SketchLines.AddByTwoPoints(
+                            TransientGeometry.CreatePoint2d(
+                                chamferEdgeFeature.EdgePoint.X.InMillimeters(),
+                                chamferEdgeFeature.EdgePoint.Y.InMillimeters()),
+                            TransientGeometry.CreatePoint2d(
+                                chamferEdgeFeature.EdgePoint.X.InMillimeters(),
+                                chamferEdgeFeature.EdgePoint.Y.InMillimeters() +
+                                hight / 10));
 
-                    var line2 = polygonChamferSketch.SketchLines.AddByTwoPoints(
-                        TransientGeometry.CreatePoint2d(
-                            line1.EndSketchPoint.Geometry.X,
-                            line1.EndSketchPoint.Geometry.Y),
-                        TransientGeometry.CreatePoint2d(
-                            chamferEdgeFeature.EdgePosition ==
-                            EdgeFeaturePosition.FirstEdge
-                                ? line1.EndSketchPoint.Geometry.X +
-                                  chamferEdgeFeature.Distance.InMillimeters()
-                                : line1.EndSketchPoint.Geometry.X -
-                                  chamferEdgeFeature.Distance.InMillimeters(),
-                            line1.EndSketchPoint.Geometry.Y));
+                        var line2 = polygonChamferSketch.SketchLines.AddByTwoPoints(
+                            TransientGeometry.CreatePoint2d(
+                                line1.EndSketchPoint.Geometry.X,
+                                line1.EndSketchPoint.Geometry.Y),
+                            TransientGeometry.CreatePoint2d(
+                                chamferEdgeFeature.EdgePosition ==
+                                EdgeFeaturePosition.FirstEdge
+                                    ? line1.EndSketchPoint.Geometry.X +
+                                      chamferEdgeFeature.Distance.InMillimeters()
+                                    : line1.EndSketchPoint.Geometry.X -
+                                      chamferEdgeFeature.Distance.InMillimeters(),
+                                line1.EndSketchPoint.Geometry.Y));
 
-                    var line3 = polygonChamferSketch.SketchLines.AddByTwoPoints(
-                        TransientGeometry.CreatePoint2d(
-                            line2.EndSketchPoint.Geometry.X,
-                            line2.EndSketchPoint.Geometry.Y),
-                        TransientGeometry.CreatePoint2d(
-                            line1.StartSketchPoint.Geometry.X,
-                            line1.StartSketchPoint.Geometry.Y));
-                    line1.StartSketchPoint.Merge(line3.EndSketchPoint);
-                    line1.EndSketchPoint.Merge(line2.StartSketchPoint);
-                    line2.EndSketchPoint.Merge(line3.StartSketchPoint);
-                    var p = polygonChamferSketch.Profiles.AddForSolid();
-                    var revolve =
-                        compDef.Features.RevolveFeatures.AddFull(p, compDef.WorkAxes[1],
-                            PartFeatureOperationEnum.kCutOperation);
-                    revolve.Name = $"Polygon_{polygonNumber}_Chamfer";
+                        var line3 = polygonChamferSketch.SketchLines.AddByTwoPoints(
+                            TransientGeometry.CreatePoint2d(
+                                line2.EndSketchPoint.Geometry.X,
+                                line2.EndSketchPoint.Geometry.Y),
+                            TransientGeometry.CreatePoint2d(
+                                line1.StartSketchPoint.Geometry.X,
+                                line1.StartSketchPoint.Geometry.Y));
+                        line1.StartSketchPoint.Merge(line3.EndSketchPoint);
+                        line1.EndSketchPoint.Merge(line2.StartSketchPoint);
+                        line2.EndSketchPoint.Merge(line3.StartSketchPoint);
+                        var p = polygonChamferSketch.Profiles.AddForSolid();
+                        var revolve =
+                            compDef.Features.RevolveFeatures.AddFull(p, compDef.WorkAxes[1],
+                                PartFeatureOperationEnum.kCutOperation);
+                        revolve.Name = $"Polygon_{polygonNumber}_Chamfer";
+                    }
+                    catch (Exception)
+                    {
+                        ConstructionErrors.Add(new FeatureConstructionError(chamferEdgeFeature));
+                    }
+                    
                 }
             }
         }
@@ -383,29 +386,37 @@ namespace InventorShaftGenerator.Infrastructure
 
             foreach (var fillet in allFillets)
             {
-                Edge filletEdge;
-                if (boreSections && boreFromEdge == BoreFromEdge.FromRight)
+                try
                 {
-                    filletEdge = compDef.SurfaceBodies[1]
-                                        .LocateUsingPoint(ObjectTypeEnum.kEdgeObject,
-                                            TransientGeometry.CreatePoint(shaftLength.InMillimeters() -
-                                                                          fillet.EdgePoint.X.InMillimeters(),
-                                                fillet.EdgePoint.Y.InMillimeters()), 0.01);
+                    Edge filletEdge;
+                    if (boreSections && boreFromEdge == BoreFromEdge.FromRight)
+                    {
+                        filletEdge = compDef.SurfaceBodies[1]
+                                            .LocateUsingPoint(ObjectTypeEnum.kEdgeObject,
+                                                TransientGeometry.CreatePoint(shaftLength.InMillimeters() -
+                                                                              fillet.EdgePoint.X.InMillimeters(),
+                                                    fillet.EdgePoint.Y.InMillimeters()), 0.01);
+                    }
+                    else
+                    {
+                        filletEdge = compDef.SurfaceBodies[1]
+                                            .LocateUsingPoint(ObjectTypeEnum.kEdgeObject,
+                                                TransientGeometry.CreatePoint(
+                                                    fillet.EdgePoint.X.InMillimeters(),
+                                                    fillet.EdgePoint.Y.InMillimeters()), 0.01);
+                    }
+
+                    var edgeCollection = InvApp.TransientObjects.CreateEdgeCollection();
+
+                    edgeCollection.Add(filletEdge);
+                    var filletFeature =
+                        compDef.Features.FilletFeatures.AddSimple(edgeCollection, fillet.Radius.InMillimeters());
                 }
-                else
+                catch (Exception)
                 {
-                    filletEdge = compDef.SurfaceBodies[1]
-                                        .LocateUsingPoint(ObjectTypeEnum.kEdgeObject,
-                                            TransientGeometry.CreatePoint(
-                                                fillet.EdgePoint.X.InMillimeters(),
-                                                fillet.EdgePoint.Y.InMillimeters()), 0.01);
+                    ConstructionErrors.Add(new FeatureConstructionError(fillet));
                 }
-
-                var edgeCollection = InvApp.TransientObjects.CreateEdgeCollection();
-
-                edgeCollection.Add(filletEdge);
-                var filletFeature =
-                    compDef.Features.FilletFeatures.AddSimple(edgeCollection, fillet.Radius.InMillimeters());
+                
             }
         }
 
@@ -705,41 +716,43 @@ namespace InventorShaftGenerator.Infrastructure
                         TransientGeometry.CreatePoint2d(
                             lockNutGroove.ThreadEdgeFeature.EdgePosition == EdgeFeaturePosition.FirstEdge
                                 ? lockNutGroove.ThreadEdgeFeature.ThreadLength.InMillimeters()
-                                : lockNutGroove.LinkedSection.Length.InMillimeters() -
-                                  lockNutGroove.ThreadEdgeFeature.ThreadLength.InMillimeters(),
+                                : (lockNutGroove.LinkedSection.SecondLine.EndPoint.X -
+                                  lockNutGroove.ThreadEdgeFeature.ThreadLength).InMillimeters(),
                             line1.Geometry.EndPoint.Y));
 
                     var circle = lockNutGrooveSketch.SketchCircles.AddByCenterRadius(
-                        TransientGeometry.CreatePoint2d(line2.Geometry.EndPoint.X,
-                            line2.Geometry.EndPoint.Y -
+                        TransientGeometry.CreatePoint2d(line2.EndSketchPoint.Geometry.X,
+                            line2.EndSketchPoint.Geometry.Y -
                             lockNutGroove.Radius.InMillimeters()),
                         lockNutGroove.Radius.InMillimeters());
-                    var line3IntersectWithCircle = lines.AddByTwoPoints(
-                        TransientGeometry.CreatePoint2d(line1.Geometry.StartPoint.X, line1.Geometry.StartPoint.Y),
+                   var line3IntersectWithCircle = lines.AddByTwoPoints(line1.StartSketchPoint.Geometry,
                         TransientGeometry.CreatePoint2d(
                             lockNutGroove.EdgePosition == EdgeFeaturePosition.FirstEdge
-                                ? lockNutGroove.LinkedSection.Length.InMillimeters()
-                                : lockNutGroove.LinkedSection.Length.InMillimeters() -
+                                ? line1.StartSketchPoint.Geometry.X + lockNutGroove.LinkedSection.Length.InMillimeters()
+                                : line1.StartSketchPoint.Geometry.X -
                                   lockNutGroove.LinkedSection.Length.InMillimeters(),
                             line1.Geometry.StartPoint.Y));
-                    var intersectPoint = line3IntersectWithCircle.Geometry.IntersectWithCurve(circle.Geometry)[1];
-                    var line4 = lines.AddByTwoPoints(
-                        TransientGeometry.CreatePoint2d(line1.Geometry.StartPoint.X, line1.Geometry.StartPoint.Y),
-                        intersectPoint) as SketchLine;
-                    lockNutGrooveSketch.GeometricConstraints.AddCoincident((SketchEntity)line4.EndSketchPoint,
-                        (SketchEntity)circle);
-                    line3IntersectWithCircle.Delete();
-                    line1.StartSketchPoint.Merge(line4.StartSketchPoint);
-                    line1.EndSketchPoint.Merge(line2.StartSketchPoint);
-                    lockNutGrooveSketch.GeometricConstraints.AddCoincident((SketchEntity)line2.EndSketchPoint,
-                        (SketchEntity)circle);
 
-                    var profile = lockNutGrooveSketch.Profiles.AddForSolid();
-                    var feature = compDef.Features.ExtrudeFeatures.AddByDistanceExtent(profile,
-                        lockNutGroove.Width.InMillimeters(),
-                        PartFeatureExtentDirectionEnum.kSymmetricExtentDirection,
-                        PartFeatureOperationEnum.kCutOperation);
-                    feature.Name = $"LockNutGroove_#{lockNutGrooveNumber}";
+                    var intersectPoint = line3IntersectWithCircle.Geometry.IntersectWithCurve(circle.Geometry).OfType<Point2d>().Last();
+
+                    
+                   var line4 = lines.AddByTwoPoints(
+                       TransientGeometry.CreatePoint2d(line1.StartSketchPoint.Geometry.X, line1.StartSketchPoint.Geometry.Y),
+                       TransientGeometry.CreatePoint2d(intersectPoint.X, intersectPoint.Y));
+                   lockNutGrooveSketch.GeometricConstraints.AddCoincident((SketchEntity)line4.EndSketchPoint,
+                       (SketchEntity)circle);
+                   line3IntersectWithCircle.Delete();
+                   line1.StartSketchPoint.Merge(line4.StartSketchPoint);
+                   line1.EndSketchPoint.Merge(line2.StartSketchPoint);
+                   lockNutGrooveSketch.GeometricConstraints.AddCoincident((SketchEntity)line2.EndSketchPoint,
+                       (SketchEntity)circle);
+
+                   var profile = lockNutGrooveSketch.Profiles.AddForSolid();
+                   var feature = compDef.Features.ExtrudeFeatures.AddByDistanceExtent(profile,
+                       lockNutGroove.Width.InMillimeters(),
+                       PartFeatureExtentDirectionEnum.kSymmetricExtentDirection,
+                       PartFeatureOperationEnum.kCutOperation);
+                   feature.Name = $"LockNutGroove_#{lockNutGrooveNumber}";
                 }
                 catch
                 {
@@ -931,12 +944,12 @@ namespace InventorShaftGenerator.Infrastructure
                         TransientGeometry.CreatePoint2d(keywayGrooveRoundedEnd.EdgePoint.X.InMillimeters(),
                             (keywayGrooveRoundedEnd.Width / 2).InMillimeters()));
                     var line2 = lines.AddByTwoPoints(
-                        TransientGeometry.CreatePoint2d(line1.Geometry.EndPoint.X, line1.Geometry.EndPoint.Y),
+                        TransientGeometry.CreatePoint2d(line1.EndSketchPoint.Geometry.X, line1.EndSketchPoint.Geometry.Y),
                         TransientGeometry.CreatePoint2d(
                             keywayGrooveRoundedEnd.EdgePosition == EdgeFeaturePosition.FirstEdge
-                                ? (keywayGrooveRoundedEnd.KeywayLength - keywayGrooveRoundedEnd.Width / 2)
+                                ? (keywayGrooveRoundedEnd.LinkedSection.SecondLine.StartPoint.X + keywayGrooveRoundedEnd.KeywayLength - keywayGrooveRoundedEnd.Width / 2)
                                 .InMillimeters()
-                                : (keywayGrooveRoundedEnd.LinkedSection.Length -
+                                : (keywayGrooveRoundedEnd.LinkedSection.SecondLine.EndPoint.X -
                                    keywayGrooveRoundedEnd.KeywayLength + keywayGrooveRoundedEnd.Width / 2)
                                 .InMillimeters(),
                             line1.Geometry.EndPoint.Y));
@@ -962,13 +975,12 @@ namespace InventorShaftGenerator.Infrastructure
                             TransientGeometry.CreatePoint2d(line4.StartSketchPoint.Geometry.X,
                                 line4.StartSketchPoint.Geometry.Y),
                             TransientGeometry.CreatePoint2d(
-                                (keywayGrooveRoundedEnd.LinkedSection.Length -
-                                 keywayGrooveRoundedEnd.KeywayLength).InMillimeters(), 0),
+                                line2.StartSketchPoint.Geometry.X -
+                                 keywayGrooveRoundedEnd.KeywayLength.InMillimeters(), 0),
                             TransientGeometry.CreatePoint2d(line2.EndSketchPoint.Geometry.X,
                                 line2.EndSketchPoint.Geometry.Y)
                         );
                     }
-
                     line1.StartSketchPoint.Merge(line4.EndSketchPoint);
                     line1.EndSketchPoint.Merge(line2.StartSketchPoint);
                     if (keywayGrooveRoundedEnd.EdgePosition == EdgeFeaturePosition.FirstEdge)
@@ -1825,160 +1837,161 @@ namespace InventorShaftGenerator.Infrastructure
             {
                 try
                 {
+                    reliefBDinNumber++;
+                    bool firstEdge = reliefBDin.EdgePosition == EdgeFeaturePosition.FirstEdge;
+                    var reliefBDinSketch = compDef.Sketches.Add(compDef.WorkPlanes[3]);
+                    reliefBDinSketch.AxisEntity = compDef.WorkAxes[1];
+                    reliefBDinSketch.Visible = false;
+
+                    var points = reliefBDinSketch.SketchPoints;
+                    var lines = reliefBDinSketch.SketchLines;
+                    var arcs = reliefBDinSketch.SketchArcs;
+                    var pointDepthPlusA = points.Add(TransientGeometry.CreatePoint2d(reliefBDin.EdgePoint.X.InMillimeters(),
+                        (reliefBDin.EdgePoint.Y - reliefBDin.ReliefDepth).InMillimeters()));
+                    var pointFromDepthPlusAToB1 = points.Add(TransientGeometry.CreatePoint2d(pointDepthPlusA.Geometry.X,
+                        pointDepthPlusA.Geometry.Y + reliefBDin.Width1.InMillimeters()));
+
+                    var pointFromEdgeToB = points.Add(TransientGeometry.CreatePoint2d(firstEdge
+                            ? (reliefBDin.EdgePoint.X + reliefBDin.Width).InMillimeters()
+                            : (reliefBDin.EdgePoint.X - reliefBDin.Width).InMillimeters(),
+                        reliefBDin.EdgePoint.Y.InMillimeters()));
+                    var lockLine = lines.AddByTwoPoints(pointFromEdgeToB.Geometry, pointFromDepthPlusAToB1.Geometry);
+                    var helperLine = lines.AddByTwoPoints(pointFromDepthPlusAToB1.Geometry,
+                        TransientGeometry.CreatePoint2d(pointFromDepthPlusAToB1.Geometry.X,
+                            pointFromDepthPlusAToB1.Geometry.Y + 1f.InMillimeters()));
+                    var angledLine = lines.AddByTwoPoints(pointFromDepthPlusAToB1.Geometry,
+                        TransientGeometry.CreatePoint2d(
+                            firstEdge
+                                ? pointFromDepthPlusAToB1.Geometry.X + 0.5f.InMillimeters()
+                                : pointFromDepthPlusAToB1.Geometry.X - 0.5f.InMillimeters(),
+                            helperLine.EndSketchPoint.Geometry.Y));
+                    reliefBDinSketch.GeometricConstraints.AddGround((SketchEntity)helperLine);
+                    var angleDimConstraint = reliefBDinSketch.DimensionConstraints.AddTwoLineAngle(angledLine, helperLine,
+                        TransientGeometry.CreatePoint2d(
+                            firstEdge
+                                ? pointFromDepthPlusAToB1.Geometry.X +
+                                  0.25f.InMillimeters()
+                                : pointFromDepthPlusAToB1.Geometry.X -
+                                  0.25f.InMillimeters(),
+                            pointFromDepthPlusAToB1.Geometry.Y +
+                            0.5f.InMillimeters()));
+                    angleDimConstraint.Parameter.Value = MathExtensions.DegreesToRadians(firstEdge ? reliefBDin.Angle : 180 - reliefBDin.Angle);
+                    var horizontalLine1 = lines.AddByTwoPoints(pointDepthPlusA.Geometry,
+                        TransientGeometry.CreatePoint2d(
+                            firstEdge
+                                ? pointDepthPlusA.Geometry.X - (reliefBDin.Radius * 3).InMillimeters()
+                                : pointDepthPlusA.Geometry.X + (reliefBDin.Radius * 3).InMillimeters(),
+                            pointDepthPlusA.Geometry.Y));
+                    reliefBDinSketch.GeometricConstraints.AddGround((SketchEntity)horizontalLine1);
+
+                    var helperPoint = angledLine.StartSketchPoint.Geometry;
+                    var vector = angledLine.Geometry.Direction.AsVector();
+                    vector.ScaleBy((-reliefBDin.Width1 * 2).InMillimeters());
+                    helperPoint.TranslateBy(vector);
+                    angledLine.Delete();
+                    angledLine = lines.AddByTwoPoints(pointFromDepthPlusAToB1.Geometry, helperPoint);
+                    var intersectPoint = angledLine.Geometry.IntersectWithCurve(horizontalLine1.Geometry)[1] as Point2d;
+                    points.Add(intersectPoint);
+                    angledLine.EndSketchPoint.MoveTo(intersectPoint);
+                    horizontalLine1.EndSketchPoint.MoveTo(intersectPoint);
+                    angledLine.EndSketchPoint.Merge(horizontalLine1.EndSketchPoint);
+                    reliefBDinSketch.GeometricConstraints.AddGround((SketchEntity)angledLine);
+                    var fillet2D = arcs.AddByFillet((SketchEntity)horizontalLine1, (SketchEntity)angledLine,
+                        reliefBDin.Radius.InMillimeters(),
+                        horizontalLine1.StartSketchPoint.Geometry, angledLine.StartSketchPoint.Geometry);
+                    var lineB2 = lines.AddByTwoPoints(
+                        firstEdge ? fillet2D.EndSketchPoint.Geometry : fillet2D.StartSketchPoint.Geometry,
+                        firstEdge
+                            ? TransientGeometry.CreatePoint2d(
+                                fillet2D.EndSketchPoint.Geometry.X + reliefBDin.Width2.InMillimeters(),
+                                fillet2D.EndSketchPoint.Geometry.Y)
+                            : TransientGeometry.CreatePoint2d(
+                                fillet2D.StartSketchPoint.Geometry.X - reliefBDin.Width2.InMillimeters(),
+                                fillet2D.StartSketchPoint.Geometry.Y));
+                    var circle = reliefBDinSketch.SketchCircles.AddByCenterRadius(
+                        TransientGeometry.CreatePoint2d(lineB2.EndSketchPoint.Geometry.X,
+                            lineB2.EndSketchPoint.Geometry.Y +
+                            reliefBDin.Radius.InMillimeters()),
+                        reliefBDin.Radius.InMillimeters());
+                    reliefBDinSketch.GeometricConstraints.AddTangent((SketchEntity)lineB2, (SketchEntity)circle);
+                    reliefBDinSketch.GeometricConstraints.AddGround((SketchEntity)circle);
+                    var optionalAngleLine = lines.AddByTwoPoints(pointFromEdgeToB.Geometry, lineB2.EndSketchPoint.Geometry);
+                    helperPoint = optionalAngleLine.StartSketchPoint.Geometry;
+                    vector = optionalAngleLine.Geometry.Direction.AsVector();
+                    vector.ScaleBy(-50f.InMillimeters());
+                    helperPoint.TranslateBy(vector);
+
+                    optionalAngleLine.StartSketchPoint.MoveTo(helperPoint);
+                    var helperLine2 = lines.AddByTwoPoints(pointFromEdgeToB.Geometry,
+                        TransientGeometry.CreatePoint2d(
+                            firstEdge
+                                ? pointFromEdgeToB.Geometry.X + reliefBDin.LinkedSection.Length.InMillimeters()
+                                : pointFromEdgeToB.Geometry.X - reliefBDin.LinkedSection.Length.InMillimeters(),
+                            pointFromEdgeToB.Geometry.Y));
+
+                    reliefBDinSketch.GeometricConstraints.AddGround((SketchEntity)helperLine2);
+                    var angleDimConstraint2 = reliefBDinSketch.DimensionConstraints.AddTwoLineAngle(optionalAngleLine,
+                        helperLine2,
+                        TransientGeometry.CreatePoint2d(
+                            firstEdge
+                                ? pointFromEdgeToB.Geometry.X +
+                                  0.5f.InMillimeters()
+                                : pointFromEdgeToB.Geometry.X -
+                                  0.5f.InMillimeters(),
+                            pointFromEdgeToB.Geometry.Y + 0.5f.InMillimeters()));
+                    angleDimConstraint2.Parameter.Value = MathExtensions.DegreesToRadians(180 - reliefBDin.Angle);
+                    reliefBDinSketch.GeometricConstraints.AddTangent((SketchEntity)optionalAngleLine,
+                        (SketchEntity)circle);
+                    var tangentPoint2D = optionalAngleLine.Geometry.IntersectWithCurve(circle.Geometry)[1] as Point2d;
+                    optionalAngleLine.EndSketchPoint.MoveTo(tangentPoint2D);
+
+                    var circleCenterPoint = TransientGeometry.CreatePoint2d(circle.CenterSketchPoint.Geometry.X,
+                        circle.CenterSketchPoint.Geometry.Y);
+
+
+                    var intersectPoint2 =
+                        optionalAngleLine.Geometry.IntersectWithCurve(helperLine2.Geometry)?[1] as Point2d;
+                    if (intersectPoint2 == null)
+
+                    {
+                        intersectPoint2 = helperLine2.Geometry.IntersectWithCurve(circle.Geometry)[1] as Point2d;
+                        optionalAngleLine.Delete();
+                        lockLine.StartSketchPoint.MoveTo(intersectPoint2);
+                        circle.Delete();
+                        var arc = arcs.AddByCenterStartEndPoint(circleCenterPoint,
+                            firstEdge ? lineB2.EndSketchPoint.Geometry : intersectPoint2,
+                            firstEdge ? intersectPoint2 : lineB2.EndSketchPoint.Geometry);
+                        lockLine.StartSketchPoint.Merge(firstEdge ? arc.EndSketchPoint : arc.StartSketchPoint);
+                        lineB2.EndSketchPoint.Merge(firstEdge ? arc.StartSketchPoint : arc.EndSketchPoint);
+                    }
+                    else
+                    {
+                        optionalAngleLine.StartSketchPoint.MoveTo(intersectPoint2);
+                        lockLine.StartSketchPoint.MoveTo(intersectPoint2);
+
+                        optionalAngleLine.StartSketchPoint.Merge(lockLine.StartSketchPoint);
+                        circle.Delete();
+                        var arc = arcs.AddByCenterStartEndPoint(circleCenterPoint,
+                            firstEdge ? lineB2.EndSketchPoint.Geometry : optionalAngleLine.EndSketchPoint.Geometry,
+                            firstEdge ? optionalAngleLine.EndSketchPoint.Geometry : lineB2.EndSketchPoint.Geometry);
+                        optionalAngleLine.EndSketchPoint.Merge(firstEdge ? arc.EndSketchPoint : arc.StartSketchPoint);
+                        lineB2.EndSketchPoint.Merge(firstEdge ? arc.StartSketchPoint : arc.EndSketchPoint);
+                    }
+
+                    lockLine.EndSketchPoint.Merge(angledLine.StartSketchPoint);
+                    lineB2.StartSketchPoint.Merge(firstEdge ? fillet2D.EndSketchPoint : fillet2D.StartSketchPoint);
+                    var profile = reliefBDinSketch.Profiles.AddForSolid();
+
+                    var reliefADinFeature = compDef.Features.RevolveFeatures.AddFull(profile, compDef.WorkAxes[1],
+                        PartFeatureOperationEnum.kCutOperation);
+                    reliefADinFeature.Name = $"ReliefBDin_#{reliefBDinNumber}";
                 }
                 catch (Exception)
                 {
                     ConstructionErrors.Add(new FeatureConstructionError(reliefBDin));
                 }
 
-                reliefBDinNumber++;
-                bool firstEdge = reliefBDin.EdgePosition == EdgeFeaturePosition.FirstEdge;
-                var reliefBDinSketch = compDef.Sketches.Add(compDef.WorkPlanes[3]);
-                reliefBDinSketch.AxisEntity = compDef.WorkAxes[1];
-                reliefBDinSketch.Visible = false;
-
-                var points = reliefBDinSketch.SketchPoints;
-                var lines = reliefBDinSketch.SketchLines;
-                var arcs = reliefBDinSketch.SketchArcs;
-                var pointDepthPlusA = points.Add(TransientGeometry.CreatePoint2d(reliefBDin.EdgePoint.X.InMillimeters(),
-                    (reliefBDin.EdgePoint.Y - reliefBDin.ReliefDepth).InMillimeters()));
-                var pointFromDepthPlusAToB1 = points.Add(TransientGeometry.CreatePoint2d(pointDepthPlusA.Geometry.X,
-                    pointDepthPlusA.Geometry.Y + reliefBDin.Width1.InMillimeters()));
-
-                var pointFromEdgeToB = points.Add(TransientGeometry.CreatePoint2d(firstEdge
-                        ? (reliefBDin.EdgePoint.X + reliefBDin.Width).InMillimeters()
-                        : (reliefBDin.EdgePoint.X - reliefBDin.Width).InMillimeters(),
-                    reliefBDin.EdgePoint.Y.InMillimeters()));
-                var lockLine = lines.AddByTwoPoints(pointFromEdgeToB.Geometry, pointFromDepthPlusAToB1.Geometry);
-                var helperLine = lines.AddByTwoPoints(pointFromDepthPlusAToB1.Geometry,
-                    TransientGeometry.CreatePoint2d(pointFromDepthPlusAToB1.Geometry.X,
-                        pointFromDepthPlusAToB1.Geometry.Y + 1f.InMillimeters()));
-                var angledLine = lines.AddByTwoPoints(pointFromDepthPlusAToB1.Geometry,
-                    TransientGeometry.CreatePoint2d(
-                        firstEdge
-                            ? pointFromDepthPlusAToB1.Geometry.X + 0.5f.InMillimeters()
-                            : pointFromDepthPlusAToB1.Geometry.X - 0.5f.InMillimeters(),
-                        helperLine.EndSketchPoint.Geometry.Y));
-                reliefBDinSketch.GeometricConstraints.AddGround((SketchEntity)helperLine);
-                var angleDimConstraint = reliefBDinSketch.DimensionConstraints.AddTwoLineAngle(angledLine, helperLine,
-                    TransientGeometry.CreatePoint2d(
-                        firstEdge
-                            ? pointFromDepthPlusAToB1.Geometry.X +
-                              0.25f.InMillimeters()
-                            : pointFromDepthPlusAToB1.Geometry.X -
-                              0.25f.InMillimeters(),
-                        pointFromDepthPlusAToB1.Geometry.Y +
-                        0.5f.InMillimeters()));
-                angleDimConstraint.Parameter.Value = MathExtensions.DegreesToRadians(180 - 20);
-                var horizontalLine1 = lines.AddByTwoPoints(pointDepthPlusA.Geometry,
-                    TransientGeometry.CreatePoint2d(
-                        firstEdge
-                            ? pointDepthPlusA.Geometry.X - (reliefBDin.Radius * 3).InMillimeters()
-                            : pointDepthPlusA.Geometry.X + (reliefBDin.Radius * 3).InMillimeters(),
-                        pointDepthPlusA.Geometry.Y));
-                reliefBDinSketch.GeometricConstraints.AddGround((SketchEntity)horizontalLine1);
-
-                var helperPoint = angledLine.StartSketchPoint.Geometry;
-                var vector = angledLine.Geometry.Direction.AsVector();
-                vector.ScaleBy((-reliefBDin.Width1 * 2).InMillimeters());
-                helperPoint.TranslateBy(vector);
-                angledLine.Delete();
-                angledLine = lines.AddByTwoPoints(pointFromDepthPlusAToB1.Geometry, helperPoint);
-                var intersectPoint = angledLine.Geometry.IntersectWithCurve(horizontalLine1.Geometry)[1] as Point2d;
-                points.Add(intersectPoint);
-                angledLine.EndSketchPoint.MoveTo(intersectPoint);
-                horizontalLine1.EndSketchPoint.MoveTo(intersectPoint);
-                angledLine.EndSketchPoint.Merge(horizontalLine1.EndSketchPoint);
-                reliefBDinSketch.GeometricConstraints.AddGround((SketchEntity)angledLine);
-                var fillet2D = arcs.AddByFillet((SketchEntity)horizontalLine1, (SketchEntity)angledLine,
-                    reliefBDin.Radius.InMillimeters(),
-                    horizontalLine1.StartSketchPoint.Geometry, angledLine.StartSketchPoint.Geometry);
-                var lineB2 = lines.AddByTwoPoints(
-                    firstEdge ? fillet2D.EndSketchPoint.Geometry : fillet2D.StartSketchPoint.Geometry,
-                    firstEdge
-                        ? TransientGeometry.CreatePoint2d(
-                            fillet2D.EndSketchPoint.Geometry.X + reliefBDin.Width2.InMillimeters(),
-                            fillet2D.EndSketchPoint.Geometry.Y)
-                        : TransientGeometry.CreatePoint2d(
-                            fillet2D.StartSketchPoint.Geometry.X - reliefBDin.Width2.InMillimeters(),
-                            fillet2D.StartSketchPoint.Geometry.Y));
-                var circle = reliefBDinSketch.SketchCircles.AddByCenterRadius(
-                    TransientGeometry.CreatePoint2d(lineB2.EndSketchPoint.Geometry.X,
-                        lineB2.EndSketchPoint.Geometry.Y +
-                        reliefBDin.Radius.InMillimeters()),
-                    reliefBDin.Radius.InMillimeters());
-                reliefBDinSketch.GeometricConstraints.AddTangent((SketchEntity)lineB2, (SketchEntity)circle);
-                reliefBDinSketch.GeometricConstraints.AddGround((SketchEntity)circle);
-                var optionalAngleLine = lines.AddByTwoPoints(pointFromEdgeToB.Geometry, lineB2.EndSketchPoint.Geometry);
-                helperPoint = optionalAngleLine.StartSketchPoint.Geometry;
-                vector = optionalAngleLine.Geometry.Direction.AsVector();
-                vector.ScaleBy(-50f.InMillimeters());
-                helperPoint.TranslateBy(vector);
-
-                optionalAngleLine.StartSketchPoint.MoveTo(helperPoint);
-                var helperLine2 = lines.AddByTwoPoints(pointFromEdgeToB.Geometry,
-                    TransientGeometry.CreatePoint2d(
-                        firstEdge
-                            ? pointFromEdgeToB.Geometry.X + reliefBDin.LinkedSection.Length.InMillimeters()
-                            : pointFromEdgeToB.Geometry.X - reliefBDin.LinkedSection.Length.InMillimeters(),
-                        pointFromEdgeToB.Geometry.Y));
-
-                reliefBDinSketch.GeometricConstraints.AddGround((SketchEntity)helperLine2);
-                var angleDimConstraint2 = reliefBDinSketch.DimensionConstraints.AddTwoLineAngle(optionalAngleLine,
-                    helperLine2,
-                    TransientGeometry.CreatePoint2d(
-                        firstEdge
-                            ? pointFromEdgeToB.Geometry.X +
-                              0.5f.InMillimeters()
-                            : pointFromEdgeToB.Geometry.X -
-                              0.5f.InMillimeters(),
-                        pointFromEdgeToB.Geometry.Y + 0.5f.InMillimeters()));
-                angleDimConstraint2.Parameter.Value = MathExtensions.DegreesToRadians(180 - reliefBDin.Angle);
-                reliefBDinSketch.GeometricConstraints.AddTangent((SketchEntity)optionalAngleLine,
-                    (SketchEntity)circle);
-                var tangentPoint2D = optionalAngleLine.Geometry.IntersectWithCurve(circle.Geometry)[1] as Point2d;
-                optionalAngleLine.EndSketchPoint.MoveTo(tangentPoint2D);
-
-                var circleCenterPoint = TransientGeometry.CreatePoint2d(circle.CenterSketchPoint.Geometry.X,
-                    circle.CenterSketchPoint.Geometry.Y);
-
-
-                var intersectPoint2 =
-                    optionalAngleLine.Geometry.IntersectWithCurve(helperLine2.Geometry)?[1] as Point2d;
-                if (intersectPoint2 == null)
-
-                {
-                    intersectPoint2 = helperLine2.Geometry.IntersectWithCurve(circle.Geometry)[1] as Point2d;
-                    optionalAngleLine.Delete();
-                    lockLine.StartSketchPoint.MoveTo(intersectPoint2);
-                    circle.Delete();
-                    var arc = arcs.AddByCenterStartEndPoint(circleCenterPoint,
-                        firstEdge ? lineB2.EndSketchPoint.Geometry : intersectPoint2,
-                        firstEdge ? intersectPoint2 : lineB2.EndSketchPoint.Geometry);
-                    lockLine.StartSketchPoint.Merge(firstEdge ? arc.EndSketchPoint : arc.StartSketchPoint);
-                    lineB2.EndSketchPoint.Merge(firstEdge ? arc.StartSketchPoint : arc.EndSketchPoint);
-                }
-                else
-                {
-                    optionalAngleLine.StartSketchPoint.MoveTo(intersectPoint2);
-                    lockLine.StartSketchPoint.MoveTo(intersectPoint2);
-
-                    optionalAngleLine.StartSketchPoint.Merge(lockLine.StartSketchPoint);
-                    circle.Delete();
-                    var arc = arcs.AddByCenterStartEndPoint(circleCenterPoint,
-                        firstEdge ? lineB2.EndSketchPoint.Geometry : optionalAngleLine.EndSketchPoint.Geometry,
-                        firstEdge ? optionalAngleLine.EndSketchPoint.Geometry : lineB2.EndSketchPoint.Geometry);
-                    optionalAngleLine.EndSketchPoint.Merge(firstEdge ? arc.EndSketchPoint : arc.StartSketchPoint);
-                    lineB2.EndSketchPoint.Merge(firstEdge ? arc.StartSketchPoint : arc.EndSketchPoint);
-                }
-
-                lockLine.EndSketchPoint.Merge(angledLine.StartSketchPoint);
-                lineB2.StartSketchPoint.Merge(firstEdge ? fillet2D.EndSketchPoint : fillet2D.StartSketchPoint);
-                var profile = reliefBDinSketch.Profiles.AddForSolid();
-
-                var reliefADinFeature = compDef.Features.RevolveFeatures.AddFull(profile, compDef.WorkAxes[1],
-                    PartFeatureOperationEnum.kCutOperation);
-                reliefADinFeature.Name = $"ReliefBDin_#{reliefBDinNumber}";
+                
             }
         }
 

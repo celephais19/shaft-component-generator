@@ -187,9 +187,8 @@
                 </ControlTemplate.Triggers>
             </ControlTemplate>
             <Style x:Key="ButtonStyle1" TargetType="Button">
-                <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-                <Setter Property="Template" Value="{StaticResource ButtonControlTemplate}">
-                </Setter>
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Template" Value="{StaticResource ButtonControlTemplate}" />
                 <Style.Triggers>
                     <Trigger Property="IsEnabled" Value="False">
                         <Setter Property="BorderThickness" Value="0" />
@@ -1300,7 +1299,8 @@
                                 </ComboBox.ItemsSource>
                             </ComboBox>
                             <DockPanel Name="SectionButtonsPanel" Style="{StaticResource SectionButtonsPanelStyle}">
-                                <Button HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ButtonStyle1}"
+                                <Button HorizontalAlignment="Left" VerticalAlignment="Center"
+                                        Style="{StaticResource ButtonStyle1}"
                                         ToolTip="Insert a cylinder" BorderThickness="0" Margin="5,0,0,0"
                                         Command="{Binding InsertCylinderCommand}" FocusVisualStyle="{x:Null}">
                                     <Image Source="../Assets/Icons/insertCylinder.png" Width="27" Height="27"
@@ -1334,13 +1334,15 @@
                                         </Image.Style>
                                     </Image>
                                 </Button>
-                                <Button HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ButtonStyle1}"
+                                <Button HorizontalAlignment="Left" VerticalAlignment="Center"
+                                        Style="{StaticResource ButtonStyle1}"
                                         ToolTip="Insert a cone" BorderThickness="0" Margin="5,0,0,0"
                                         Command="{Binding InsertConeCommand}" FocusVisualStyle="{x:Null}">
                                     <Image Source="../Assets/Icons/insertCone.png " Width="27" Height="27"
                                            Stretch="Fill" />
                                 </Button>
-                                <Button HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ButtonStyle1}"
+                                <Button HorizontalAlignment="Left" VerticalAlignment="Center"
+                                        Style="{StaticResource ButtonStyle1}"
                                         ToolTip="Insert a polygon" BorderThickness="0" Margin="5,0,0,0"
                                         Command="{Binding InsertPolygonCommand}" FocusVisualStyle="{x:Null}">
                                     <Image Source="../Assets/Icons/insertPolygon.png" Width="27" Height="27"
@@ -1516,10 +1518,10 @@
                         </StackPanel>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                             <Button VerticalAlignment="Center" ToolTip="Remove all" BorderThickness="0"
-                                    Margin="0,0,4,0"  Style="{StaticResource ButtonStyle1}"
+                                    Margin="0,0,4,0" Style="{StaticResource ButtonStyle1}"
                                     Command="{Binding Source={StaticResource MainViewModel}, Path=OpenDialogViewCommand}"
                                     CommandParameter="{x:Type views:RemoveAllDialogWindow}" FocusVisualStyle="{x:Null}">
-                                <Image Source="../Assets/Icons/eraser.png" Width="24px" Height="24px"
+                                <Image Source="../Assets/Icons/erase.png" Width="22px" Height="22px"
                                        HorizontalAlignment="Right" />
                             </Button>
                         </StackPanel>
@@ -1622,7 +1624,7 @@
                                                     Converter={StaticResource ShaftItemToParametersWindowTypeConverter}}" />
                                                 </DataTrigger>
                                                 <DataTrigger
-                                                    Binding="{Binding Converter={StaticResource TestConverter}}"
+                                                    Binding="{Binding}"
                                                     Value="Remove">
                                                     <Setter Property="Command"
                                                             Value="{Binding Source={StaticResource MainViewModel}, 
@@ -1772,857 +1774,859 @@
                     </Grid>
 
 
-                    <!--Grid.Row is assigned in the style`s trigger-->
-                    <TreeView Name="InstalledSectionsTreeView" FontSize="11">
-                        <TreeView.Style>
+
+                    
+                        <!--Grid.Row is assigned in the style`s trigger-->
+                        <TreeView Name="InstalledSectionsTreeView" FontSize="11">
+                            <TreeView.Style>
                             <Style TargetType="TreeView" BasedOn="{StaticResource InstalledSectionsPanelStyle}">
-                                <Style.Triggers>
-                                    <DataTrigger
+                                    <Style.Triggers>
+                                        <DataTrigger
                                         Binding="{Binding Source={StaticResource MainViewModel}, Path=ComboboxSelectedItem}"
                                         Value="Sections">
-                                        <Setter Property="ItemsSource"
+                                            <Setter Property="ItemsSource"
                                                 Value="{Binding Source={StaticResource Shaft}, Path=Sections}" />
-                                    </DataTrigger>
-                                    <DataTrigger
+                                        </DataTrigger>
+                                        <DataTrigger
                                         Binding="{Binding Source={StaticResource MainViewModel}, Path=ComboboxSelectedItem}"
                                         Value="Bore on the left">
-                                        <Setter Property="ItemsSource"
+                                            <Setter Property="ItemsSource"
                                                 Value="{Binding Source={StaticResource Shaft}, Path=BoreOnTheLeft}" />
-                                    </DataTrigger>
-                                    <DataTrigger
+                                        </DataTrigger>
+                                        <DataTrigger
                                         Binding="{Binding Source={StaticResource MainViewModel}, Path=ComboboxSelectedItem}"
                                         Value="Bore on the right">
-                                        <Setter Property="ItemsSource"
+                                            <Setter Property="ItemsSource"
                                                 Value="{Binding Source={StaticResource Shaft}, Path=BoreOnTheRight}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TreeView.Style>
-                        <TreeView.Resources>
-                            <i:EventTrigger EventName="MouseLeftButtonDown" x:Key="SetSelectedSectionOnLeftClick"
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TreeView.Style>
+                            <TreeView.Resources>
+                                <i:EventTrigger EventName="MouseLeftButtonDown" x:Key="SetSelectedSectionOnLeftClick"
                                             x:Shared="False">
-                                <i:InvokeCommandAction
+                                    <i:InvokeCommandAction
                                     Command="{Binding Source={StaticResource MainViewModel}, Path=SetSelectedSectionCommand}"
                                     CommandParameter="{Binding}" />
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="MouseEnter" x:Key="SetSectionUnderMouseOnMouseEnter"
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseEnter" x:Key="SetSectionUnderMouseOnMouseEnter"
                                             x:Shared="False">
-                                <i:InvokeCommandAction
+                                    <i:InvokeCommandAction
                                     Command="{Binding Source={StaticResource MainViewModel}, Path=SetSectionUnderMouseCommand}"
                                     CommandParameter="{Binding}" />
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="MouseLeave" x:Key="SetNullSectionOnMouseLeave" x:Shared="False">
-                                <i:InvokeCommandAction
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseLeave" x:Key="SetNullSectionOnMouseLeave" x:Shared="False">
+                                    <i:InvokeCommandAction
                                     Command="{Binding Source={StaticResource MainViewModel}, Path=SetSectionUnderMouseCommand}"
                                     CommandParameter="{x:Null}" />
-                            </i:EventTrigger>
-                            <ItemContainerTemplate x:Key="TooltipMessageItemContainerTemplate"
+                                </i:EventTrigger>
+                                <ItemContainerTemplate x:Key="TooltipMessageItemContainerTemplate"
                                                    DataType="{x:Type models:ShaftSectionFeatureError}" x:Shared="False">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="!" FontSize="22" FontWeight="Bold" Foreground="#FF0002"
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="!" FontSize="22" FontWeight="Bold" Foreground="#FF0002"
                                                VerticalAlignment="Center" />
-                                    <TextBlock Margin="3,0,0,0"
+                                        <TextBlock Margin="3,0,0,0"
                                                Foreground="Black" VerticalAlignment="Center"
                                                Text="{Binding ErrorMessage}" />
-                                </StackPanel>
-                            </ItemContainerTemplate>
-                            <StackPanel Margin="0,1,0,0" x:Key="CollisionErrorMessage" x:Shared="False">
-                                <StackPanel.Style>
-                                    <Style TargetType="StackPanel">
-                                        <Style.Triggers>
-                                            <DataTrigger
+                                    </StackPanel>
+                                </ItemContainerTemplate>
+                                <StackPanel Margin="0,1,0,0" x:Key="CollisionErrorMessage" x:Shared="False">
+                                    <StackPanel.Style>
+                                        <Style TargetType="StackPanel">
+                                            <Style.Triggers>
+                                                <DataTrigger
                                                 Binding="{Binding BoreDiameterCollisionError, Converter={StaticResource IsNotNullConverter}}"
                                                 Value="False">
-                                                <Setter Property="Visibility" Value="Collapsed" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </StackPanel.Style>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="!" FontSize="22" FontWeight="Bold" Foreground="#FF0002"
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="!" FontSize="22" FontWeight="Bold" Foreground="#FF0002"
                                                VerticalAlignment="Center" />
-                                    <TextBlock Margin="3,0,0,0"
+                                        <TextBlock Margin="3,0,0,0"
                                                Foreground="Black" VerticalAlignment="Center"
                                                Text="Check a diameter for a collision" />
-                                </StackPanel>
-                                <TextBlock Margin="0,1,0,0" VerticalAlignment="Center" Foreground="Black"
+                                    </StackPanel>
+                                    <TextBlock Margin="0,1,0,0" VerticalAlignment="Center" Foreground="Black"
                                            Text="{Binding BoreDiameterCollisionError.MaxDiameter, 
                                 StringFormat='Max. possible diameter is {0:0.###}'}" />
-                            </StackPanel>
-                        </TreeView.Resources>
-                        <TreeView.Template>
-                            <ControlTemplate>
-                                <Border BorderBrush="DeepSkyBlue" BorderThickness="1">
+                                </StackPanel>
+                            </TreeView.Resources>
+                            <TreeView.Template>
+                                <ControlTemplate>
+                                    <Border BorderBrush="DeepSkyBlue" BorderThickness="1">
                                     <ScrollViewer CanContentScroll="False">
-                                        <ItemsPresenter />
+                                        <ItemsPresenter/>
                                     </ScrollViewer>
-                                </Border>
-                            </ControlTemplate>
-                        </TreeView.Template>
-                        <TreeView.ItemContainerStyle>
-                            <Style TargetType="TreeViewItem" BasedOn="{StaticResource TreeViewItemStyle1}">
-                                <Style.Triggers>
-                                    <DataTrigger
+                                        </Border>
+                                </ControlTemplate>
+                            </TreeView.Template>
+                            <TreeView.ItemContainerStyle>
+                                <Style TargetType="TreeViewItem" BasedOn="{StaticResource TreeViewItemStyle1}">
+                                    <Style.Triggers>
+                                        <DataTrigger
                                         Binding="{Binding Source={StaticResource MainViewModel}, Path=AllChildrenExpanded}"
                                         Value="True">
-                                        <Setter Property="IsExpanded" Value="True" />
-                                    </DataTrigger>
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Value="True">
-                                                <Condition.Binding>
-                                                    <MultiBinding Converter="{StaticResource SectionEqualityComparer}">
-                                                        <Binding Source="{StaticResource MainViewModel}"
+                                            <Setter Property="IsExpanded" Value="True" />
+                                        </DataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Value="True">
+                                                    <Condition.Binding>
+                                                        <MultiBinding Converter="{StaticResource SectionEqualityComparer}">
+                                                            <Binding Source="{StaticResource MainViewModel}"
                                                                  Path="SectionUnderMouse" />
-                                                        <Binding Path="." />
-                                                    </MultiBinding>
-                                                </Condition.Binding>
-                                            </Condition>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Background" Value="#e5f3ff" />
-                                    </MultiDataTrigger>
-                                    <DataTrigger Value="True">
-                                        <DataTrigger.Binding>
-                                            <MultiBinding Converter="{StaticResource SectionEqualityComparer}">
-                                                <Binding Source="{StaticResource MainViewModel}"
+                                                            <Binding Path="." />
+                                                        </MultiBinding>
+                                                    </Condition.Binding>
+                                                </Condition>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Background" Value="#e5f3ff" />
+                                        </MultiDataTrigger>
+                                        <DataTrigger Value="True">
+                                            <DataTrigger.Binding>
+                                                <MultiBinding Converter="{StaticResource SectionEqualityComparer}">
+                                                    <Binding Source="{StaticResource MainViewModel}"
                                                          Path="SelectedSection" />
-                                                <Binding Path="." />
-                                            </MultiBinding>
-                                        </DataTrigger.Binding>
-                                        <Setter Property="IsSelected" Value="True" />
-                                    </DataTrigger>
-                                    <DataTrigger Value="False">
-                                        <DataTrigger.Binding>
-                                            <MultiBinding Converter="{StaticResource SectionEqualityComparer}">
-                                                <Binding Source="{StaticResource MainViewModel}"
+                                                    <Binding Path="." />
+                                                </MultiBinding>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="IsSelected" Value="True" />
+                                        </DataTrigger>
+                                        <DataTrigger Value="False">
+                                            <DataTrigger.Binding>
+                                                <MultiBinding Converter="{StaticResource SectionEqualityComparer}">
+                                                    <Binding Source="{StaticResource MainViewModel}"
                                                          Path="SelectedSection" />
-                                                <Binding Path="." />
-                                            </MultiBinding>
-                                        </DataTrigger.Binding>
-                                        <Setter Property="IsSelected" Value="False" />
-                                    </DataTrigger>
-                                    <EventTrigger RoutedEvent="Selected">
-                                        <BeginStoryboard>
-                                            <Storyboard
+                                                    <Binding Path="." />
+                                                </MultiBinding>
+                                            </DataTrigger.Binding>
+                                            <Setter Property="IsSelected" Value="False" />
+                                        </DataTrigger>
+                                        <EventTrigger RoutedEvent="Selected">
+                                            <BeginStoryboard>
+                                                <Storyboard
                                                 TargetProperty="(TreeViewItem.Background).(SolidColorBrush.Color)"
                                                 Duration="0:0:0.1" FillBehavior="HoldEnd">
-                                                <ColorAnimation To="#cde8ff" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TreeView.ItemContainerStyle>
-                        <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate ItemsSource="{Binding SubFeatures}">
-                                <Grid ap:ControlIndicator.IsSectionGrid="True">
-                                    <Grid.Style>
-                                        <Style TargetType="Grid">
-                                            <Setter Property="Background" Value="Transparent" />
-                                            <Setter Property="ToolTipService.InitialShowDelay" Value="2000" />
-                                            <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
-                                            <Setter Property="ToolTipService.ShowDuration" Value="6000" />
-                                            <Setter Property="Width">
-                                                <Setter.Value>
-                                                    <MultiBinding Converter="{StaticResource SumConverter}">
-                                                        <Binding
+                                                    <ColorAnimation To="#cde8ff" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TreeView.ItemContainerStyle>
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding SubFeatures}">
+                                    <Grid ap:ControlIndicator.IsSectionGrid="True">
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="Background" Value="Transparent" />
+                                                <Setter Property="ToolTipService.InitialShowDelay" Value="2000" />
+                                                <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
+                                                <Setter Property="ToolTipService.ShowDuration" Value="6000" />
+                                                <Setter Property="Width">
+                                                    <Setter.Value>
+                                                        <MultiBinding Converter="{StaticResource SumConverter}">
+                                                            <Binding
                                                             RelativeSource="{RelativeSource FindAncestor, AncestorType=ScrollContentPresenter, 
                                             AncestorLevel=1}"
                                                             Path="ActualWidth" />
-                                                        <Binding
+                                                            <Binding
                                                             RelativeSource="{RelativeSource FindAncestor, AncestorType=TreeViewItem, AncestorLevel=1}"
                                                             Converter="{StaticResource ParentCountConverter}" />
-                                                    </MultiBinding>
-                                                </Setter.Value>
-                                            </Setter>
+                                                        </MultiBinding>
+                                                    </Setter.Value>
+                                                </Setter>
 
-                                            <Style.Triggers>
-                                                <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                        <Condition
+                                                <Style.Triggers>
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition
                                                             Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                             Value="{x:Type sections:CylinderSection}" />
-                                                        <Condition
+                                                            <Condition
                                                             Binding="{Binding BoreDiameterCollisionError, Converter={StaticResource IsNotNullConverter}}"
                                                             Value="True" />
-                                                    </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Background" Value="#fdadad" />
-                                                    <Setter Property="ToolTipService.InitialShowDelay" Value="400" />
-                                                </MultiDataTrigger>
-                                                <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                        <Condition
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="Background" Value="#fdadad" />
+                                                        <Setter Property="ToolTipService.InitialShowDelay" Value="400" />
+                                                    </MultiDataTrigger>
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition
                                                             Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                             Value="{x:Type sections:ConeSection}" />
-                                                        <Condition
+                                                            <Condition
                                                             Binding="{Binding BoreDiameterCollisionError, Converter={StaticResource IsNotNullConverter}}"
                                                             Value="True" />
-                                                    </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Background" Value="#fdadad" />
-                                                    <Setter Property="ToolTipService.InitialShowDelay" Value="400" />
-                                                </MultiDataTrigger>
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="Background" Value="#fdadad" />
+                                                        <Setter Property="ToolTipService.InitialShowDelay" Value="400" />
+                                                    </MultiDataTrigger>
 
-                                                <DataTrigger
+                                                    <DataTrigger
                                                     Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                     Value="{x:Type sections:CylinderSection}">
-                                                    <Setter Property="ToolTip">
-                                                        <Setter.Value>
-                                                            <StackPanel>
-                                                                <TextBlock Text="Cylinder" />
-                                                                <TextBlock Margin="0,1,0,0"
+                                                        <Setter Property="ToolTip">
+                                                            <Setter.Value>
+                                                                <StackPanel>
+                                                                    <TextBlock Text="Cylinder" />
+                                                                    <TextBlock Margin="0,1,0,0"
                                                                            Text="{Binding Diameter, StringFormat='D = {0:F} mm (Main Diameter)'}" />
-                                                                <TextBlock Margin="0,1,0,0"
+                                                                    <TextBlock Margin="0,1,0,0"
                                                                            Text="{Binding Length, StringFormat='L = {0:F} mm (Section Length)'}" />
-                                                                <ContentControl
+                                                                    <ContentControl
                                                                     Content="{StaticResource CollisionErrorMessage}" />
-                                                            </StackPanel>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </DataTrigger>
-                                                <DataTrigger
+                                                                </StackPanel>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
+                                                    <DataTrigger
                                                     Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                     Value="{x:Type sections:ConeSection}">
-                                                    <Setter Property="ToolTip">
-                                                        <Setter.Value>
-                                                            <StackPanel>
-                                                                <TextBlock Text="Cone" />
-                                                                <TextBlock Margin="0,1,0,0">
+                                                        <Setter Property="ToolTip">
+                                                            <Setter.Value>
+                                                                <StackPanel>
+                                                                    <TextBlock Text="Cone" />
+                                                                    <TextBlock Margin="0,1,0,0">
                                                                     <Run Text="D" />
                                                                     <Run Text="1" BaselineAlignment="Subscript"
                                                                          FontSize="9" />
                                                                     <Run
                                                                         Text="{Binding Diameter1, StringFormat=' = {0:F} mm (First Diameter)'}" />
-                                                                </TextBlock>
-                                                                <TextBlock Margin="0,1,0,0">
+                                                                    </TextBlock>
+                                                                    <TextBlock Margin="0,1,0,0">
                                                                     <Run Text="D" />
                                                                     <Run Text="2" BaselineAlignment="Subscript"
                                                                          FontSize="9" />
                                                                     <Run
                                                                         Text="{Binding Diameter2, StringFormat=' = {0:F} mm (Second Diameter)'}" />
-                                                                </TextBlock>
-                                                                <TextBlock
+                                                                    </TextBlock>
+                                                                    <TextBlock
                                                                     Text="{Binding Length, StringFormat='L = {0:F} mm (Section Length)'}" />
-                                                                <ContentControl
+                                                                    <ContentControl
                                                                     Content="{StaticResource CollisionErrorMessage}" />
-                                                            </StackPanel>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </DataTrigger>
-                                                <DataTrigger
+                                                                </StackPanel>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
+                                                    <DataTrigger
                                                     Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                     Value="{x:Type sections:PolygonSection}">
-                                                    <Setter Property="ToolTip">
-                                                        <Setter.Value>
-                                                            <StackPanel>
-                                                                <TextBlock Text="Polygon" />
-                                                                <TextBlock Margin="0,1,0,0"
+                                                        <Setter Property="ToolTip">
+                                                            <Setter.Value>
+                                                                <StackPanel>
+                                                                    <TextBlock Text="Polygon" />
+                                                                    <TextBlock Margin="0,1,0,0"
                                                                            Text="{Binding NumberOfEdges, 
                                                                 StringFormat='N = {0} ul (Number of Edges)'}" />
-                                                                <TextBlock Margin="0,1,0,0">
+                                                                    <TextBlock Margin="0,1,0,0">
                                                                     <Run Text="D" />
                                                                     <Run Text="in" BaselineAlignment="Subscript"
                                                                          FontSize="9" />
                                                                     <Run
                                                                         Text="{Binding InscribedCircleDiameter, 
                                                                     StringFormat=' = {0:F} mm (Diameter Inscribed)'}" />
-                                                                </TextBlock>
-                                                                <TextBlock Margin="0,1,0,0"
+                                                                    </TextBlock>
+                                                                    <TextBlock Margin="0,1,0,0"
                                                                            Text="{Binding Length, 
                                                                 StringFormat='L = {0:F} mm (Section Length)'}" />
-                                                                <ContentControl
+                                                                    <ContentControl
                                                                     Content="{StaticResource CollisionErrorMessage}" />
-                                                            </StackPanel>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Grid.Style>
-                                    <i:Interaction.Triggers>
-                                        <StaticResource ResourceKey="SetSelectedSectionOnLeftClick" />
-                                        <StaticResource ResourceKey="SetSectionUnderMouseOnMouseEnter" />
-                                        <StaticResource ResourceKey="SetNullSectionOnMouseLeave" />
-                                    </i:Interaction.Triggers>
-                                    <Grid.InputBindings>
-                                        <MouseBinding Gesture="LeftDoubleClick"
+                                                                </StackPanel>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                        <i:Interaction.Triggers>
+                                            <StaticResource ResourceKey="SetSelectedSectionOnLeftClick" />
+                                            <StaticResource ResourceKey="SetSectionUnderMouseOnMouseEnter" />
+                                            <StaticResource ResourceKey="SetNullSectionOnMouseLeave" />
+                                        </i:Interaction.Triggers>
+                                        <Grid.InputBindings>
+                                            <MouseBinding Gesture="LeftDoubleClick"
                                                       Command="{Binding Source={StaticResource MainViewModel}, 
                                         Path=OpenDialogViewCommand}"
                                                       CommandParameter="{Binding 
                                                     Converter={StaticResource ShaftItemToParametersWindowTypeConverter}}" />
-                                    </Grid.InputBindings>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.39*" />
-                                        <ColumnDefinition Width="0.57*" />
-                                        <ColumnDefinition Width="0.04*" />
-                                    </Grid.ColumnDefinitions>
-                                    <DockPanel Grid.Column="0">
-                                        <Border BorderThickness="1" Background="WhiteSmoke" Width="30"
+                                        </Grid.InputBindings>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.39*" />
+                                            <ColumnDefinition Width="0.57*" />
+                                            <ColumnDefinition Width="0.04*" />
+                                        </Grid.ColumnDefinitions>
+                                        <DockPanel Grid.Column="0">
+                                            <Border BorderThickness="1" Background="WhiteSmoke" Width="30"
                                                 Height="30"
                                                 BorderBrush="DeepSkyBlue" Margin="0,0.3,0,0.3">
-                                            <Image Width="26"
+                                                <Image Width="26"
                                                    Height="26">
-                                                <Image.Style>
-                                                    <Style TargetType="Image">
-                                                        <Style.Triggers>
-                                                            <MultiDataTrigger>
-                                                                <MultiDataTrigger.Conditions>
-                                                                    <Condition
-                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                        Value="{x:Type sections:CylinderSection}" />
-                                                                    <Condition Binding="{Binding IsBore}" Value="False" />
-                                                                </MultiDataTrigger.Conditions>
-                                                                <Setter Property="Source"
-                                                                        Value="../Assets/Icons/cylinderIcon.png" />
-                                                            </MultiDataTrigger>
-                                                            <MultiDataTrigger>
-                                                                <MultiDataTrigger.Conditions>
-                                                                    <Condition
-                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                        Value="{x:Type sections:CylinderSection}" />
-                                                                    <Condition Binding="{Binding IsBore}" Value="True" />
-                                                                    <Condition
-                                                                        Binding="{Binding Source={StaticResource MainViewModel}, Path=ComboboxSelectedItem}"
-                                                                        Value="Bore on the left" />
-                                                                </MultiDataTrigger.Conditions>
-                                                                <Setter Property="Source"
-                                                                        Value="../Assets/Icons/insertCylinderBoreLeft.png" />
-                                                            </MultiDataTrigger>
-                                                            <MultiDataTrigger>
-                                                                <MultiDataTrigger.Conditions>
-                                                                    <Condition
-                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                        Value="{x:Type sections:CylinderSection}" />
-                                                                    <Condition Binding="{Binding IsBore}" Value="True" />
-                                                                    <Condition
-                                                                        Binding="{Binding Source={StaticResource MainViewModel}, Path=ComboboxSelectedItem}"
-                                                                        Value="Bore on the right" />
-                                                                </MultiDataTrigger.Conditions>
-                                                                <Setter Property="Source"
-                                                                        Value="../Assets/Icons/insertCylinderBoreRight.png" />
-                                                            </MultiDataTrigger>
-
-                                                            <MultiDataTrigger>
-                                                                <MultiDataTrigger.Conditions>
-                                                                    <Condition
-                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                        Value="{x:Type sections:ConeSection}" />
-                                                                    <Condition Binding="{Binding IsBore}" Value="False" />
-                                                                </MultiDataTrigger.Conditions>
-                                                                <Setter Property="Source"
-                                                                        Value="../Assets/Icons/coneIcon.png" />
-                                                            </MultiDataTrigger>
-                                                            <MultiDataTrigger>
-                                                                <MultiDataTrigger.Conditions>
-                                                                    <Condition
-                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                        Value="{x:Type sections:ConeSection}" />
-                                                                    <Condition Binding="{Binding IsBore}" Value="True" />
-                                                                    <Condition
-                                                                        Binding="{Binding Source={StaticResource MainViewModel}, Path=ComboboxSelectedItem}"
-                                                                        Value="Bore on the left" />
-                                                                </MultiDataTrigger.Conditions>
-                                                                <Setter Property="Source"
-                                                                        Value="../Assets/Icons/insertConicalBoreLeft.png" />
-                                                            </MultiDataTrigger>
-                                                            <MultiDataTrigger>
-                                                                <MultiDataTrigger.Conditions>
-                                                                    <Condition
-                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                        Value="{x:Type sections:ConeSection}" />
-                                                                    <Condition Binding="{Binding IsBore}" Value="True" />
-                                                                    <Condition
-                                                                        Binding="{Binding Source={StaticResource MainViewModel}, Path=ComboboxSelectedItem}"
-                                                                        Value="Bore on the right" />
-                                                                </MultiDataTrigger.Conditions>
-                                                                <Setter Property="Source"
-                                                                        Value="../Assets/Icons/insertConicalBoreRight.png" />
-                                                            </MultiDataTrigger>
-
-                                                            <DataTrigger
-                                                                Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                Value="{x:Type sections:PolygonSection}">
-                                                                <Setter Property="Source"
-                                                                        Value="../Assets/Icons/poligoneIconS.png" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Image.Style>
-                                            </Image>
-                                        </Border>
-                                        <TextBlock Margin="2,0,0,0" VerticalAlignment="Center"
-                                                   Text="{Binding DisplayName}" />
-                                    </DockPanel>
-                                    <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                        <Border Width="48" Height="30"
-                                                BorderBrush="DeepSkyBlue" Name="FirstEdgeFeatureBorder"
-                                                Tag="SectionTreeViewItemButtonBorder">
-                                            <i:Interaction.Triggers>
-                                                <StaticResource ResourceKey="SetSelectedSectionOnLeftClick" />
-                                                <StaticResource ResourceKey="SetSectionUnderMouseOnMouseEnter" />
-                                                <StaticResource ResourceKey="SetNullSectionOnMouseLeave" />
-                                            </i:Interaction.Triggers>
-                                            <i:Interaction.Behaviors>
-                                                <behaviors:ShowHideSectionFeatureButtons />
-                                            </i:Interaction.Behaviors>
-                                            <Border.Style>
-                                                <Style TargetType="Border">
-                                                    <Setter Property="BorderThickness" Value="1" />
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding FirstEdgeFeatureHasErrors}"
-                                                                     Value="True">
-                                                            <Setter Property="ToolTipService.InitialShowDelay"
-                                                                    Value="250" />
-                                                            <Setter Property="ToolTipService.ShowDuration"
-                                                                    Value="10000" />
-                                                            <Setter Property="ToolTip">
-                                                                <Setter.Value>
-                                                                    <ItemsControl
-                                                                        ItemsSource="{Binding Path=FirstEdgeFeature.FeatureErrors}"
-                                                                        ItemTemplate="{StaticResource TooltipMessageItemContainerTemplate}" />
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding AvailableFirstEdgeFeatures[0]}"
-                                                                     Value="{StaticResource EdgeFeatureNotAvailable}">
-                                                            <Setter Property="ToolTip"
-                                                                    Value="Edge features are unavailable" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding FirstEdgeFeatureHasErrors}"
-                                                                     Value="False">
-                                                            <Setter Property="ToolTipService.InitialShowDelay"
-                                                                    Value="1500" />
-                                                            <Setter Property="ToolTipService.BetweenShowDelay"
-                                                                    Value="0" />
-                                                            <Setter Property="ToolTip" Value="First edge features" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Border.Style>
-                                            <Border.InputBindings>
-                                                <MouseBinding MouseAction="LeftClick"
-                                                              Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
-                                                              CommandParameter="{StaticResource FirstEdgePosition}" />
-                                            </Border.InputBindings>
-                                            <StackPanel Orientation="Horizontal">
-                                                <StackPanel
-                                                    ap:ControlIndicator.IsSectionFeatureStackPanel="True">
-                                                    <i:Interaction.Behaviors>
-                                                        <behaviors:SectionHasErrorStackPanelBehavior />
-                                                    </i:Interaction.Behaviors>
-                                                    <StackPanel.Style>
-                                                        <Style TargetType="StackPanel">
-                                                            <Style.Triggers>
-                                                                <DataTrigger
-                                                                    Binding="{Binding FirstEdgeFeatureHasErrors}"
-                                                                    Value="True">
-                                                                    <Setter Property="Background" Value="#fdadad" />
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </StackPanel.Style>
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                            <i:InvokeCommandAction
-                                                                Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
-                                                                CommandParameter="{StaticResource FirstEdgePosition}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                    <Image x:Name="EdgeFeatureImage">
-                                                        <i:Interaction.Triggers>
-                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                                <i:InvokeCommandAction
-                                                                    Command="{Binding Source={StaticResource MainViewModel}, Path=SetSelectedSectionCommand}"
-                                                                    CommandParameter="{Binding}" />
-                                                            </i:EventTrigger>
-                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                                <i:InvokeCommandAction
-                                                                    Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
-                                                                    CommandParameter="{StaticResource FirstEdgePosition}" />
-                                                            </i:EventTrigger>
-                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                                <i:InvokeCommandAction
-                                                                    Command="{Binding Source={StaticResource MainViewModel}, Path=OpenDialogViewCommand}"
-                                                                    CommandParameter="{Binding FirstEdgeFeature, Converter={StaticResource SectionFeatureToWindowTypeConverter}}">
-                                                                    <i:InvokeCommandAction.IsEnabled>
-                                                                        <MultiBinding
-                                                                            Converter="{StaticResource EdgeFeaturesAvailableConverter}">
-                                                                            <Binding Path="FirstEdgeFeature" />
-                                                                            <Binding
-                                                                                Path="AvailableFirstEdgeFeatures[0]" />
-                                                                        </MultiBinding>
-                                                                    </i:InvokeCommandAction.IsEnabled>
-                                                                </i:InvokeCommandAction>
-                                                            </i:EventTrigger>
-                                                        </i:Interaction.Triggers>
-                                                        <Image.Style>
-                                                            <Style TargetType="Image">
-                                                                <Setter Property="Margin" Value="5,0,5,0" />
-                                                                <Setter Property="Width" Value="26" />
-                                                                <Setter Property="Height" Value="26" />
-                                                                <Setter Property="Source"
-                                                                        Value="{Binding FirstEdgeFeature, 
-                                                                Converter={StaticResource EdgeFeatureToImageConverter},
-                                                                ConverterParameter={StaticResource FirstEdgePosition}}" />
-                                                                <Style.Triggers>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding AvailableFirstEdgeFeatures[0]}"
-                                                                        Value="{StaticResource EdgeFeatureNotAvailable}">
-                                                                        <Setter Property="Source"
-                                                                                Value="../Assets/Icons/unavailable.png" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Image.Style>
-                                                    </Image>
-                                                </StackPanel>
-                                                <StackPanel Background="Transparent">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                            <i:InvokeCommandAction
-                                                                Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
-                                                                CommandParameter="{StaticResource FirstEdgePosition}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                    <ContentControl
-                                                        Content="{StaticResource FirstEdgeContextMenuButton}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </Border>
-                                        <Border BorderThickness="1" Width="48" Height="30"
-                                                BorderBrush="DeepSkyBlue" Name="SectionsBorder"
-                                                Tag="SectionTreeViewItemButtonBorder" Margin="3,0,0,0">
-                                            <i:Interaction.Triggers>
-                                                <StaticResource ResourceKey="SetSelectedSectionOnLeftClick" />
-                                                <StaticResource ResourceKey="SetSectionUnderMouseOnMouseEnter" />
-                                                <StaticResource ResourceKey="SetNullSectionOnMouseLeave" />
-                                            </i:Interaction.Triggers>
-                                            <i:Interaction.Behaviors>
-                                                <behaviors:ShowHideSectionFeatureButtons />
-                                            </i:Interaction.Behaviors>
-                                            <Border.Style>
-                                                <Style TargetType="Border">
-                                                    <Setter Property="ToolTipService.InitialShowDelay" Value="1500" />
-                                                    <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
-                                                    <Setter Property="ToolTip" Value="Sections" />
-                                                </Style>
-                                            </Border.Style>
-                                            <StackPanel Orientation="Horizontal"
-                                                        ap:ControlIndicator.IsSectionFeatureStackPanel="True">
-                                                <Image x:Name="SectionImage">
                                                     <Image.Style>
                                                         <Style TargetType="Image">
-                                                            <Setter Property="Margin" Value="5,0,5,0" />
-                                                            <Setter Property="Width" Value="26" />
-                                                            <Setter Property="Height" Value="26" />
                                                             <Style.Triggers>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                    Value="{x:Type sections:CylinderSection}">
+                                                                <MultiDataTrigger>
+                                                                    <MultiDataTrigger.Conditions>
+                                                                        <Condition
+                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                        Value="{x:Type sections:CylinderSection}" />
+                                                                        <Condition Binding="{Binding IsBore}" Value="False" />
+                                                                    </MultiDataTrigger.Conditions>
                                                                     <Setter Property="Source"
-                                                                            Value="../Assets/Icons/cylinderIcon.png" />
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                    Value="{x:Type sections:ConeSection}">
+                                                                        Value="../Assets/Icons/cylinderIcon.png" />
+                                                                </MultiDataTrigger>
+                                                                <MultiDataTrigger>
+                                                                    <MultiDataTrigger.Conditions>
+                                                                        <Condition
+                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                        Value="{x:Type sections:CylinderSection}" />
+                                                                        <Condition Binding="{Binding IsBore}" Value="True" />
+                                                                        <Condition
+                                                                        Binding="{Binding Source={StaticResource MainViewModel}, Path=ComboboxSelectedItem}"
+                                                                        Value="Bore on the left" />
+                                                                    </MultiDataTrigger.Conditions>
                                                                     <Setter Property="Source"
-                                                                            Value="../Assets/Icons/coneIcon.png" />
-                                                                </DataTrigger>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                    Value="{x:Type sections:PolygonSection}">
+                                                                        Value="../Assets/Icons/insertCylinderBoreLeft.png" />
+                                                                </MultiDataTrigger>
+                                                                <MultiDataTrigger>
+                                                                    <MultiDataTrigger.Conditions>
+                                                                        <Condition
+                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                        Value="{x:Type sections:CylinderSection}" />
+                                                                        <Condition Binding="{Binding IsBore}" Value="True" />
+                                                                        <Condition
+                                                                        Binding="{Binding Source={StaticResource MainViewModel}, Path=ComboboxSelectedItem}"
+                                                                        Value="Bore on the right" />
+                                                                    </MultiDataTrigger.Conditions>
                                                                     <Setter Property="Source"
-                                                                            Value="../Assets/Icons/poligoneIconS.png" />
+                                                                        Value="../Assets/Icons/insertCylinderBoreRight.png" />
+                                                                </MultiDataTrigger>
+
+                                                                <MultiDataTrigger>
+                                                                    <MultiDataTrigger.Conditions>
+                                                                        <Condition
+                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                        Value="{x:Type sections:ConeSection}" />
+                                                                        <Condition Binding="{Binding IsBore}" Value="False" />
+                                                                    </MultiDataTrigger.Conditions>
+                                                                    <Setter Property="Source"
+                                                                        Value="../Assets/Icons/coneIcon.png" />
+                                                                </MultiDataTrigger>
+                                                                <MultiDataTrigger>
+                                                                    <MultiDataTrigger.Conditions>
+                                                                        <Condition
+                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                        Value="{x:Type sections:ConeSection}" />
+                                                                        <Condition Binding="{Binding IsBore}" Value="True" />
+                                                                        <Condition
+                                                                        Binding="{Binding Source={StaticResource MainViewModel}, Path=ComboboxSelectedItem}"
+                                                                        Value="Bore on the left" />
+                                                                    </MultiDataTrigger.Conditions>
+                                                                    <Setter Property="Source"
+                                                                        Value="../Assets/Icons/insertConicalBoreLeft.png" />
+                                                                </MultiDataTrigger>
+                                                                <MultiDataTrigger>
+                                                                    <MultiDataTrigger.Conditions>
+                                                                        <Condition
+                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                        Value="{x:Type sections:ConeSection}" />
+                                                                        <Condition Binding="{Binding IsBore}" Value="True" />
+                                                                        <Condition
+                                                                        Binding="{Binding Source={StaticResource MainViewModel}, Path=ComboboxSelectedItem}"
+                                                                        Value="Bore on the right" />
+                                                                    </MultiDataTrigger.Conditions>
+                                                                    <Setter Property="Source"
+                                                                        Value="../Assets/Icons/insertConicalBoreRight.png" />
+                                                                </MultiDataTrigger>
+
+                                                                <DataTrigger
+                                                                Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                Value="{x:Type sections:PolygonSection}">
+                                                                    <Setter Property="Source"
+                                                                        Value="../Assets/Icons/poligoneIconS.png" />
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Image.Style>
                                                 </Image>
-                                                <ContentControl Content="{StaticResource SectionsContextMenuButton}" />
-                                            </StackPanel>
-                                        </Border>
-                                        <Border BorderThickness="1" Width="48" Height="30"
-                                                BorderBrush="DeepSkyBlue" Name="SecondEdgeFeatureBorder"
-                                                Tag="SectionTreeViewItemButtonBorder"
-                                                Margin="3,0,0,0">
-                                            <i:Interaction.Triggers>
-                                                <StaticResource ResourceKey="SetSelectedSectionOnLeftClick" />
-                                                <StaticResource ResourceKey="SetSectionUnderMouseOnMouseEnter" />
-                                                <StaticResource ResourceKey="SetNullSectionOnMouseLeave" />
-                                            </i:Interaction.Triggers>
-                                            <i:Interaction.Behaviors>
-                                                <behaviors:ShowHideSectionFeatureButtons />
-                                            </i:Interaction.Behaviors>
-                                            <Border.Style>
-                                                <Style TargetType="Border">
-                                                    <Setter Property="ToolTipService.InitialShowDelay" Value="1500" />
-                                                    <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
-                                                    <Setter Property="ToolTip" Value="Second edge features" />
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding SecondEdgeFeatureHasErrors}"
+                                            </Border>
+                                            <TextBlock Margin="2,0,0,0" VerticalAlignment="Center"
+                                                   Text="{Binding DisplayName}" />
+                                        </DockPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                            <Border Width="48" Height="30"
+                                                BorderBrush="DeepSkyBlue" Name="FirstEdgeFeatureBorder"
+                                                Tag="SectionTreeViewItemButtonBorder">
+                                                <i:Interaction.Triggers>
+                                                    <StaticResource ResourceKey="SetSelectedSectionOnLeftClick" />
+                                                    <StaticResource ResourceKey="SetSectionUnderMouseOnMouseEnter" />
+                                                    <StaticResource ResourceKey="SetNullSectionOnMouseLeave" />
+                                                </i:Interaction.Triggers>
+                                                <i:Interaction.Behaviors>
+                                                    <behaviors:ShowHideSectionFeatureButtons />
+                                                </i:Interaction.Behaviors>
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="BorderThickness" Value="1" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding FirstEdgeFeatureHasErrors}"
                                                                      Value="True">
-                                                            <DataTrigger.Setters>
                                                                 <Setter Property="ToolTipService.InitialShowDelay"
-                                                                        Value="250" />
+                                                                    Value="250" />
                                                                 <Setter Property="ToolTipService.ShowDuration"
-                                                                        Value="10000" />
+                                                                    Value="10000" />
                                                                 <Setter Property="ToolTip">
                                                                     <Setter.Value>
                                                                         <ItemsControl
-                                                                            ItemsSource="{Binding Path=SecondEdgeFeature.FeatureErrors}"
-                                                                            ItemTemplate="{StaticResource TooltipMessageItemContainerTemplate}" />
+                                                                        ItemsSource="{Binding Path=FirstEdgeFeature.FeatureErrors}"
+                                                                        ItemTemplate="{StaticResource TooltipMessageItemContainerTemplate}" />
                                                                     </Setter.Value>
                                                                 </Setter>
-                                                            </DataTrigger.Setters>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding AvailableSecondEdgeFeatures[0]}"
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding AvailableFirstEdgeFeatures[0]}"
                                                                      Value="{StaticResource EdgeFeatureNotAvailable}">
-                                                            <Setter Property="ToolTip"
+                                                                <Setter Property="ToolTip"
                                                                     Value="Edge features are unavailable" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Border.Style>
-                                            <StackPanel Orientation="Horizontal">
-                                                <StackPanel
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding FirstEdgeFeatureHasErrors}"
+                                                                     Value="False">
+                                                                <Setter Property="ToolTipService.InitialShowDelay"
+                                                                    Value="1500" />
+                                                                <Setter Property="ToolTipService.BetweenShowDelay"
+                                                                    Value="0" />
+                                                                <Setter Property="ToolTip" Value="First edge features" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <Border.InputBindings>
+                                                    <MouseBinding MouseAction="LeftClick"
+                                                              Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
+                                                              CommandParameter="{StaticResource FirstEdgePosition}" />
+                                                </Border.InputBindings>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <StackPanel
                                                     ap:ControlIndicator.IsSectionFeatureStackPanel="True">
-                                                    <StackPanel.Style>
-                                                        <Style TargetType="StackPanel">
-                                                            <Style.Triggers>
-                                                                <DataTrigger
-                                                                    Binding="{Binding SecondEdgeFeatureHasErrors}"
+                                                        <i:Interaction.Behaviors>
+                                                            <behaviors:SectionHasErrorStackPanelBehavior />
+                                                        </i:Interaction.Behaviors>
+                                                        <StackPanel.Style>
+                                                            <Style TargetType="StackPanel">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger
+                                                                    Binding="{Binding FirstEdgeFeatureHasErrors}"
                                                                     Value="True">
-                                                                    <Setter Property="Background" Value="#fdadad" />
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </StackPanel.Style>
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                            <i:InvokeCommandAction
-                                                                Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
-                                                                CommandParameter="{StaticResource SecondEdgePosition}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                    <Image x:Name="SecondEdgeFeatureImage">
+                                                                        <Setter Property="Background" Value="#fdadad" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </StackPanel.Style>
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                                 <i:InvokeCommandAction
-                                                                    Command="{Binding Source={StaticResource MainViewModel}, Path=SetSelectedSectionCommand}"
-                                                                    CommandParameter="{Binding}" />
-                                                            </i:EventTrigger>
-                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                                <i:InvokeCommandAction
-                                                                    Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
-                                                                    CommandParameter="{StaticResource SecondEdgePosition}" />
-                                                            </i:EventTrigger>
-                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                                <i:InvokeCommandAction
-                                                                    Command="{Binding Source={StaticResource MainViewModel}, Path=OpenDialogViewCommand}"
-                                                                    CommandParameter="{Binding SecondEdgeFeature, Converter={StaticResource SectionFeatureToWindowTypeConverter}}">
-                                                                    <i:InvokeCommandAction.IsEnabled>
-                                                                        <MultiBinding
-                                                                            Converter="{StaticResource EdgeFeaturesAvailableConverter}">
-                                                                            <Binding Path="SecondEdgeFeature" />
-                                                                            <Binding
-                                                                                Path="AvailableSecondEdgeFeatures[0]" />
-                                                                        </MultiBinding>
-                                                                    </i:InvokeCommandAction.IsEnabled>
-                                                                </i:InvokeCommandAction>
+                                                                Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
+                                                                CommandParameter="{StaticResource FirstEdgePosition}" />
                                                             </i:EventTrigger>
                                                         </i:Interaction.Triggers>
+                                                        <Image x:Name="EdgeFeatureImage">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                    <i:InvokeCommandAction
+                                                                    Command="{Binding Source={StaticResource MainViewModel}, Path=SetSelectedSectionCommand}"
+                                                                    CommandParameter="{Binding}" />
+                                                                </i:EventTrigger>
+                                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                    <i:InvokeCommandAction
+                                                                    Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
+                                                                    CommandParameter="{StaticResource FirstEdgePosition}" />
+                                                                </i:EventTrigger>
+                                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                    <i:InvokeCommandAction
+                                                                    Command="{Binding Source={StaticResource MainViewModel}, Path=OpenDialogViewCommand}"
+                                                                    CommandParameter="{Binding FirstEdgeFeature, Converter={StaticResource SectionFeatureToWindowTypeConverter}}">
+                                                                        <i:InvokeCommandAction.IsEnabled>
+                                                                            <MultiBinding
+                                                                            Converter="{StaticResource EdgeFeaturesAvailableConverter}">
+                                                                                <Binding Path="FirstEdgeFeature" />
+                                                                                <Binding
+                                                                                Path="AvailableFirstEdgeFeatures[0]" />
+                                                                            </MultiBinding>
+                                                                        </i:InvokeCommandAction.IsEnabled>
+                                                                    </i:InvokeCommandAction>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                            <Image.Style>
+                                                                <Style TargetType="Image">
+                                                                    <Setter Property="Margin" Value="5,0,5,0" />
+                                                                    <Setter Property="Width" Value="26" />
+                                                                    <Setter Property="Height" Value="26" />
+                                                                    <Setter Property="Source"
+                                                                        Value="{Binding FirstEdgeFeature, 
+                                                                Converter={StaticResource EdgeFeatureToImageConverter},
+                                                                ConverterParameter={StaticResource FirstEdgePosition}}" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                        Binding="{Binding AvailableFirstEdgeFeatures[0]}"
+                                                                        Value="{StaticResource EdgeFeatureNotAvailable}">
+                                                                            <Setter Property="Source"
+                                                                                Value="../Assets/Icons/unavailable.png" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Image.Style>
+                                                        </Image>
+                                                    </StackPanel>
+                                                    <StackPanel Background="Transparent">
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                <i:InvokeCommandAction
+                                                                Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
+                                                                CommandParameter="{StaticResource FirstEdgePosition}" />
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                        <ContentControl
+                                                        Content="{StaticResource FirstEdgeContextMenuButton}" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Border>
+                                            <Border BorderThickness="1" Width="48" Height="30"
+                                                BorderBrush="DeepSkyBlue" Name="SectionsBorder"
+                                                Tag="SectionTreeViewItemButtonBorder" Margin="3,0,0,0">
+                                                <i:Interaction.Triggers>
+                                                    <StaticResource ResourceKey="SetSelectedSectionOnLeftClick" />
+                                                    <StaticResource ResourceKey="SetSectionUnderMouseOnMouseEnter" />
+                                                    <StaticResource ResourceKey="SetNullSectionOnMouseLeave" />
+                                                </i:Interaction.Triggers>
+                                                <i:Interaction.Behaviors>
+                                                    <behaviors:ShowHideSectionFeatureButtons />
+                                                </i:Interaction.Behaviors>
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="ToolTipService.InitialShowDelay" Value="1500" />
+                                                        <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
+                                                        <Setter Property="ToolTip" Value="Sections" />
+                                                    </Style>
+                                                </Border.Style>
+                                                <StackPanel Orientation="Horizontal"
+                                                        ap:ControlIndicator.IsSectionFeatureStackPanel="True">
+                                                    <Image x:Name="SectionImage">
                                                         <Image.Style>
                                                             <Style TargetType="Image">
-                                                                <Style.Resources>
-                                                                </Style.Resources>
                                                                 <Setter Property="Margin" Value="5,0,5,0" />
                                                                 <Setter Property="Width" Value="26" />
                                                                 <Setter Property="Height" Value="26" />
-                                                                <Setter Property="Source"
-                                                                        Value="{Binding SecondEdgeFeature, 
-                                                                Converter={StaticResource EdgeFeatureToImageConverter},
-                                                                ConverterParameter={StaticResource SecondEdgePosition}}" />
                                                                 <Style.Triggers>
                                                                     <DataTrigger
-                                                                        Binding="{Binding AvailableSecondEdgeFeatures[0]}"
-                                                                        Value="{StaticResource EdgeFeatureNotAvailable}">
+                                                                    Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                    Value="{x:Type sections:CylinderSection}">
                                                                         <Setter Property="Source"
-                                                                                Value="../Assets/Icons/unavailable.png" />
+                                                                            Value="../Assets/Icons/cylinderIcon.png" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger
+                                                                    Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                    Value="{x:Type sections:ConeSection}">
+                                                                        <Setter Property="Source"
+                                                                            Value="../Assets/Icons/coneIcon.png" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger
+                                                                    Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                    Value="{x:Type sections:PolygonSection}">
+                                                                        <Setter Property="Source"
+                                                                            Value="../Assets/Icons/poligoneIconS.png" />
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
                                                             </Style>
                                                         </Image.Style>
                                                     </Image>
+                                                    <ContentControl Content="{StaticResource SectionsContextMenuButton}" />
                                                 </StackPanel>
-                                                <StackPanel>
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                            <i:InvokeCommandAction
-                                                                Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
-                                                                CommandParameter="{StaticResource SecondEdgePosition}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                    <ContentControl
-                                                        Content="{StaticResource SecondEdgeContextMenuButton}" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </Border>
-                                        <Border BorderThickness="1" Width="48" Height="30"
-                                                BorderBrush="DeepSkyBlue" Name="SubFeatureBorder" Margin="3,0,0,0"
-                                                Tag="SectionTreeViewItemButtonBorder">
-                                            <i:Interaction.Triggers>
-                                                <StaticResource ResourceKey="SetSelectedSectionOnLeftClick" />
-                                                <StaticResource ResourceKey="SetSectionUnderMouseOnMouseEnter" />
-                                                <StaticResource ResourceKey="SetNullSectionOnMouseLeave" />
-                                            </i:Interaction.Triggers>
-                                            <i:Interaction.Behaviors>
-                                                <behaviors:ShowHideSectionFeatureButtons />
-                                            </i:Interaction.Behaviors>
-                                            <Border.Style>
-                                                <Style TargetType="Border">
-                                                    <Setter Property="ToolTipService.InitialShowDelay" Value="1500" />
-                                                    <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
-                                                    <Setter Property="ToolTip" Value="Section subfeatures" />
-                                                    <Style.Triggers>
-                                                        <DataTrigger
-                                                            Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                            Value="{x:Type sections:ConeSection}">
-                                                            <Setter Property="ToolTip"
-                                                                    Value="Subfeatures aren't available for a cone section" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Border.Style>
-                                            <StackPanel Orientation="Horizontal"
-                                                        ap:ControlIndicator.IsSectionFeatureStackPanel="True">
-                                                <Image x:Name="SubFeatureImage">
-                                                    <Image.Style>
-                                                        <Style TargetType="Image">
-                                                            <Setter Property="Margin" Value="5,0,5,0" />
-                                                            <Setter Property="Width" Value="26" />
-                                                            <Setter Property="Height" Value="26" />
-                                                            <Setter Property="Source"
-                                                                    Value="../Assets/Icons/subFeatureNone.png" />
-                                                            <Style.Triggers>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                    Value="{x:Type sections:ConeSection}">
-                                                                    <Setter Property="Source"
-                                                                            Value="../Assets/Icons/unavailable.png" />
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Image.Style>
-                                                </Image>
-                                                <ContentControl>
-                                                    <ContentControl.Style>
-                                                        <Style TargetType="ContentControl">
-                                                            <Setter Property="Content"
-                                                                    Value="{StaticResource SubFeatureContextMenuButton}" />
-                                                            <Style.Triggers>
-                                                                <DataTrigger
-                                                                    Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                    Value="{x:Type sections:ConeSection}">
-                                                                    <Setter Property="Content">
+                                            </Border>
+                                            <Border BorderThickness="1" Width="48" Height="30"
+                                                BorderBrush="DeepSkyBlue" Name="SecondEdgeFeatureBorder"
+                                                Tag="SectionTreeViewItemButtonBorder"
+                                                Margin="3,0,0,0">
+                                                <i:Interaction.Triggers>
+                                                    <StaticResource ResourceKey="SetSelectedSectionOnLeftClick" />
+                                                    <StaticResource ResourceKey="SetSectionUnderMouseOnMouseEnter" />
+                                                    <StaticResource ResourceKey="SetNullSectionOnMouseLeave" />
+                                                </i:Interaction.Triggers>
+                                                <i:Interaction.Behaviors>
+                                                    <behaviors:ShowHideSectionFeatureButtons />
+                                                </i:Interaction.Behaviors>
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="ToolTipService.InitialShowDelay" Value="1500" />
+                                                        <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
+                                                        <Setter Property="ToolTip" Value="Second edge features" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding SecondEdgeFeatureHasErrors}"
+                                                                     Value="True">
+                                                                <DataTrigger.Setters>
+                                                                    <Setter Property="ToolTipService.InitialShowDelay"
+                                                                        Value="250" />
+                                                                    <Setter Property="ToolTipService.ShowDuration"
+                                                                        Value="10000" />
+                                                                    <Setter Property="ToolTip">
                                                                         <Setter.Value>
-                                                                            <Button
-                                                                                Style="{StaticResource OpenContextMenuButtonStyle}" />
+                                                                            <ItemsControl
+                                                                            ItemsSource="{Binding Path=SecondEdgeFeature.FeatureErrors}"
+                                                                            ItemTemplate="{StaticResource TooltipMessageItemContainerTemplate}" />
                                                                         </Setter.Value>
                                                                     </Setter>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </ContentControl.Style>
-                                                </ContentControl>
-                                            </StackPanel>
-                                        </Border>
-                                    </StackPanel>
-                                    <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                        <i:Interaction.Behaviors>
-                                            <behaviors:ShowHideUIElementBehavior AncestorGridLevel="1" />
-                                        </i:Interaction.Behaviors>
-                                        <ContentControl Content="{StaticResource OpenParametersDialogButton}" />
-                                        <ContentControl Content="{StaticResource RemoveItemButton}" />
-                                    </StackPanel>
-                                </Grid>
-                                <HierarchicalDataTemplate.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
+                                                                </DataTrigger.Setters>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding AvailableSecondEdgeFeatures[0]}"
+                                                                     Value="{StaticResource EdgeFeatureNotAvailable}">
+                                                                <Setter Property="ToolTip"
+                                                                    Value="Edge features are unavailable" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <StackPanel
+                                                    ap:ControlIndicator.IsSectionFeatureStackPanel="True">
+                                                        <StackPanel.Style>
+                                                            <Style TargetType="StackPanel">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger
+                                                                    Binding="{Binding SecondEdgeFeatureHasErrors}"
+                                                                    Value="True">
+                                                                        <Setter Property="Background" Value="#fdadad" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </StackPanel.Style>
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                <i:InvokeCommandAction
+                                                                Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
+                                                                CommandParameter="{StaticResource SecondEdgePosition}" />
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                        <Image x:Name="SecondEdgeFeatureImage">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                    <i:InvokeCommandAction
+                                                                    Command="{Binding Source={StaticResource MainViewModel}, Path=SetSelectedSectionCommand}"
+                                                                    CommandParameter="{Binding}" />
+                                                                </i:EventTrigger>
+                                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                    <i:InvokeCommandAction
+                                                                    Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
+                                                                    CommandParameter="{StaticResource SecondEdgePosition}" />
+                                                                </i:EventTrigger>
+                                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                    <i:InvokeCommandAction
+                                                                    Command="{Binding Source={StaticResource MainViewModel}, Path=OpenDialogViewCommand}"
+                                                                    CommandParameter="{Binding SecondEdgeFeature, Converter={StaticResource SectionFeatureToWindowTypeConverter}}">
+                                                                        <i:InvokeCommandAction.IsEnabled>
+                                                                            <MultiBinding
+                                                                            Converter="{StaticResource EdgeFeaturesAvailableConverter}">
+                                                                                <Binding Path="SecondEdgeFeature" />
+                                                                                <Binding
+                                                                                Path="AvailableSecondEdgeFeatures[0]" />
+                                                                            </MultiBinding>
+                                                                        </i:InvokeCommandAction.IsEnabled>
+                                                                    </i:InvokeCommandAction>
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                            <Image.Style>
+                                                                <Style TargetType="Image">
+                                                                    <Style.Resources>
+                                                                    </Style.Resources>
+                                                                    <Setter Property="Margin" Value="5,0,5,0" />
+                                                                    <Setter Property="Width" Value="26" />
+                                                                    <Setter Property="Height" Value="26" />
+                                                                    <Setter Property="Source"
+                                                                        Value="{Binding SecondEdgeFeature, 
+                                                                Converter={StaticResource EdgeFeatureToImageConverter},
+                                                                ConverterParameter={StaticResource SecondEdgePosition}}" />
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
+                                                                        Binding="{Binding AvailableSecondEdgeFeatures[0]}"
+                                                                        Value="{StaticResource EdgeFeatureNotAvailable}">
+                                                                            <Setter Property="Source"
+                                                                                Value="../Assets/Icons/unavailable.png" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Image.Style>
+                                                        </Image>
+                                                    </StackPanel>
+                                                    <StackPanel>
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                <i:InvokeCommandAction
+                                                                Command="{Binding Source={StaticResource MainViewModel}, Path=SetActiveEdgeFeaturePositionCommand}"
+                                                                CommandParameter="{StaticResource SecondEdgePosition}" />
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                        <ContentControl
+                                                        Content="{StaticResource SecondEdgeContextMenuButton}" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Border>
+                                            <Border BorderThickness="1" Width="48" Height="30"
+                                                BorderBrush="DeepSkyBlue" Name="SubFeatureBorder" Margin="3,0,0,0"
+                                                Tag="SectionTreeViewItemButtonBorder">
+                                                <i:Interaction.Triggers>
+                                                    <StaticResource ResourceKey="SetSelectedSectionOnLeftClick" />
+                                                    <StaticResource ResourceKey="SetSectionUnderMouseOnMouseEnter" />
+                                                    <StaticResource ResourceKey="SetNullSectionOnMouseLeave" />
+                                                </i:Interaction.Triggers>
+                                                <i:Interaction.Behaviors>
+                                                    <behaviors:ShowHideSectionFeatureButtons />
+                                                </i:Interaction.Behaviors>
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="ToolTipService.InitialShowDelay" Value="1500" />
+                                                        <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
+                                                        <Setter Property="ToolTip" Value="Section subfeatures" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger
+                                                            Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                            Value="{x:Type sections:ConeSection}">
+                                                                <Setter Property="ToolTip"
+                                                                    Value="Subfeatures aren't available for a cone section" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <StackPanel Orientation="Horizontal"
+                                                        ap:ControlIndicator.IsSectionFeatureStackPanel="True">
+                                                    <Image x:Name="SubFeatureImage">
+                                                        <Image.Style>
+                                                            <Style TargetType="Image">
+                                                                <Setter Property="Margin" Value="5,0,5,0" />
+                                                                <Setter Property="Width" Value="26" />
+                                                                <Setter Property="Height" Value="26" />
+                                                                <Setter Property="Source"
+                                                                    Value="../Assets/Icons/subFeatureNone.png" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger
+                                                                    Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                    Value="{x:Type sections:ConeSection}">
+                                                                        <Setter Property="Source"
+                                                                            Value="../Assets/Icons/unavailable.png" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
+                                                    <ContentControl>
+                                                        <ContentControl.Style>
+                                                            <Style TargetType="ContentControl">
+                                                                <Setter Property="Content"
+                                                                    Value="{StaticResource SubFeatureContextMenuButton}" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger
+                                                                    Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                    Value="{x:Type sections:ConeSection}">
+                                                                        <Setter Property="Content">
+                                                                            <Setter.Value>
+                                                                                <Button
+                                                                                Style="{StaticResource OpenContextMenuButtonStyle}" />
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </ContentControl.Style>
+                                                    </ContentControl>
+                                                </StackPanel>
+                                            </Border>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2" HorizontalAlignment="Right">
                                             <i:Interaction.Behaviors>
-                                                <behaviors:RelaunchMouseEnterEventBehavior />
+                                                <behaviors:ShowHideUIElementBehavior AncestorGridLevel="1" />
                                             </i:Interaction.Behaviors>
-                                            <Grid.Style>
-                                                <Style TargetType="Grid">
-                                                    <Setter Property="Background" Value="Transparent" />
-                                                    <Setter Property="ToolTipService.InitialShowDelay" Value="2000" />
-                                                    <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
-                                                    <Setter Property="ToolTipService.ShowDuration" Value="6000" />
-                                                    <Setter Property="Width">
-                                                        <Setter.Value>
-                                                            <MultiBinding Converter="{StaticResource SumConverter}">
-                                                                <Binding
+                                            <ContentControl Content="{StaticResource OpenParametersDialogButton}" />
+                                            <ContentControl Content="{StaticResource RemoveItemButton}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    <HierarchicalDataTemplate.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <i:Interaction.Behaviors>
+                                                    <behaviors:RelaunchMouseEnterEventBehavior />
+                                                </i:Interaction.Behaviors>
+                                                <Grid.Style>
+                                                    <Style TargetType="Grid">
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Setter Property="ToolTipService.InitialShowDelay" Value="2000" />
+                                                        <Setter Property="ToolTipService.BetweenShowDelay" Value="0" />
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="6000" />
+                                                        <Setter Property="Width">
+                                                            <Setter.Value>
+                                                                <MultiBinding Converter="{StaticResource SumConverter}">
+                                                                    <Binding
                                                                     RelativeSource="{RelativeSource FindAncestor, AncestorType=ScrollContentPresenter, 
                                             AncestorLevel=1}"
                                                                     Path="ActualWidth" />
-                                                                <Binding
+                                                                    <Binding
                                                                     RelativeSource="{RelativeSource FindAncestor, AncestorType=TreeViewItem, AncestorLevel=1}"
                                                                     Converter="{StaticResource ParentCountConverter}" />
-                                                            </MultiBinding>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                    <Style.Triggers>
-                                                        <DataTrigger
+                                                                </MultiBinding>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                        <Style.Triggers>
+                                                            <DataTrigger
                                                             Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                             Value="{x:Type subFeatures:ThroughHoleSubFeature}">
-                                                            <Setter Property="ToolTip">
-                                                                <Setter.Value>
-                                                                    <StackPanel>
-                                                                        <TextBlock Text="Through hole" />
-                                                                        <TextBlock Margin="0,1,0,0">
+                                                                <Setter Property="ToolTip">
+                                                                    <Setter.Value>
+                                                                        <StackPanel>
+                                                                            <TextBlock Text="Through hole" />
+                                                                            <TextBlock Margin="0,1,0,0">
                                                                             <Run Text="D" />
                                                                             <Run Text="hole" FontSize="9"
                                                                                  BaselineAlignment="Subscript" />
                                                                             <Run
                                                                                 Text="{Binding HoleDiameter, StringFormat=' = {0:F3} mm (Hole diameter)'}" />
-                                                                        </TextBlock>
-                                                                    </StackPanel>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                        <DataTrigger
+                                                                            </TextBlock>
+                                                                        </StackPanel>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                            <DataTrigger
                                                             Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                             Value="{x:Type subFeatures:RetainingRingGrooveSubFeature}">
-                                                            <Setter Property="ToolTip">
-                                                                <Setter.Value>
-                                                                    <StackPanel>
-                                                                        <TextBlock Text="Retaining ring" />
-                                                                        <TextBlock Margin="0,1,0,0"
+                                                                <Setter Property="ToolTip">
+                                                                    <Setter.Value>
+                                                                        <StackPanel>
+                                                                            <TextBlock Text="Retaining ring" />
+                                                                            <TextBlock Margin="0,1,0,0"
                                                                                    Text="{Binding Width, StringFormat='M = {0:F3} mm (Width)'}" />
-                                                                        <TextBlock Margin="0,1,0,0"
+                                                                            <TextBlock Margin="0,1,0,0"
                                                                                    Text="{Binding ActiveLength, StringFormat='LF = {0:F3} mm (Active length)'}" />
-                                                                    </StackPanel>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                        <DataTrigger
+                                                                        </StackPanel>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                            <DataTrigger
                                                             Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                             Value="{x:Type subFeatures:WrenchSubFeature}">
-                                                            <Setter Property="ToolTip">
-                                                                <Setter.Value>
-                                                                    <StackPanel>
-                                                                        <TextBlock Text="Wrench" />
-                                                                        <TextBlock Margin="0,1,0,0"
+                                                                <Setter Property="ToolTip">
+                                                                    <Setter.Value>
+                                                                        <StackPanel>
+                                                                            <TextBlock Text="Wrench" />
+                                                                            <TextBlock Margin="0,1,0,0"
                                                                                    Text="{Binding WidthsAcrossFlats, StringFormat='W = {0:F3} mm (Width across flats)'}" />
-                                                                    </StackPanel>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                        <DataTrigger
+                                                                        </StackPanel>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                            <DataTrigger
                                                             Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                             Value="{x:Type subFeatures:KeywayGrooveSubFeature}">
-                                                            <Setter Property="ToolTip">
-                                                                <Setter.Value>
-                                                                    <StackPanel>
-                                                                        <TextBlock>
+                                                                <Setter Property="ToolTip">
+                                                                    <Setter.Value>
+                                                                        <StackPanel>
+                                                                            <TextBlock>
                                                                             <Run Text="Keyway " />
                                                                             <Run
                                                                                 Text="{Binding Width, StringFormat={}{0:0.###} x }" />
@@ -2631,175 +2635,196 @@
                                                                             <Run
                                                                                 Text="{Binding KeywayLength, StringFormat={}{0:0.###} }" />
                                                                             <Run Text="{Binding Keyway.Name}" />
-                                                                        </TextBlock>
-                                                                    </StackPanel>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                        <DataTrigger
-                                                            Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                            Value="{x:Type subFeatures:ReliefDSISubFeature}">
-                                                            <Setter Property="ToolTip">
-                                                                <Setter.Value>
-                                                                    <StackPanel>
-                                                                        <TextBlock Text="Relief - D (SI Units)" />
-                                                                        <TextBlock
-                                                                            Text="{Binding Width, StringFormat='b = {0:F3} mm (Width)'}" />
-                                                                        <TextBlock
-                                                                            Text="{Binding ReliefDepth, StringFormat='h = {0:F3} mm (Relief depth)'}" />
-                                                                    </StackPanel>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                        <DataTrigger
-                                                            Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                            Value="{x:Type subFeatures:GrooveASubFeature}">
-                                                            <Setter Property="ToolTip">
-                                                                <Setter.Value>
-                                                                    <StackPanel>
-                                                                        <TextBlock Text="Groove - A" />
-                                                                        <TextBlock
-                                                                            Text="{Binding Depth, StringFormat='H = {0:F3} mm (Depth)'}" />
-                                                                        <TextBlock
-                                                                            Text="{Binding Radius, StringFormat='R = {0:F3} mm (Radius)'}" />
-                                                                    </StackPanel>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                        <DataTrigger
-                                                            Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                            Value="{x:Type subFeatures:GrooveBSubFeature}">
-                                                            <Setter Property="ToolTip">
-                                                                <Setter.Value>
-                                                                    <StackPanel>
-                                                                        <TextBlock Text="Groove - B" />
-                                                                        <TextBlock
-                                                                            Text="{Binding Depth, StringFormat='H = {0:F3} mm (Depth)'}" />
-                                                                        <TextBlock
-                                                                            Text="{Binding Radius, StringFormat='R = {0:F3} mm (Radius)'}" />
-                                                                    </StackPanel>
-                                                                </Setter.Value>
-                                                            </Setter>
-                                                        </DataTrigger>
-                                                        <DataTrigger
-                                                            Binding="{Binding Path=FeatureErrors[0], Converter={StaticResource IsNotNullConverter}}"
-                                                            Value="True">
-                                                            <DataTrigger.Setters>
-                                                                <Setter Property="Background" Value="#fdadad" />
-                                                                <Setter Property="ToolTipService.InitialShowDelay"
-                                                                        Value="600" />
-                                                                <Setter Property="ToolTip">
-                                                                    <Setter.Value>
-                                                                        <ItemsControl
-                                                                            ItemsSource="{Binding FeatureErrors}"
-                                                                            ItemTemplate="{StaticResource TooltipMessageItemContainerTemplate}" />
+                                                                            </TextBlock>
+                                                                        </StackPanel>
                                                                     </Setter.Value>
                                                                 </Setter>
-                                                            </DataTrigger.Setters>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Grid.Style>
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction
+                                                            </DataTrigger>
+                                                            <DataTrigger
+                                                            Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                            Value="{x:Type subFeatures:ReliefDSISubFeature}">
+                                                                <Setter Property="ToolTip">
+                                                                    <Setter.Value>
+                                                                        <StackPanel>
+                                                                            <TextBlock Text="Relief - D (SI Units)" />
+                                                                            <TextBlock
+                                                                            Text="{Binding Width, StringFormat='b = {0:F3} mm (Width)'}" />
+                                                                            <TextBlock
+                                                                            Text="{Binding ReliefDepth, StringFormat='h = {0:F3} mm (Relief depth)'}" />
+                                                                        </StackPanel>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                            <DataTrigger
+                                                            Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                            Value="{x:Type subFeatures:GrooveASubFeature}">
+                                                                <Setter Property="ToolTip">
+                                                                    <Setter.Value>
+                                                                        <StackPanel>
+                                                                            <TextBlock Text="Groove - A" />
+                                                                            <TextBlock
+                                                                            Text="{Binding Depth, StringFormat='H = {0:F3} mm (Depth)'}" />
+                                                                            <TextBlock
+                                                                            Text="{Binding Radius, StringFormat='R = {0:F3} mm (Radius)'}" />
+                                                                        </StackPanel>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                            <DataTrigger
+                                                            Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                            Value="{x:Type subFeatures:GrooveBSubFeature}">
+                                                                <Setter Property="ToolTip">
+                                                                    <Setter.Value>
+                                                                        <StackPanel>
+                                                                            <TextBlock Text="Groove - B" />
+                                                                            <TextBlock
+                                                                            Text="{Binding Depth, StringFormat='H = {0:F3} mm (Depth)'}" />
+                                                                            <TextBlock
+                                                                            Text="{Binding Radius, StringFormat='R = {0:F3} mm (Radius)'}" />
+                                                                        </StackPanel>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </DataTrigger>
+                                                            <DataTrigger
+                                                            Binding="{Binding Path=FeatureErrors[0], Converter={StaticResource IsNotNullConverter}}"
+                                                            Value="True">
+                                                                <DataTrigger.Setters>
+                                                                    <Setter Property="Background" Value="#fdadad" />
+                                                                    <Setter Property="ToolTipService.InitialShowDelay"
+                                                                        Value="600" />
+                                                                    <Setter Property="ToolTip">
+                                                                        <Setter.Value>
+                                                                            <ItemsControl
+                                                                            ItemsSource="{Binding FeatureErrors}"
+                                                                            ItemTemplate="{StaticResource TooltipMessageItemContainerTemplate}" />
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger.Setters>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Grid.Style>
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                        <i:InvokeCommandAction
+                                                        Command="{Binding Source={StaticResource MainViewModel}, Path=SetSelectedSectionCommand}"
+                                                        CommandParameter="{Binding LinkedSection}" />
+                                                        <i:InvokeCommandAction
                                                         Command="{Binding Source={StaticResource MainViewModel}, Path=SetSelectedSubFeatureCommand}"
                                                         CommandParameter="{Binding}" />
-                                                </i:EventTrigger>
-                                                <i:EventTrigger EventName="MouseEnter">
-                                                    <i:InvokeCommandAction
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="MouseEnter">
+                                                        <i:InvokeCommandAction
                                                         Command="{Binding Source={StaticResource MainViewModel}, Path=SetSectionUnderMouseCommand}"
                                                         CommandParameter="{Binding LinkedSection}" />
-                                                </i:EventTrigger>
-                                                <i:EventTrigger EventName="MouseEnter">
-                                                    <i:InvokeCommandAction
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="MouseEnter">
+                                                        <i:InvokeCommandAction
                                                         Command="{Binding Source={StaticResource MainViewModel}, Path=SetSubFeatureUnderMouseCommand}"
                                                         CommandParameter="{Binding}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                            <Grid.InputBindings>
-                                                <MouseBinding Gesture="LeftDoubleClick"
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <Grid.InputBindings>
+                                                    <MouseBinding Gesture="LeftDoubleClick"
                                                               Command="{Binding Source={StaticResource MainViewModel}, 
                                         Path=OpenDialogViewCommand}"
                                                               CommandParameter="{Binding 
                                                     Converter={StaticResource ShaftItemToParametersWindowTypeConverter}}" />
-                                            </Grid.InputBindings>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="0.96*" />
-                                                <ColumnDefinition Width="0.04*" />
-                                            </Grid.ColumnDefinitions>
-                                            <DockPanel Grid.Column="0">
-                                                <Border BorderThickness="1" Background="WhiteSmoke" Width="30"
+                                                </Grid.InputBindings>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="0.96*" />
+                                                    <ColumnDefinition Width="0.04*" />
+                                                </Grid.ColumnDefinitions>
+                                                <DockPanel Grid.Column="0">
+                                                    <Border BorderThickness="1" Background="WhiteSmoke" Width="30"
                                                         Height="30"
                                                         BorderBrush="DeepSkyBlue" Margin="0,0.3,0,0.3">
-                                                    <Image Width="26"
+                                                        <Image Width="26"
                                                            Height="26">
-                                                        <Image.Style>
-                                                            <Style TargetType="Image">
-                                                                <Style.Triggers>
-                                                                    <DataTrigger
+                                                            <Image.Style>
+                                                                <Style TargetType="Image">
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger
                                                                         Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                                         Value="{x:Type subFeatures:ThroughHoleSubFeature}">
-                                                                        <Setter Property="Source"
+                                                                            <Setter Property="Source"
                                                                                 Value="../Assets/Icons/throughHoleIcon.png" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger
-                                                                        Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
-                                                                        Value="{x:Type subFeatures:RetainingRingGrooveSubFeature}">
-                                                                        <Setter Property="Source"
+                                                                        </DataTrigger>
+                                                                        <MultiDataTrigger>
+                                                                            <MultiDataTrigger.Conditions>
+                                                                                <Condition
+                                                                                Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                                Value="{x:Type subFeatures:RetainingRingGrooveSubFeature}" />
+                                                                                <Condition
+                                                                                Binding="{Binding Path=LinkedSection.IsBore}"
+                                                                                Value="True" />
+                                                                            </MultiDataTrigger.Conditions>
+                                                                            <Setter Property="Source"
+                                                                                Value="../Assets/Icons/retainingRingBore.png" />
+                                                                        </MultiDataTrigger>
+                                                                        <MultiDataTrigger>
+                                                                            <MultiDataTrigger.Conditions>
+                                                                                <Condition
+                                                                                Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
+                                                                                Value="{x:Type subFeatures:RetainingRingGrooveSubFeature}" />
+                                                                                <Condition
+                                                                                Binding="{Binding Path=LinkedSection.IsBore}"
+                                                                                Value="False" />
+                                                                            </MultiDataTrigger.Conditions>
+                                                                            <Setter Property="Source"
                                                                                 Value="../Assets/Icons/retainingRingIcon.png" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger
+                                                                        </MultiDataTrigger>
+                                                                        <DataTrigger
                                                                         Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                                         Value="{x:Type subFeatures:KeywayGrooveSubFeature}">
-                                                                        <Setter Property="Source"
+                                                                            <Setter Property="Source"
                                                                                 Value="../Assets/Icons/keywayGrooveFeatureIcon.png" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger
+                                                                        </DataTrigger>
+                                                                        <DataTrigger
                                                                         Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                                         Value="{x:Type subFeatures:WrenchSubFeature}">
-                                                                        <Setter Property="Source"
+                                                                            <Setter Property="Source"
                                                                                 Value="../Assets/Icons/wrenchOpeningIcon.png" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger
+                                                                        </DataTrigger>
+                                                                        <DataTrigger
                                                                         Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                                         Value="{x:Type subFeatures:ReliefDSISubFeature}">
-                                                                        <Setter Property="Source"
+                                                                            <Setter Property="Source"
                                                                                 Value="../Assets/Icons/reliefDIcon.png" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger
+                                                                        </DataTrigger>
+                                                                        <DataTrigger
                                                                         Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                                         Value="{x:Type subFeatures:GrooveASubFeature}">
-                                                                        <Setter Property="Source"
+                                                                            <Setter Property="Source"
                                                                                 Value="../Assets/Icons/grooveAIcon.png" />
-                                                                    </DataTrigger>
-                                                                    <DataTrigger
+                                                                        </DataTrigger>
+                                                                        <DataTrigger
                                                                         Binding="{Binding Converter={StaticResource ObjectToTypeConverter}}"
                                                                         Value="{x:Type subFeatures:GrooveBSubFeature}">
-                                                                        <Setter Property="Source"
+                                                                            <Setter Property="Source"
                                                                                 Value="../Assets/Icons/grooveBIcon.png" />
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Image.Style>
-                                                    </Image>
-                                                </Border>
-                                                <TextBlock Margin="2,0,0,0" VerticalAlignment="Center"
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Image.Style>
+                                                        </Image>
+                                                    </Border>
+                                                    <TextBlock Margin="2,0,0,0" VerticalAlignment="Center"
                                                            Text="{Binding Converter={StaticResource SubFeatureToNameConverter}}" />
-                                            </DockPanel>
-                                            <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                                                <i:Interaction.Behaviors>
-                                                    <behaviors:ShowHideUIElementBehavior AncestorGridLevel="1" />
-                                                </i:Interaction.Behaviors>
-                                                <ContentControl Content="{StaticResource OpenParametersDialogButton}" />
-                                                <ContentControl Content="{StaticResource RemoveItemButton}" />
-                                            </StackPanel>
-                                        </Grid>
-                                    </DataTemplate>
-                                </HierarchicalDataTemplate.ItemTemplate>
-                            </HierarchicalDataTemplate>
-                        </TreeView.ItemTemplate>
-                    </TreeView>
+                                                </DockPanel>
+                                                <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                                                    <i:Interaction.Behaviors>
+                                                        <behaviors:ShowHideUIElementBehavior AncestorGridLevel="1" />
+                                                    </i:Interaction.Behaviors>
+                                                    <ContentControl Content="{StaticResource OpenParametersDialogButton}" />
+                                                    <ContentControl Content="{StaticResource RemoveItemButton}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </HierarchicalDataTemplate.ItemTemplate>
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                        </TreeView>
                 </Grid>
             </GroupBox>
 
@@ -2831,7 +2856,7 @@
                 <ListBox.Template>
                     <ControlTemplate>
                         <Border BorderBrush="DeepSkyBlue" BorderThickness="1.5">
-                            <ScrollViewer CanContentScroll="False">
+                            <ScrollViewer CanContentScroll="False" VerticalScrollBarVisibility="Auto">
                                 <Grid Margin="1,0,0,3" HorizontalAlignment="Stretch">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -2865,8 +2890,9 @@
                                     <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,1,15,1"
                                                Text="{Binding BoreRightLength, StringFormat={}{0:0.###} mm}"
                                                HorizontalAlignment="Right" />
+                                
                                     <ItemsPresenter Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" />
-                                </Grid>
+                            </Grid>
                             </ScrollViewer>
                         </Border>
                     </ControlTemplate>
