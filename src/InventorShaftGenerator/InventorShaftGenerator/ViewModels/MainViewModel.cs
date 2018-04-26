@@ -65,6 +65,7 @@ namespace InventorShaftGenerator.ViewModels
 
             void UpdateShaftLength() => this.ShaftLength = Shaft.Sections.Sum(section => section.Length);
             void UpdateBoreLeftLength() => this.BoreLeftLength = Shaft.BoreOnTheLeft.Sum(section => section.Length);
+
             void UpdateBoreRightLength() =>
                 this.BoreRightLength = Shaft.BoreOnTheRight.Sum(section => section.Length);
         }
@@ -227,10 +228,11 @@ namespace InventorShaftGenerator.ViewModels
 
         private bool BuildShaftCommandCanExecuteEvaluator(object o)
         {
-            this.ShaftHasFeatureErrors = Shaft.Sections.Any(section =>
-                section.FirstEdgeFeatureHasErrors ||
-                section.SecondEdgeFeatureHasErrors ||
-                section.SubFeatures.Any(feature => feature.FeatureErrors.Any()));
+            this.ShaftHasFeatureErrors = Shaft.ShaftFeaturesErrors.Any() ||
+                                         Shaft.BoreOnTheLeft.Any(section =>
+                                             section.BoreDiameterCollisionError != null) ||
+                                         Shaft.BoreOnTheRight.Any(section =>
+                                             section.BoreDiameterCollisionError != null);
             this.NoSectionsHaveBeenSet = !Shaft.Sections.Any();
 
             if (this.shaftHasFeatureErrors)
@@ -464,6 +466,8 @@ namespace InventorShaftGenerator.ViewModels
         private void InsertCylinder(bool replace = false)
         {
             SectionManager<CylinderSection>.InstallSection(this.SelectedSection, replace: replace);
+            object b = null;
+            b.GetType();
         }
 
         private void InsertCone(bool replace = false)

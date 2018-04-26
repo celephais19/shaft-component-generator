@@ -217,16 +217,6 @@ namespace InventorShaftGenerator.Infrastructure
         {
             void SetIfEdgeFeatureWillBeBuilt(ShaftSection section)
             {
-                /*if (section.AvailableFirstEdgeFeatures.First() == EdgeFeature.NotAvailable)
-                {
-                    section.FirstEdgeFeature.ShouldBeBuilt = false;
-                }
-
-                if (section.AvailableSecondEdgeFeatures.First() == EdgeFeature.NotAvailable)
-                {
-                    section.SecondEdgeFeature.ShouldBeBuilt = false;
-                }*/
-
                 if (section.FirstEdgeFeature != null)
                 {
                     section.FirstEdgeFeature.ShouldBeBuilt = section.AvailableFirstEdgeFeatures.Any(
@@ -314,6 +304,12 @@ namespace InventorShaftGenerator.Infrastructure
                                     EdgeFeature.None, EdgeFeature.Chamfer, EdgeFeature.Fillet, EdgeFeature.ReliefSI,
                                     EdgeFeature.ReliefDIN, EdgeFeature.ReliefGOST
                                 }.ToObservableCollection();
+                                if (cylinderSection.FirstEdgeFeature != null &&
+                                    !cylinderSection.AvailableFirstEdgeFeatures.Contains(
+                                        cylinderSection.FirstEdgeFeature.ToEdgeFeatureEnumMember()))
+                                {
+                                    cylinderSection.FirstEdgeFeature = null;
+                                }
                             }
                         }
                         else if (cylinderSection.PreviousSection == null)
@@ -336,37 +332,16 @@ namespace InventorShaftGenerator.Infrastructure
                                     EdgeFeature.Thread, EdgeFeature.PlainKeywayGroove,
                                     EdgeFeature.KeywayGrooveRoundedEnd
                                 }.ToObservableCollection();
+                                if (cylinderSection.FirstEdgeFeature != null &&
+                                    !cylinderSection.AvailableFirstEdgeFeatures.Contains(
+                                        cylinderSection.FirstEdgeFeature.ToEdgeFeatureEnumMember()))
+                                {
+                                    cylinderSection.FirstEdgeFeature = null;
+                                }
                             }
                         }
                         else if (previousSectionDiameter < cylinderSection.Diameter)
                         {
-                            /*cylinderSection.PropertyChanged += (sender, args) =>
-                            {
-                                if (args.PropertyName == nameof(ShaftSection.SecondEdgeFeature))
-                                {
-                                    if (((ShaftSection) sender).SecondEdgeFeature?.ToEdgeFeatureEnumMember() ==
-                                        EdgeFeature.LockNutGroove)
-                                    {
-                                        cylinderSection.AvailableFirstEdgeFeatures = new[]
-                                        {
-                                            EdgeFeature.None, EdgeFeature.Chamfer, EdgeFeature.Fillet,
-                                            EdgeFeature.Thread, EdgeFeature.PlainKeywayGroove,
-                                            EdgeFeature.KeywayGrooveRoundedEnd
-                                        }.ToObservableCollection();
-                                    }
-                                    else
-                                    {
-                                        cylinderSection.AvailableFirstEdgeFeatures = new[]
-                                        {
-                                            EdgeFeature.None, EdgeFeature.Chamfer, EdgeFeature.Fillet,
-                                            EdgeFeature.LockNutGroove,
-                                            EdgeFeature.Thread, EdgeFeature.PlainKeywayGroove,
-                                            EdgeFeature.KeywayGrooveRoundedEnd
-                                        }.ToObservableCollection();
-                                    }
-                                }
-                            };*/
-
                             if (cylinderSection.SecondEdgeFeature?.ToEdgeFeatureEnumMember() ==
                                 EdgeFeature.LockNutGroove)
                             {
@@ -397,6 +372,13 @@ namespace InventorShaftGenerator.Infrastructure
                                         EdgeFeature.Thread, EdgeFeature.PlainKeywayGroove,
                                         EdgeFeature.KeywayGrooveRoundedEnd
                                     }.ToObservableCollection();
+                                    if (cylinderSection.FirstEdgeFeature != null &&
+                                        !cylinderSection.AvailableFirstEdgeFeatures.Contains(
+                                            cylinderSection
+                                                .FirstEdgeFeature.ToEdgeFeatureEnumMember()))
+                                    {
+                                        cylinderSection.FirstEdgeFeature = null;
+                                    }
                                 }
                             }
                         }
@@ -406,7 +388,7 @@ namespace InventorShaftGenerator.Infrastructure
                             if (cylinderSection.IsBore)
                             {
                                 cylinderSection.AvailableFirstEdgeFeatures =
-                                    new[] {EdgeFeature.None, EdgeFeature.Chamfer, EdgeFeature.Fillet}
+                                    new[] {EdgeFeature.NotAvailable}
                                         .ToObservableCollection();
                             }
                             else
@@ -434,39 +416,16 @@ namespace InventorShaftGenerator.Infrastructure
                                     EdgeFeature.None, EdgeFeature.Chamfer, EdgeFeature.Fillet, EdgeFeature.ReliefSI,
                                     EdgeFeature.ReliefDIN, EdgeFeature.ReliefGOST
                                 }.ToObservableCollection();
+                                if (cylinderSection.SecondEdgeFeature != null &&
+                                    !cylinderSection.AvailableSecondEdgeFeatures.Contains(
+                                        cylinderSection.SecondEdgeFeature.ToEdgeFeatureEnumMember()))
+                                {
+                                    cylinderSection.SecondEdgeFeature = null;
+                                }
                             }
                         }
                         else if (nextSectionDiameter < cylinderSection.Diameter)
                         {
-                            /*cylinderSection.PropertyChanged += (sender, args) =>
-                            {
-                                if (args.PropertyName == nameof(ShaftSection.FirstEdgeFeature))
-                                {
-                                    if (((ShaftSection) sender).FirstEdgeFeature?.ToEdgeFeatureEnumMember() ==
-                                        EdgeFeature.LockNutGroove)
-                                    {
-
-                                        cylinderSection.AvailableSecondEdgeFeatures = new[]
-                                        {
-                                            EdgeFeature.None, EdgeFeature.Chamfer, EdgeFeature.Fillet,
-                                            EdgeFeature.Thread, EdgeFeature.PlainKeywayGroove,
-                                            EdgeFeature.KeywayGrooveRoundedEnd
-                                        }.ToObservableCollection();
-                                    }
-                                    else
-                                    {
-                                        cylinderSection.AvailableSecondEdgeFeatures = new[]
-                                        {
-                                            EdgeFeature.None, EdgeFeature.Chamfer, EdgeFeature.Fillet,
-                                            EdgeFeature.LockNutGroove,
-                                            EdgeFeature.Thread, EdgeFeature.PlainKeywayGroove,
-                                            EdgeFeature.KeywayGrooveRoundedEnd
-                                        }.ToObservableCollection();
-                                    }
-                                }
-                            }*/
-                            ;
-
                             if (cylinderSection.FirstEdgeFeature?.ToEdgeFeatureEnumMember() ==
                                 EdgeFeature.LockNutGroove)
                             {
@@ -476,6 +435,12 @@ namespace InventorShaftGenerator.Infrastructure
                                     EdgeFeature.Thread, EdgeFeature.PlainKeywayGroove,
                                     EdgeFeature.KeywayGrooveRoundedEnd
                                 }.ToObservableCollection();
+                                if (cylinderSection.SecondEdgeFeature != null &&
+                                    !cylinderSection.AvailableSecondEdgeFeatures.Contains(
+                                        cylinderSection.SecondEdgeFeature.ToEdgeFeatureEnumMember()))
+                                {
+                                    cylinderSection.SecondEdgeFeature = null;
+                                }
                             }
                             else
                             {
@@ -497,6 +462,13 @@ namespace InventorShaftGenerator.Infrastructure
                                         EdgeFeature.Thread, EdgeFeature.PlainKeywayGroove,
                                         EdgeFeature.KeywayGrooveRoundedEnd
                                     }.ToObservableCollection();
+                                    if (cylinderSection.SecondEdgeFeature != null &&
+                                        !cylinderSection.AvailableSecondEdgeFeatures.Contains(
+                                            cylinderSection
+                                                .SecondEdgeFeature.ToEdgeFeatureEnumMember()))
+                                    {
+                                        cylinderSection.SecondEdgeFeature = null;
+                                    }
                                 }
                             }
                         }
