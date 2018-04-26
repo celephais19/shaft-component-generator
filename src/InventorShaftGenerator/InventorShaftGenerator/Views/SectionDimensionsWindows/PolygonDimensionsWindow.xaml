@@ -86,38 +86,12 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="0.2*" />
                         </Grid.ColumnDefinitions>
-
-                        <ContentControl Grid.Column="0">
-                            <ContentControl.Style>
-                                <Style TargetType="ContentControl">
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            <TextBlock
-                                                VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                Text="{Binding CircumscribedCircleDiameter, StringFormat={}{0:0.###} mm}" />
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Style.Triggers>
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding InscribedActive}" Value="False" />
-                                                <Condition Binding="{Binding InvalidNumberOfEdges}" Value="False" />
-                                            </MultiDataTrigger.Conditions>
-                                            <Setter Property="Content">
-                                                <Setter.Value>
-                                                    <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm"
-                                                                              BorderBrush="Transparent"
-                                                                              VerticalContentAlignment="Center"
-                                                                              Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
-                                                                              Text="{Binding Path=CircumscribedCircleDiameter, 
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm"
+                                                             BorderBrush="Transparent"
+                                                             VerticalContentAlignment="Center"
+                                                             Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                             Text="{Binding Path=CircumscribedCircleDiameter, 
                             UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, StringFormat=F3}" />
-                                                </Setter.Value>
-                                            </Setter>
-                                        </MultiDataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ContentControl.Style>
-                        </ContentControl>
                         <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
                                         Content="{StaticResource UpDownButtons}">
                             <i:Interaction.Behaviors>
@@ -126,9 +100,6 @@
                             <ContentControl.Style>
                                 <Style TargetType="ContentControl">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding InscribedActive}" Value="True">
-                                            <Setter Property="IsEnabled" Value="False" />
-                                        </DataTrigger>
                                         <DataTrigger Binding="{Binding InvalidNumberOfEdges}" Value="True">
                                             <Setter Property="IsEnabled" Value="False" />
                                         </DataTrigger>
@@ -155,38 +126,12 @@
                             <ColumnDefinition Width="0.2*" />
                         </Grid.ColumnDefinitions>
 
-                        <ContentControl Grid.Column="0">
-                            <ContentControl.Style>
-                                <Style TargetType="ContentControl">
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            <TextBlock
-                                                VerticalAlignment="Center" HorizontalAlignment="Center"
-                                                Text="{Binding InscribedCircleDiameter, StringFormat={}{0:0.###} mm}" />
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Style.Triggers>
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding InscribedActive}" Value="True" />
-                                                <Condition Binding="{Binding InvalidNumberOfEdges}" Value="False" />
-                                            </MultiDataTrigger.Conditions>
-                                            <Setter Property="Content">
-                                                <Setter.Value>
-                                                    <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm"
-                                                                              BorderBrush="Transparent"
-                                                                              VerticalContentAlignment="Center"
-                                                                              Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
-                                                                              Text="{Binding Path=InscribedCircleDiameter, 
+                        <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm"
+                                                             BorderBrush="Transparent"
+                                                             VerticalContentAlignment="Center"
+                                                             Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                             Text="{Binding Path=InscribedCircleDiameter, 
                             UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, StringFormat=F3}" />
-                                                </Setter.Value>
-                                            </Setter>
-                                        </MultiDataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ContentControl.Style>
-                        </ContentControl>
-
                         <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
                                         Content="{StaticResource UpDownButtons}">
                             <i:Interaction.Behaviors>
@@ -195,9 +140,6 @@
                             <ContentControl.Style>
                                 <Style TargetType="ContentControl">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding InscribedActive}" Value="False">
-                                            <Setter Property="IsEnabled" Value="False" />
-                                        </DataTrigger>
                                         <DataTrigger Binding="{Binding InvalidNumberOfEdges}" Value="True">
                                             <Setter Property="IsEnabled" Value="False" />
                                         </DataTrigger>
@@ -223,9 +165,9 @@
                         </Grid.ColumnDefinitions>
 
                         <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="mm" BorderBrush="Transparent"
-                                                  VerticalContentAlignment="Center"
-                                                  Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
-                                                  Text="{Binding Path=Length, UpdateSourceTrigger=PropertyChanged, 
+                                                             VerticalContentAlignment="Center"
+                                                             Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                             Text="{Binding Path=Length, UpdateSourceTrigger=PropertyChanged, 
                             ValidatesOnDataErrors=True, StringFormat=F3}" />
                         <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
                                         Content="{StaticResource UpDownButtons}">
@@ -251,9 +193,9 @@
                         </Grid.ColumnDefinitions>
 
                         <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="ul" BorderBrush="Transparent"
-                                                  VerticalContentAlignment="Center"
-                                                  Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
-                                                  Text="{Binding Path=NumberOfEdges, UpdateSourceTrigger=PropertyChanged,
+                                                             VerticalContentAlignment="Center"
+                                                             Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                             Text="{Binding Path=NumberOfEdges, UpdateSourceTrigger=PropertyChanged,
                             ValidatesOnDataErrors=True}" />
                         <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
                                         Content="{StaticResource UpDownButtons}">
@@ -279,9 +221,9 @@
                         </Grid.ColumnDefinitions>
 
                         <customUiElements:NumericUnitTextBox Grid.Column="0" UnitText="deg" BorderBrush="Transparent"
-                                                  VerticalContentAlignment="Center"
-                                                  Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
-                                                  Text="{Binding Path=SectionAngle, UpdateSourceTrigger=PropertyChanged,
+                                                             VerticalContentAlignment="Center"
+                                                             Style="{DynamicResource NumericUnitTextBoxWithDataErrorValidationStyle}"
+                                                             Text="{Binding Path=SectionAngle, UpdateSourceTrigger=PropertyChanged,
                             ValidatesOnDataErrors=True, StringFormat=F2}" />
                         <ContentControl Grid.Column="1" HorizontalAlignment="Right" MinWidth="12"
                                         Content="{StaticResource UpDownButtons}">
@@ -305,9 +247,6 @@
         </GroupBox>
 
         <DockPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,0,11,9">
-            <CheckBox IsChecked="{Binding InscribedActive}" HorizontalAlignment="Left" VerticalAlignment="Center"
-                      Content="Inscribed active" Margin="5.5,0,0,0"
-                      FontSize="14" VerticalContentAlignment="Center" />
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button Content="OK" Margin="0,0,10,0" FontSize="12" Width="65" Height="20"
                         Command="{Binding SaveCommand}" IsEnabled="{Binding IsSaveEnabled}"

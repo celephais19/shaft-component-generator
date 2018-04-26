@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Documents;
 using InventorShaftGenerator.Infrastructure;
 using InventorShaftGenerator.Models;
 using InventorShaftGenerator.Models.SubFeatures;
@@ -100,13 +101,16 @@ namespace InventorShaftGenerator.Extensions
                 if (comparer.Equals(item, value)) return index;
                 index++;
             }
+
             return -1;
         }
 
-        public static List<Action> AddRange<TParameter>(this List<Action> list, TParameter parameter,
-                                                                    params Action[] action)
+        public static IEnumerable<T> FastReverse<T>(this IList<T> source)
         {
-            return list;
+            for (int i = source.Count - 1; i >= 0; i--)
+            {
+                yield return source[i];
+            }
         }
     }
 }

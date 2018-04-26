@@ -198,7 +198,7 @@
                                       TabIndex="5"
                                       Margin="0,3,0,0"
                                       ItemsSource="{Binding Designations}"
-                                      SelectedValue="{Binding Designation, Mode=TwoWay}" />
+                                      SelectedIndex="1" />
                         </StackPanel>
                     </Grid>
 

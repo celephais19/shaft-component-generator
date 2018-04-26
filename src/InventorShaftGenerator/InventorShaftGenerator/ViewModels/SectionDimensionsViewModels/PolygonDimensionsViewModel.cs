@@ -9,7 +9,6 @@ namespace InventorShaftGenerator.ViewModels.SectionDimensionsViewModels
         private int numberOfEdges;
         private float sectionAngle;
         private float length;
-        private bool inscribedActive;
         private bool oneWaySettingActive;
         private bool initializationActive;
         private bool invalidNumberOfEdgesRange;
@@ -91,12 +90,6 @@ namespace InventorShaftGenerator.ViewModels.SectionDimensionsViewModels
         {
             get => this.length;
             set => SetProperty(ref this.length, value);
-        }
-
-        public bool InscribedActive
-        {
-            get => this.inscribedActive;
-            set => SetProperty(ref this.inscribedActive, value);
         }
 
         public bool InvalidNumberOfEdges

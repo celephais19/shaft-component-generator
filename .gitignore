@@ -325,3 +325,15 @@ src/FusionShaftGenerator/resources/btn_images/polygon.gif
 src/FusionShaftGenerator/section.py
 src/FusionShaftGenerator/section_buttons.py
 src/FusionShaftGenerator/widget_utils.py
+src/InventorShaftGenerator/InventorShaftGenerator/ClassDiagram1.cd
+src/FusionShaftGenerator/resources/command/64x64.png
+src/FusionShaftGenerator/resources/command/64x64.png
+src/FusionShaftGenerator/FusionShaftGenerator.manifest
+src/FusionShaftGenerator/FusionShaftGenerator.py
+src/FusionShaftGenerator/resources/command/16x16-disabled.png
+src/FusionShaftGenerator/resources/command/16x16.png
+src/FusionShaftGenerator/resources/command/16x16@2x.png
+src/FusionShaftGenerator/resources/command/32x32-disabled.png
+src/FusionShaftGenerator/resources/command/32x32.png
+src/FusionShaftGenerator/resources/command/32x32@2x.png
+src/FusionShaftGenerator/resources/command/64x64-disabled.png

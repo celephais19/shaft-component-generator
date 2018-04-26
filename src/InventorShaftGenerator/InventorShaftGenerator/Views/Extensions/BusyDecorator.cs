@@ -10,6 +10,17 @@ namespace InventorShaftGenerator.Views.Extensions
     {
         private readonly BackgroundVisualHost busyHost = new BackgroundVisualHost();
 
+        public BusyDecorator()
+        {
+            AddLogicalChild(this.busyHost);
+            AddVisualChild(this.busyHost);
+
+            SetBinding(this.busyHost, IsBusyIndicatorShowingProperty, BackgroundVisualHost.IsContentShowingProperty);
+            SetBinding(this.busyHost, BusyHorizontalAlignmentProperty,
+                BackgroundVisualHost.HorizontalAlignmentProperty);
+            SetBinding(this.busyHost, BusyVerticalAlignmentProperty, BackgroundVisualHost.VerticalAlignmentProperty);
+        }
+
         public static readonly DependencyProperty IsBusyIndicatorShowingProperty = DependencyProperty.Register(
             "IsBusyIndicatorShowing",
             typeof(bool),
@@ -110,17 +121,6 @@ namespace InventorShaftGenerator.Views.Extensions
             }
 
             throw new IndexOutOfRangeException("index");
-        }
-
-        public BusyDecorator()
-        {
-            AddLogicalChild(this.busyHost);
-            AddVisualChild(this.busyHost);
-
-            SetBinding(this.busyHost, IsBusyIndicatorShowingProperty, BackgroundVisualHost.IsContentShowingProperty);
-            SetBinding(this.busyHost, BusyHorizontalAlignmentProperty,
-                BackgroundVisualHost.HorizontalAlignmentProperty);
-            SetBinding(this.busyHost, BusyVerticalAlignmentProperty, BackgroundVisualHost.VerticalAlignmentProperty);
         }
 
         private void SetBinding(DependencyObject obj, DependencyProperty source, DependencyProperty target)

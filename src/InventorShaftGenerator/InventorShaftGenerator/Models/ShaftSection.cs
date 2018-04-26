@@ -31,8 +31,6 @@ namespace InventorShaftGenerator.Models
         private float boreSectionMaxDiameter;
         private BoreDiameterCollisionError boreDiameterCollisionError;
 
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Guid Id { get; } = Guid.NewGuid();

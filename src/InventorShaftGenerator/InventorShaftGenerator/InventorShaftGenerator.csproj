@@ -47,6 +47,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>C:\Program Files\Autodesk\Inventor 2017\Bin\Public Assemblies\Autodesk.Inventor.Interop.dll</HintPath>
     </Reference>
+    <Reference Include="DeepCopyUsingExpressionTrees">
+      <HintPath>C:\Users\Sasha\Source\Repos\DeepCopyUsingExpressionTrees\DeepCopyUsingExpressionTrees\bin\Debug\DeepCopyUsingExpressionTrees.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>C:\Users\Sasha\Desktop\Microsoft.Expression.Interactions.dll</HintPath>
@@ -562,6 +565,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Autodesk.InventorShaftGenerator.Inventor.addin" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="InventorShaftGenerator.X.manifest" />
     <None Include="Resources\keyways.json" />
     <None Include="Resources\keywaysDimensions.json" />

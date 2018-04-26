@@ -179,12 +179,6 @@ namespace InventorShaftGenerator.ViewModels.SectionEdgeFeatureViewModels
             set => SetProperty(ref this.sectionLength, value);
         }
 
-        public bool IsSaveEnabled
-        {
-            get => this.isSaveEnabled;
-            private set => SetProperty(ref this.isSaveEnabled, value);
-        }
-
         public EdgeFeaturePosition EdgeFeaturePosition { get; set; }
 
         protected virtual void InitializeThreadEdgeFeature()

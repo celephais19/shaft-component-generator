@@ -49,7 +49,7 @@ namespace InventorShaftGenerator.Infrastructure
             PartComponentDefinition compDef = partDoc.ComponentDefinition;
 
             BuildMainRevolve(compDef);
-            
+
             BuildChamfers(compDef);
 
             BuildFillets(compDef);
@@ -57,11 +57,11 @@ namespace InventorShaftGenerator.Infrastructure
             BuildThreads(compDef);
 
             BuildFinalPolygons(compDef);
-            
+
             BuildLockNutGrooves(compDef);
-            
+
             BuildPlainKeywayGrooves(compDef);
-            
+
             BuildKeywayGroovesRoundedEnd(compDef);
 
             BuildReliefsASi(compDef);
@@ -89,43 +89,43 @@ namespace InventorShaftGenerator.Infrastructure
             BuildRelifsBGost(compDef);
 
             BuildRelifsCGost(compDef);
-            
+
             BuildReliefsDGost(compDef);
-            
+
             BuildReliefsEGost(compDef);
-            
+
             BuildThroughHoles(compDef);
-            
+
             BuildWrenches(compDef);
-            
+
             BuildRetainingRings(compDef);
-            
+
             BuildKeywayGrooves(compDef);
-            
+
             BuildGroovesA(compDef);
-            
+
             BuildGroovesB(compDef);
-            
+
             BuildReliefsDSI(compDef);
-            
+
             BuildLeftBore(compDef);
-            
+
             BuildRightBore(compDef);
-            
+
             BuildChamfers(compDef, true, BoreFromEdge.FromLeft);
-            
+
             BuildChamfers(compDef, true, BoreFromEdge.FromRight);
-            
+
             BuildFillets(compDef, true, BoreFromEdge.FromLeft);
-            
+
             BuildFillets(compDef, true, BoreFromEdge.FromRight);
-            
+
             BuildThreads(compDef, true, BoreFromEdge.FromLeft);
-            
+
             BuildThreads(compDef, true, BoreFromEdge.FromRight);
-            
+
             BuildRetainingRings(compDef, true, BoreFromEdge.FromLeft);
-            
+
             BuildRetainingRings(compDef, true, BoreFromEdge.FromRight);
 
             AsmDoc.ComponentDefinition.Occurrences.AddByComponentDefinition(
@@ -464,8 +464,9 @@ namespace InventorShaftGenerator.Infrastructure
                         sectionFace = compDef.SurfaceBodies[1].LocateUsingPoint(
                             ObjectTypeEnum.kFaceObject,
                             TransientGeometry.CreatePoint(
-                                (shaftLength - chamfer.EdgePoint.X - 0.1f).InMillimeters(),
-                                chamfer.EdgePoint.Y.InMillimeters()));
+                                (shaftLength - chamfer.EdgePoint.X +
+                                (chamfer.EdgePosition == EdgeFeaturePosition.FirstEdge ? -0.1f : 0.1f)).InMillimeters(),
+                                chamfer.EdgePoint.Y.InMillimeters()), 0.1);
                     }
                     else
                     {
@@ -1303,7 +1304,7 @@ namespace InventorShaftGenerator.Infrastructure
                     var line2 = sketch2.SketchLines.AddByTwoPoints(line1.EndSketchPoint.Geometry,
                         circleRightTangentPoint);
 
-                    var arc = sketch2.SketchArcs.AddByCenterStartEndPoint(circleCenterPoint, 
+                    var arc = sketch2.SketchArcs.AddByCenterStartEndPoint(circleCenterPoint,
                         firstEdge ? circleRightTangentPoint : intersectPoint2d,
                         firstEdge ? intersectPoint2d : circleRightTangentPoint);
                     line1.StartSketchPoint.Merge(firstEdge ? arc.EndSketchPoint : arc.StartSketchPoint);
@@ -3582,6 +3583,7 @@ namespace InventorShaftGenerator.Infrastructure
             var sections = boreSections
                 ? (boreFromEdge == BoreFromEdge.FromLeft ? Shaft.BoreOnTheLeft : Shaft.BoreOnTheRight)
                 : Shaft.Sections;
+            var shaftLengh = Shaft.Sections.Sum(section => section.Length);
 
             var allRetainingRings = new List<RetainingRingGrooveSubFeature>();
 
@@ -3624,14 +3626,20 @@ namespace InventorShaftGenerator.Infrastructure
                             break;
                     }
 
+                    bool boreFromRight = boreSections && boreFromEdge == BoreFromEdge.FromRight;
+                    if(boreSections && boreFromEdge == BoreFromEdge.FromRight)
+                    {
+                        startPointX = shaftLengh - startPointX;
+                    }
+
                     var line1 = lines.AddByTwoPoints(
                         TransientGeometry.CreatePoint2d(startPointX.InMillimeters(),
                             boreSections
                                 ? retainingRing.Diameter1.InMillimeters() / 2
                                 : cylinderSection.Diameter.InMillimeters() / 2),
                         TransientGeometry.CreatePoint2d(
-                            firstEdge ? (startPointX + retainingRing.Width).InMillimeters() :
-                            centered ? (startPointX + retainingRing.Width).InMillimeters() :
+                            firstEdge ? (startPointX + (boreFromRight ? -retainingRing.Width : retainingRing.Width)).InMillimeters() :
+                            centered ? (startPointX + (boreFromRight ? -retainingRing.Width : retainingRing.Width)).InMillimeters() :
                             (startPointX - retainingRing.Width).InMillimeters(),
                             boreSections
                                 ? retainingRing.Diameter1.InMillimeters() / 2

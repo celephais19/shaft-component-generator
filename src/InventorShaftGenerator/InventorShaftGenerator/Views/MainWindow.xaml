@@ -172,25 +172,23 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            <ControlTemplate x:Key="ButtonControlTemplate" TargetType="Button">
+                <Border Name="border"
+                        BorderThickness="0"
+                        Padding="4,2"
+                        BorderBrush="Transparent"
+                        Background="Transparent">
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="border" Property="Background" Value="#F0FAFF" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
             <Style x:Key="ButtonStyle1" TargetType="Button">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Grid>
-                                <Grid.Style>
-                                    <Style TargetType="Grid">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#EEF8FD" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Grid.Style>
-                                <ContentPresenter x:Name="DisabledButtonContentPresenter"
-                                                  Content="{TemplateBinding Content}" />
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
+                <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+                <Setter Property="Template" Value="{StaticResource ButtonControlTemplate}">
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsEnabled" Value="False">
@@ -1278,25 +1276,7 @@
                         <DockPanel.Resources>
                             <Style BasedOn="{StaticResource ButtonStyle1}" TargetType="Button" x:Key="BoreButtonStyle">
                                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                                    <Setter Property="OverridesDefaultStyle" Value="True"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border Name="border" 
-                                                        BorderThickness="0"
-                                                        Padding="4,2" 
-                                                        BorderBrush="Transparent" 
-                                                        Background="Transparent">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </Border>
-                                                <ControlTemplate.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter TargetName="border" Property="Background" Value="#F0FAFF" />
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
+                                <Setter Property="OverridesDefaultStyle" Value="True" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Source={StaticResource Shaft}, Path=Sections.Count}"
                                                  Value="0">
@@ -1320,7 +1300,7 @@
                                 </ComboBox.ItemsSource>
                             </ComboBox>
                             <DockPanel Name="SectionButtonsPanel" Style="{StaticResource SectionButtonsPanelStyle}">
-                                <Button HorizontalAlignment="Left" VerticalAlignment="Center"
+                                <Button HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ButtonStyle1}"
                                         ToolTip="Insert a cylinder" BorderThickness="0" Margin="5,0,0,0"
                                         Command="{Binding InsertCylinderCommand}" FocusVisualStyle="{x:Null}">
                                     <Image Source="../Assets/Icons/insertCylinder.png" Width="27" Height="27"
@@ -1354,13 +1334,13 @@
                                         </Image.Style>
                                     </Image>
                                 </Button>
-                                <Button HorizontalAlignment="Left" VerticalAlignment="Center"
+                                <Button HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ButtonStyle1}"
                                         ToolTip="Insert a cone" BorderThickness="0" Margin="5,0,0,0"
                                         Command="{Binding InsertConeCommand}" FocusVisualStyle="{x:Null}">
                                     <Image Source="../Assets/Icons/insertCone.png " Width="27" Height="27"
                                            Stretch="Fill" />
                                 </Button>
-                                <Button HorizontalAlignment="Left" VerticalAlignment="Center"
+                                <Button HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource ButtonStyle1}"
                                         ToolTip="Insert a polygon" BorderThickness="0" Margin="5,0,0,0"
                                         Command="{Binding InsertPolygonCommand}" FocusVisualStyle="{x:Null}">
                                     <Image Source="../Assets/Icons/insertPolygon.png" Width="27" Height="27"
@@ -1494,7 +1474,7 @@
                                         Command="{Binding ExpandOrCollapseAllChildrenCommand}"
                                         FocusVisualStyle="{x:Null}">
                                     <Button.Style>
-                                        <Style TargetType="Button">
+                                        <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle1}">
                                             <Setter Property="Background" Value="Transparent" />
                                             <Setter Property="ToolTip" Value="Expand all children" />
                                             <Style.Triggers>
@@ -1527,7 +1507,7 @@
                                       Margin="5,0,5,0" />
                                 <Button HorizontalAlignment="Left" VerticalAlignment="Center"
                                         ToolTip="Settings" BorderThickness="0" Margin="3,0,5,0"
-                                        Command="{Binding OpenDialogViewCommand}"
+                                        Command="{Binding OpenDialogViewCommand}" Style="{StaticResource ButtonStyle1}"
                                         CommandParameter="{x:Type views:SettingsWindow}" FocusVisualStyle="{x:Null}">
                                     <Image Source="../Assets/Icons/options.png" Width="27" Height="27"
                                            Stretch="Fill" />
@@ -1535,33 +1515,12 @@
                             </DockPanel>
                         </StackPanel>
                         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                            <Button VerticalAlignment="Center" ToolTip="Remove all" BorderThickness="0" Margin="0,0,4,0"
+                            <Button VerticalAlignment="Center" ToolTip="Remove all" BorderThickness="0"
+                                    Margin="0,0,4,0"  Style="{StaticResource ButtonStyle1}"
                                     Command="{Binding Source={StaticResource MainViewModel}, Path=OpenDialogViewCommand}"
                                     CommandParameter="{x:Type views:RemoveAllDialogWindow}" FocusVisualStyle="{x:Null}">
-                                <Button.Style>
-                                    <Style TargetType="Button">
-                                        <Setter Property="OverridesDefaultStyle" Value="True"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="Button">
-                                                    <Border Name="border" 
-                                                            BorderThickness="0"
-                                                            Padding="4,2" 
-                                                            BorderBrush="Transparent" 
-                                                            Background="Transparent">
-                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter TargetName="border" Property="Background" Value="#F0FAFF" />
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
-                                <Image Source="../Assets/Icons/eraser.png" Width="24px" Height="24px" HorizontalAlignment="Right" />
+                                <Image Source="../Assets/Icons/eraser.png" Width="24px" Height="24px"
+                                       HorizontalAlignment="Right" />
                             </Button>
                         </StackPanel>
                     </DockPanel>
